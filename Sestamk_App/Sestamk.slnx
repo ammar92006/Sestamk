@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../Updater/Updater.csproj" Id="c84af085-d2f3-4757-96c5-c873f4884643" />
+  <Project Path="Sestamk.csproj" />
+</Solution>
