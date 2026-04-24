@@ -1,4 +1,5 @@
-﻿using System;
+using Sestamk.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,9 @@ namespace Sestamk.UserControl
         public UC_Dashboard()
         {
             InitializeComponent();
+
+            // ── تحديث بيانات المستخدم من الجلسة ──
+            UserSession.UpdateUserDisplay(label37, label38);
         }
     }
 }

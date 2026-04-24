@@ -1,16 +1,9 @@
-﻿namespace Sestamk
+namespace Sestamk
 {
     partial class Login
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,221 +15,263 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(components);
-            pn_0 = new Guna.UI2.WinForms.Guna2Panel();
-            btn_add_account = new ReaLTaiizor.Controls.Button();
-            bigLabel4 = new ReaLTaiizor.Controls.BigLabel();
+            pn_0 = new Guna.UI2.WinForms.Guna2GradientPanel();
+            lbl_title_ar = new Label();
+            label1 = new Label();
+            lbl_subtitle_ar = new Label();
+            btn_add_account = new Guna.UI2.WinForms.Guna2Button();
             pn_1 = new Guna.UI2.WinForms.Guna2Panel();
-            btn_login = new ReaLTaiizor.Controls.Button();
-            guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
-            panel2 = new Panel();
-            txt_password = new TextBox();
-            pictureBox2 = new PictureBox();
-            panel1 = new Panel();
-            txt_username = new TextBox();
-            pictureBox1 = new PictureBox();
-            bigLabel3 = new ReaLTaiizor.Controls.BigLabel();
-            bigLabel2 = new ReaLTaiizor.Controls.BigLabel();
+            label2 = new Label();
+            btn_close = new Guna.UI2.WinForms.Guna2ControlBox();
+            lbl_login_title = new Label();
+            lbl_login_subtitle = new Label();
+            txt_username = new Guna.UI2.WinForms.Guna2TextBox();
+            txt_password = new Guna.UI2.WinForms.Guna2TextBox();
+            chk_show_password = new Guna.UI2.WinForms.Guna2CheckBox();
+            link_forgot_password = new LinkLabel();
+            btn_login = new Guna.UI2.WinForms.Guna2Button();
             pn_0.SuspendLayout();
             pn_1.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
+            // 
+            // guna2AnimateWindow1
+            // 
+            guna2AnimateWindow1.AnimationType = Guna.UI2.WinForms.Guna2AnimateWindow.AnimateWindowType.AW_BLEND;
+            guna2AnimateWindow1.TargetForm = this;
             // 
             // pn_0
             // 
-            pn_0.BackColor = Color.FromArgb(63, 154, 173);
-            pn_0.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            pn_0.Controls.Add(lbl_title_ar);
+            pn_0.Controls.Add(label1);
+            pn_0.Controls.Add(lbl_subtitle_ar);
             pn_0.Controls.Add(btn_add_account);
-            pn_0.Controls.Add(bigLabel4);
-            pn_0.CustomizableEdges = customizableEdges1;
+            pn_0.CustomizableEdges = customizableEdges13;
             resources.ApplyResources(pn_0, "pn_0");
+            pn_0.FillColor = Color.FromArgb(19, 28, 38);
+            pn_0.FillColor2 = Color.FromArgb(16, 25, 35);
+            pn_0.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             pn_0.Name = "pn_0";
-            pn_0.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            pn_0.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            // 
+            // lbl_title_ar
+            // 
+            resources.ApplyResources(lbl_title_ar, "lbl_title_ar");
+            lbl_title_ar.BackColor = Color.Transparent;
+            lbl_title_ar.ForeColor = Color.White;
+            lbl_title_ar.Name = "lbl_title_ar";
+            // 
+            // label1
+            // 
+            label1.BackColor = Color.Transparent;
+            resources.ApplyResources(label1, "label1");
+            label1.ForeColor = Color.LightGray;
+            label1.Name = "label1";
+            // 
+            // lbl_subtitle_ar
+            // 
+            lbl_subtitle_ar.BackColor = Color.Transparent;
+            resources.ApplyResources(lbl_subtitle_ar, "lbl_subtitle_ar");
+            lbl_subtitle_ar.ForeColor = Color.White;
+            lbl_subtitle_ar.Name = "lbl_subtitle_ar";
             // 
             // btn_add_account
             // 
             btn_add_account.BackColor = Color.Transparent;
             btn_add_account.BorderColor = Color.White;
-            btn_add_account.EnteredBorderColor = Color.FromArgb(32, 34, 37);
-            btn_add_account.EnteredColor = Color.FromArgb(32, 34, 37);
+            btn_add_account.BorderRadius = 8;
+            btn_add_account.BorderThickness = 2;
+            btn_add_account.CustomizableEdges = customizableEdges11;
+            btn_add_account.FillColor = Color.Transparent;
             resources.ApplyResources(btn_add_account, "btn_add_account");
-            btn_add_account.Image = null;
-            btn_add_account.ImageAlign = ContentAlignment.MiddleCenter;
-            btn_add_account.InactiveColor = Color.Transparent;
+            btn_add_account.ForeColor = Color.White;
+            btn_add_account.HoverState.FillColor = Color.White;
+            btn_add_account.HoverState.ForeColor = Color.FromArgb(19, 28, 38);
             btn_add_account.Name = "btn_add_account";
-            btn_add_account.PressedBorderColor = Color.FromArgb(64, 64, 64);
-            btn_add_account.PressedColor = Color.FromArgb(64, 64, 64);
-            btn_add_account.TextAlignment = StringAlignment.Center;
-            // 
-            // bigLabel4
-            // 
-            bigLabel4.BackColor = Color.Transparent;
-            resources.ApplyResources(bigLabel4, "bigLabel4");
-            bigLabel4.ForeColor = Color.White;
-            bigLabel4.Name = "bigLabel4";
+            btn_add_account.ShadowDecoration.CustomizableEdges = customizableEdges12;
             // 
             // pn_1
             // 
-            pn_1.BackColor = Color.FromArgb(121, 201, 197);
-            pn_1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Custom;
+            pn_1.BackColor = Color.FromArgb(31, 41, 59);
+            pn_1.Controls.Add(label2);
+            pn_1.Controls.Add(btn_close);
+            pn_1.Controls.Add(lbl_login_title);
+            pn_1.Controls.Add(lbl_login_subtitle);
+            pn_1.Controls.Add(txt_username);
+            pn_1.Controls.Add(txt_password);
+            pn_1.Controls.Add(chk_show_password);
+            pn_1.Controls.Add(link_forgot_password);
             pn_1.Controls.Add(btn_login);
-            pn_1.Controls.Add(guna2CircleButton1);
-            pn_1.Controls.Add(panel2);
-            pn_1.Controls.Add(panel1);
-            pn_1.Controls.Add(bigLabel3);
-            pn_1.Controls.Add(bigLabel2);
-            pn_1.CustomizableEdges = customizableEdges4;
+            pn_1.CustomizableEdges = customizableEdges9;
             resources.ApplyResources(pn_1, "pn_1");
             pn_1.Name = "pn_1";
-            pn_1.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            pn_1.ShadowDecoration.CustomizableEdges = customizableEdges10;
             pn_1.MouseDown += pn_1_MouseDown;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(label2, "label2");
+            label2.ForeColor = Color.LightGray;
+            label2.Name = "label2";
+            // 
+            // btn_close
+            // 
+            resources.ApplyResources(btn_close, "btn_close");
+            btn_close.CustomizableEdges = customizableEdges1;
+            btn_close.FillColor = Color.Transparent;
+            btn_close.HoverState.FillColor = Color.FromArgb(232, 17, 35);
+            btn_close.HoverState.IconColor = Color.White;
+            btn_close.IconColor = Color.White;
+            btn_close.Name = "btn_close";
+            btn_close.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btn_close.Click += btn_close_Click;
+            // 
+            // lbl_login_title
+            // 
+            resources.ApplyResources(lbl_login_title, "lbl_login_title");
+            lbl_login_title.ForeColor = Color.White;
+            lbl_login_title.Name = "lbl_login_title";
+            // 
+            // lbl_login_subtitle
+            // 
+            resources.ApplyResources(lbl_login_subtitle, "lbl_login_subtitle");
+            lbl_login_subtitle.ForeColor = Color.LightGray;
+            lbl_login_subtitle.Name = "lbl_login_subtitle";
+            // 
+            // txt_username
+            // 
+            txt_username.BackColor = Color.Transparent;
+            txt_username.BorderColor = Color.DimGray;
+            txt_username.BorderRadius = 8;
+            txt_username.Cursor = Cursors.IBeam;
+            txt_username.CustomizableEdges = customizableEdges3;
+            txt_username.DefaultText = "";
+            txt_username.FillColor = Color.FromArgb(16, 22, 27);
+            txt_username.FocusedState.BorderColor = Color.FromArgb(32, 143, 252);
+            resources.ApplyResources(txt_username, "txt_username");
+            txt_username.ForeColor = Color.White;
+            txt_username.HoverState.BorderColor = Color.FromArgb(32, 143, 252);
+            txt_username.IconLeft = Properties.Resources.id_card__2_;
+            txt_username.IconLeftOffset = new Point(10, 0);
+            txt_username.Name = "txt_username";
+            txt_username.PlaceholderText = "اسم المستخدم او الايميل";
+            txt_username.SelectedText = "";
+            txt_username.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            txt_username.TextOffset = new Point(10, 0);
+            txt_username.KeyDown += txt_username_KeyDown;
+            // 
+            // txt_password
+            // 
+            txt_password.BackColor = Color.Transparent;
+            txt_password.BorderColor = Color.DimGray;
+            txt_password.BorderRadius = 8;
+            txt_password.Cursor = Cursors.IBeam;
+            txt_password.CustomizableEdges = customizableEdges5;
+            txt_password.DefaultText = "";
+            txt_password.FillColor = Color.FromArgb(16, 22, 27);
+            txt_password.FocusedState.BorderColor = Color.FromArgb(32, 143, 252);
+            resources.ApplyResources(txt_password, "txt_password");
+            txt_password.ForeColor = Color.White;
+            txt_password.HoverState.BorderColor = Color.FromArgb(32, 143, 252);
+            txt_password.IconLeft = Properties.Resources.lock__1_;
+            txt_password.IconLeftOffset = new Point(10, 0);
+            txt_password.Name = "txt_password";
+            txt_password.PasswordChar = '●';
+            txt_password.PlaceholderText = "كلمة المرور";
+            txt_password.SelectedText = "";
+            txt_password.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            txt_password.TextOffset = new Point(10, 0);
+            txt_password.UseSystemPasswordChar = true;
+            txt_password.KeyDown += txt_password_KeyDown;
+            // 
+            // chk_show_password
+            // 
+            resources.ApplyResources(chk_show_password, "chk_show_password");
+            chk_show_password.CheckedState.BorderColor = Color.FromArgb(32, 143, 252);
+            chk_show_password.CheckedState.BorderRadius = 2;
+            chk_show_password.CheckedState.BorderThickness = 0;
+            chk_show_password.CheckedState.FillColor = Color.FromArgb(32, 143, 252);
+            chk_show_password.ForeColor = Color.LightGray;
+            chk_show_password.Name = "chk_show_password";
+            chk_show_password.UncheckedState.BorderColor = Color.FromArgb(213, 218, 223);
+            chk_show_password.UncheckedState.BorderRadius = 2;
+            chk_show_password.UncheckedState.BorderThickness = 1;
+            chk_show_password.UncheckedState.FillColor = Color.FromArgb(31, 41, 59);
+            chk_show_password.CheckedChanged += chk_show_password_CheckedChanged;
+            // 
+            // link_forgot_password
+            // 
+            resources.ApplyResources(link_forgot_password, "link_forgot_password");
+            link_forgot_password.LinkBehavior = LinkBehavior.HoverUnderline;
+            link_forgot_password.LinkColor = Color.FromArgb(32, 143, 252);
+            link_forgot_password.Name = "link_forgot_password";
+            link_forgot_password.TabStop = true;
             // 
             // btn_login
             // 
             btn_login.BackColor = Color.Transparent;
-            btn_login.BorderColor = Color.White;
-            btn_login.EnteredBorderColor = Color.FromArgb(32, 34, 37);
-            btn_login.EnteredColor = Color.FromArgb(32, 34, 37);
+            btn_login.BorderRadius = 8;
+            btn_login.CustomizableEdges = customizableEdges7;
+            btn_login.FillColor = Color.FromArgb(32, 143, 252);
             resources.ApplyResources(btn_login, "btn_login");
-            btn_login.Image = null;
-            btn_login.ImageAlign = ContentAlignment.MiddleCenter;
-            btn_login.InactiveColor = Color.Transparent;
+            btn_login.ForeColor = Color.White;
+            btn_login.HoverState.FillColor = Color.FromArgb(24, 110, 195);
             btn_login.Name = "btn_login";
-            btn_login.PressedBorderColor = Color.FromArgb(64, 64, 64);
-            btn_login.PressedColor = Color.FromArgb(64, 64, 64);
-            btn_login.TextAlignment = StringAlignment.Center;
+            btn_login.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btn_login.Click += btn_login_Click;
-            // 
-            // guna2CircleButton1
-            // 
-            guna2CircleButton1.DisabledState.BorderColor = Color.DarkGray;
-            guna2CircleButton1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2CircleButton1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2CircleButton1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2CircleButton1.FillColor = Color.Transparent;
-            resources.ApplyResources(guna2CircleButton1, "guna2CircleButton1");
-            guna2CircleButton1.ForeColor = Color.White;
-            guna2CircleButton1.Image = Properties.Resources.Close;
-            guna2CircleButton1.ImageSize = new Size(50, 50);
-            guna2CircleButton1.Name = "guna2CircleButton1";
-            guna2CircleButton1.ShadowDecoration.BorderRadius = 0;
-            guna2CircleButton1.ShadowDecoration.CustomizableEdges = customizableEdges3;
-            guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2CircleButton1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            guna2CircleButton1.Click += guna2CircleButton1_Click;
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(txt_password);
-            panel2.Controls.Add(pictureBox2);
-            resources.ApplyResources(panel2, "panel2");
-            panel2.Name = "panel2";
-            // 
-            // txt_password
-            // 
-            resources.ApplyResources(txt_password, "txt_password");
-            txt_password.Name = "txt_password";
-            txt_password.UseSystemPasswordChar = true;
-            txt_password.KeyDown += txt_password_KeyDown;
-            // 
-            // pictureBox2
-            // 
-            resources.ApplyResources(pictureBox2, "pictureBox2");
-            pictureBox2.Image = Properties.Resources._lock;
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.TabStop = false;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(txt_username);
-            panel1.Controls.Add(pictureBox1);
-            resources.ApplyResources(panel1, "panel1");
-            panel1.Name = "panel1";
-            // 
-            // txt_username
-            // 
-            resources.ApplyResources(txt_username, "txt_username");
-            txt_username.Name = "txt_username";
-            txt_username.KeyDown += txt_username_KeyDown;
-            // 
-            // pictureBox1
-            // 
-            resources.ApplyResources(pictureBox1, "pictureBox1");
-            pictureBox1.Image = Properties.Resources.email;
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.TabStop = false;
-            // 
-            // bigLabel3
-            // 
-            resources.ApplyResources(bigLabel3, "bigLabel3");
-            bigLabel3.BackColor = Color.Transparent;
-            bigLabel3.ForeColor = Color.White;
-            bigLabel3.Name = "bigLabel3";
-            // 
-            // bigLabel2
-            // 
-            resources.ApplyResources(bigLabel2, "bigLabel2");
-            bigLabel2.BackColor = Color.Transparent;
-            bigLabel2.ForeColor = Color.White;
-            bigLabel2.Name = "bigLabel2";
             // 
             // Login
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(245, 246, 250);
             Controls.Add(pn_1);
             Controls.Add(pn_0);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
             Load += Login_Load;
             pn_0.ResumeLayout(false);
+            pn_0.PerformLayout();
             pn_1.ResumeLayout(false);
             pn_1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+
         }
-
-
 
         #endregion
 
         private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
-        private Guna.UI2.WinForms.Guna2Panel pn_0;
+        private Guna.UI2.WinForms.Guna2GradientPanel pn_0;
         private Guna.UI2.WinForms.Guna2Panel pn_1;
-        private ReaLTaiizor.Controls.BigLabel bigLabel4;
-        private ReaLTaiizor.Controls.BigLabel bigLabel3;
-        private ReaLTaiizor.Controls.BigLabel bigLabel2;
-
-        private Panel panel2;
-        private TextBox txt_password;
-        private PictureBox pictureBox2;
-        private Panel panel1;
-        private TextBox txt_username;
-        private PictureBox pictureBox1;
-        private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
-        private ReaLTaiizor.Controls.Button btn_login;
-        private ReaLTaiizor.Controls.Button btn_add_account;
+        private System.Windows.Forms.Label lbl_title_ar;
+        private System.Windows.Forms.Label lbl_subtitle_ar;
+        private Guna.UI2.WinForms.Guna2Button btn_add_account;
+        private System.Windows.Forms.Label lbl_login_title;
+        private System.Windows.Forms.Label lbl_login_subtitle;
+        private Guna.UI2.WinForms.Guna2TextBox txt_username;
+        private Guna.UI2.WinForms.Guna2TextBox txt_password;
+        private Guna.UI2.WinForms.Guna2Button btn_login;
+        private Guna.UI2.WinForms.Guna2CheckBox chk_show_password;
+        private System.Windows.Forms.LinkLabel link_forgot_password;
+        private Guna.UI2.WinForms.Guna2ControlBox btn_close;
+        private Label label1;
+        private Label label2;
     }
 }

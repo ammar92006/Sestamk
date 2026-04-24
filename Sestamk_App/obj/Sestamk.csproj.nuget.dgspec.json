@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Sestamk\\Sestamk.csproj": {}
+    "E:\\Sestamk\\Sestamk_App\\Sestamk.csproj": {}
   },
   "projects": {
-    "E:\\Sestamk\\Sestamk.csproj": {
+    "E:\\Sestamk\\Sestamk_App\\Sestamk.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Sestamk\\Sestamk.csproj",
+        "projectUniqueName": "E:\\Sestamk\\Sestamk_App\\Sestamk.csproj",
         "projectName": "Sestamk",
-        "projectPath": "E:\\Sestamk\\Sestamk.csproj",
+        "projectPath": "E:\\Sestamk\\Sestamk_App\\Sestamk.csproj",
         "packagesPath": "C:\\Users\\ammar\\.nuget\\packages\\",
-        "outputPath": "E:\\Sestamk\\obj\\",
+        "outputPath": "E:\\Sestamk\\Sestamk_App\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\ammar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +29,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net10.0-windows7.0": {
+          "net10.0-windows": {
+            "framework": "net10.0-windows7.0",
             "targetAlias": "net10.0-windows",
             "projectReferences": {}
           }
@@ -40,15 +45,24 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
-        "net10.0-windows7.0": {
+        "net10.0-windows": {
+          "framework": "net10.0-windows7.0",
           "targetAlias": "net10.0-windows",
           "dependencies": {
+            "FontAwesome.Sharp": {
+              "target": "Package",
+              "version": "[6.6.0, )"
+            },
             "Google.GenAI": {
               "target": "Package",
               "version": "[0.15.0, )"
+            },
+            "Guna.Charts.WinForms": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             },
             "Guna.UI2.WinForms": {
               "target": "Package",
@@ -57,6 +71,10 @@
             "Krypton.Toolkit": {
               "target": "Package",
               "version": "[100.26.1.19, )"
+            },
+            "LibVLCSharp.WinForms": {
+              "target": "Package",
+              "version": "[3.9.6, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -90,7 +108,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

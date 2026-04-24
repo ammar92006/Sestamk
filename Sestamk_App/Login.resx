@@ -120,98 +120,264 @@
   <metadata name="guna2AnimateWindow1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_add_account.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 20.25pt, style=Bold</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
   </data>
-  <data name="btn_add_account.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 479</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>900, 550</value>
   </data>
-  <data name="btn_add_account.Size" type="System.Drawing.Size, System.Drawing">
-    <value>279, 63</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btn_add_account.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="btn_add_account.Text" xml:space="preserve">
-    <value>انشاء حساب جديد</value>
-  </data>
-  <data name="&gt;&gt;btn_add_account.Name" xml:space="preserve">
-    <value>btn_add_account</value>
-  </data>
-  <data name="&gt;&gt;btn_add_account.Type" xml:space="preserve">
-    <value>ReaLTaiizor.Controls.Button, ReaLTaiizor, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;btn_add_account.Parent" xml:space="preserve">
-    <value>pn_0</value>
-  </data>
-  <data name="&gt;&gt;btn_add_account.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="bigLabel4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 18pt</value>
+  <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11pt</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bigLabel4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="bigLabel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 225</value>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 521</value>
   </data>
-  <data name="bigLabel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>353, 153</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>302, 20</value>
   </data>
-  <data name="bigLabel4.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
-  <data name="bigLabel4.Text" xml:space="preserve">
-    <value>إذا لم يكن لديك حساب، يمكنك إنشاء حساب جديد والتواصل معنا.</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>    Developed by Sestamk Company</value>
   </data>
-  <data name="&gt;&gt;bigLabel4.Name" xml:space="preserve">
-    <value>bigLabel4</value>
+  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
   </data>
-  <data name="&gt;&gt;bigLabel4.Type" xml:space="preserve">
-    <value>ReaLTaiizor.Controls.BigLabel, ReaLTaiizor, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
   </data>
-  <data name="&gt;&gt;bigLabel4.Parent" xml:space="preserve">
-    <value>pn_0</value>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;bigLabel4.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>pn_1</value>
   </data>
-  <data name="pn_0.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="pn_0.Location" type="System.Drawing.Point, System.Drawing">
-    <value>611, 0</value>
-  </data>
-  <data name="pn_0.Size" type="System.Drawing.Size, System.Drawing">
-    <value>389, 600</value>
-  </data>
-  <data name="pn_0.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;pn_0.Name" xml:space="preserve">
-    <value>pn_0</value>
+  <data name="btn_close.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
-  <data name="&gt;&gt;pn_0.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2Panel, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  <data name="btn_close.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 20pt</value>
   </data>
-  <data name="&gt;&gt;pn_0.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="btn_close.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;pn_0.ZOrder" xml:space="preserve">
+  <data name="btn_close.Location" type="System.Drawing.Point, System.Drawing">
+    <value>459, 0</value>
+  </data>
+  <data name="btn_close.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 73</value>
+  </data>
+  <data name="btn_close.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btn_close.Name" xml:space="preserve">
+    <value>btn_close</value>
+  </data>
+  <data name="&gt;&gt;btn_close.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2ControlBox, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;btn_close.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;btn_close.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="lbl_login_title.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_login_title.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 22pt, style=Bold</value>
+  </data>
+  <data name="lbl_login_title.Location" type="System.Drawing.Point, System.Drawing">
+    <value>180, 80</value>
+  </data>
+  <data name="lbl_login_title.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 41</value>
+  </data>
+  <data name="lbl_login_title.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lbl_login_title.Text" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_title.Name" xml:space="preserve">
+    <value>lbl_login_title</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_title.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_title.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_title.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lbl_login_subtitle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_login_subtitle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11pt</value>
+  </data>
+  <data name="lbl_login_subtitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 135</value>
+  </data>
+  <data name="lbl_login_subtitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="lbl_login_subtitle.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lbl_login_subtitle.Text" xml:space="preserve">
+    <value>Welcome back</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_subtitle.Name" xml:space="preserve">
+    <value>lbl_login_subtitle</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_subtitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_subtitle.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;lbl_login_subtitle.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="txt_username.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11pt</value>
+  </data>
+  <data name="txt_username.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 190</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="txt_username.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="txt_username.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 50</value>
+  </data>
+  <data name="txt_username.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;txt_username.Name" xml:space="preserve">
+    <value>txt_username</value>
+  </data>
+  <data name="&gt;&gt;txt_username.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2TextBox, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;txt_username.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;txt_username.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="txt_password.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11pt</value>
+  </data>
+  <data name="txt_password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 260</value>
+  </data>
+  <data name="txt_password.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 4, 3, 4</value>
+  </data>
+  <data name="txt_password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 50</value>
+  </data>
+  <data name="txt_password.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;txt_password.Name" xml:space="preserve">
+    <value>txt_password</value>
+  </data>
+  <data name="&gt;&gt;txt_password.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2TextBox, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;txt_password.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;txt_password.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="chk_show_password.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chk_show_password.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 10pt</value>
+  </data>
+  <data name="chk_show_password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 323</value>
+  </data>
+  <data name="chk_show_password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 23</value>
+  </data>
+  <data name="chk_show_password.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="chk_show_password.Text" xml:space="preserve">
+    <value>إظهار كلمة المرور</value>
+  </data>
+  <data name="&gt;&gt;chk_show_password.Name" xml:space="preserve">
+    <value>chk_show_password</value>
+  </data>
+  <data name="&gt;&gt;chk_show_password.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2CheckBox, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;chk_show_password.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;chk_show_password.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="link_forgot_password.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="link_forgot_password.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 10pt</value>
+  </data>
+  <data name="link_forgot_password.Location" type="System.Drawing.Point, System.Drawing">
+    <value>207, 457</value>
+  </data>
+  <data name="link_forgot_password.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 19</value>
+  </data>
+  <data name="link_forgot_password.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="link_forgot_password.Text" xml:space="preserve">
+    <value>هل نسيت كلمة المرور؟</value>
+  </data>
+  <data name="&gt;&gt;link_forgot_password.Name" xml:space="preserve">
+    <value>link_forgot_password</value>
+  </data>
+  <data name="&gt;&gt;link_forgot_password.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;link_forgot_password.Parent" xml:space="preserve">
+    <value>pn_1</value>
+  </data>
+  <data name="&gt;&gt;link_forgot_password.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <data name="btn_login.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 20.25pt, style=Bold</value>
+    <value>Segoe UI, 14pt, style=Bold</value>
   </data>
   <data name="btn_login.Location" type="System.Drawing.Point, System.Drawing">
-    <value>172, 479</value>
+    <value>97, 380</value>
   </data>
   <data name="btn_login.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 63</value>
+    <value>360, 55</value>
   </data>
   <data name="btn_login.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -223,283 +389,22 @@
     <value>btn_login</value>
   </data>
   <data name="&gt;&gt;btn_login.Type" xml:space="preserve">
-    <value>ReaLTaiizor.Controls.Button, ReaLTaiizor, Culture=neutral, PublicKeyToken=null</value>
+    <value>Guna.UI2.WinForms.Guna2Button, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
   </data>
   <data name="&gt;&gt;btn_login.Parent" xml:space="preserve">
     <value>pn_1</value>
   </data>
   <data name="&gt;&gt;btn_login.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="guna2CircleButton1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 9pt</value>
-  </data>
-  <data name="guna2CircleButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>535, 12</value>
-  </data>
-  <data name="guna2CircleButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 60</value>
-  </data>
-  <data name="guna2CircleButton1.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;guna2CircleButton1.Name" xml:space="preserve">
-    <value>guna2CircleButton1</value>
-  </data>
-  <data name="&gt;&gt;guna2CircleButton1.Type" xml:space="preserve">
-    <value>Guna.UI2.WinForms.Guna2CircleButton, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
-  </data>
-  <data name="&gt;&gt;guna2CircleButton1.Parent" xml:space="preserve">
-    <value>pn_1</value>
-  </data>
-  <data name="&gt;&gt;guna2CircleButton1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="txt_password.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="txt_password.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 24pt, style=Bold</value>
-  </data>
-  <data name="txt_password.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 0</value>
-  </data>
-  <data name="txt_password.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="txt_password.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 47</value>
-  </data>
-  <data name="txt_password.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="txt_password.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;txt_password.Name" xml:space="preserve">
-    <value>txt_password</value>
-  </data>
-  <data name="&gt;&gt;txt_password.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txt_password.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;txt_password.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="pictureBox2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="pictureBox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="pictureBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pictureBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 47</value>
-  </data>
-  <data name="pictureBox2.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="pictureBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Name" xml:space="preserve">
-    <value>pictureBox2</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;pictureBox2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 396</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>596, 47</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>pn_1</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="txt_username.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="txt_username.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 24pt, style=Bold</value>
-  </data>
-  <data name="txt_username.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 0</value>
-  </data>
-  <data name="txt_username.PlaceholderText" xml:space="preserve">
-    <value>Username / Email</value>
-  </data>
-  <data name="txt_username.Size" type="System.Drawing.Size, System.Drawing">
-    <value>496, 47</value>
-  </data>
-  <data name="txt_username.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="txt_username.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;txt_username.Name" xml:space="preserve">
-    <value>txt_username</value>
-  </data>
-  <data name="&gt;&gt;txt_username.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txt_username.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;txt_username.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="pictureBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 47</value>
-  </data>
-  <data name="pictureBox1.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="pictureBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
-    <value>pictureBox1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;pictureBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 314</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>596, 47</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>pn_1</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="bigLabel3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bigLabel3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 24.749996pt, style=Bold</value>
-  </data>
-  <data name="bigLabel3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bigLabel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 152</value>
-  </data>
-  <data name="bigLabel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>262, 57</value>
-  </data>
-  <data name="bigLabel3.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="bigLabel3.Text" xml:space="preserve">
-    <value>تسجيل الدخول</value>
-  </data>
-  <data name="bigLabel3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;bigLabel3.Name" xml:space="preserve">
-    <value>bigLabel3</value>
-  </data>
-  <data name="&gt;&gt;bigLabel3.Type" xml:space="preserve">
-    <value>ReaLTaiizor.Controls.BigLabel, ReaLTaiizor, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;bigLabel3.Parent" xml:space="preserve">
-    <value>pn_1</value>
-  </data>
-  <data name="&gt;&gt;bigLabel3.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="bigLabel2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="bigLabel2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 48pt, style=Bold</value>
-  </data>
-  <data name="bigLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="bigLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 8</value>
-  </data>
-  <data name="bigLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 111</value>
-  </data>
-  <data name="bigLabel2.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="bigLabel2.Text" xml:space="preserve">
-    <value>سيستمك</value>
-  </data>
-  <data name="bigLabel2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;bigLabel2.Name" xml:space="preserve">
-    <value>bigLabel2</value>
-  </data>
-  <data name="&gt;&gt;bigLabel2.Type" xml:space="preserve">
-    <value>ReaLTaiizor.Controls.BigLabel, ReaLTaiizor, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;bigLabel2.Parent" xml:space="preserve">
-    <value>pn_1</value>
-  </data>
-  <data name="&gt;&gt;bigLabel2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="pn_1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="pn_1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>360, 0</value>
   </data>
   <data name="pn_1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>611, 600</value>
+    <value>540, 550</value>
   </data>
   <data name="pn_1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -516,33 +421,155 @@
   <data name="&gt;&gt;pn_1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="lbl_title_ar.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>12, 33</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1000, 600</value>
+  <data name="lbl_title_ar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 28pt, style=Bold</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Alexandria, 14.25pt, style=Bold</value>
+  <data name="lbl_title_ar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>85, 120</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 7, 5, 7</value>
+  <data name="lbl_title_ar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 51</value>
   </data>
-  <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>Yes</value>
+  <data name="lbl_title_ar.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="lbl_title_ar.Text" xml:space="preserve">
+    <value>سيستمك</value>
+  </data>
+  <data name="&gt;&gt;lbl_title_ar.Name" xml:space="preserve">
+    <value>lbl_title_ar</value>
+  </data>
+  <data name="&gt;&gt;lbl_title_ar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_title_ar.Parent" xml:space="preserve">
+    <value>pn_0</value>
+  </data>
+  <data name="&gt;&gt;lbl_title_ar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11pt</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 521</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>106, 20</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Version: 1.0.0</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>pn_0</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_subtitle_ar.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 12pt</value>
+  </data>
+  <data name="lbl_subtitle_ar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 200</value>
+  </data>
+  <data name="lbl_subtitle_ar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 60</value>
+  </data>
+  <data name="lbl_subtitle_ar.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="lbl_subtitle_ar.Text" xml:space="preserve">
+    <value>مرحباً بك في نظام إدارة نقاط البيع والمحاسبة المتكامل الخاص بك</value>
+  </data>
+  <data name="lbl_subtitle_ar.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl_subtitle_ar.Name" xml:space="preserve">
+    <value>lbl_subtitle_ar</value>
+  </data>
+  <data name="&gt;&gt;lbl_subtitle_ar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_subtitle_ar.Parent" xml:space="preserve">
+    <value>pn_0</value>
+  </data>
+  <data name="&gt;&gt;lbl_subtitle_ar.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btn_add_account.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 11pt</value>
+  </data>
+  <data name="btn_add_account.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 420</value>
+  </data>
+  <data name="btn_add_account.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 45</value>
+  </data>
+  <data name="btn_add_account.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btn_add_account.Text" xml:space="preserve">
+    <value>إنشاء حساب جديد</value>
+  </data>
+  <data name="&gt;&gt;btn_add_account.Name" xml:space="preserve">
+    <value>btn_add_account</value>
+  </data>
+  <data name="&gt;&gt;btn_add_account.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2Button, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;btn_add_account.Parent" xml:space="preserve">
+    <value>pn_0</value>
+  </data>
+  <data name="&gt;&gt;btn_add_account.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="pn_0.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="pn_0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="pn_0.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 550</value>
+  </data>
+  <data name="pn_0.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;pn_0.Name" xml:space="preserve">
+    <value>pn_0</value>
+  </data>
+  <data name="&gt;&gt;pn_0.Type" xml:space="preserve">
+    <value>Guna.UI2.WinForms.Guna2GradientPanel, Guna.UI2, Culture=neutral, PublicKeyToken=8b9d14aa5142e261</value>
+  </data>
+  <data name="&gt;&gt;pn_0.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pn_0.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Sestamk</value>
+    <value>تسجيل الدخول</value>
   </data>
   <data name="&gt;&gt;guna2AnimateWindow1.Name" xml:space="preserve">
     <value>guna2AnimateWindow1</value>
@@ -554,6 +581,6 @@
     <value>Login</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Sestamk.Forms.BaseForm, Sestamk, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

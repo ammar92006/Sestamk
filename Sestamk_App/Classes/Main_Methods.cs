@@ -1,15 +1,25 @@
-﻿using Microsoft.Win32;
+using Guna.UI2.WinForms;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Sestamk.Classes
 {
-    public class Main_Methods
+    public static class Main_Methods
     {
+        public static Dictionary<Type, Form> _openForms = new Dictionary<Type, Form>();
+
+
+        private static Point _startCursor;
+        private static Point _startLocation;
+        private static bool _isDragging;
+
 
         public static bool IsInternetAvailable()
         {
@@ -145,6 +155,192 @@ namespace Sestamk.Classes
                 Form frm = (Form)Activator.CreateInstance(formType);
                 frm.Show();
             }
+        }
+
+
+        public static void StyleDataGridView(Guna2DataGridView dgv)
+        {
+            // ── إعدادات عامة ──────────────────────────────────────
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.BackgroundColor = Color.FromArgb(15, 23, 42);
+            dgv.ColumnHeadersHeight = 90;
+            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgv.GridColor = Color.FromArgb(30, 41, 59);
+            dgv.MultiSelect = false;
+            dgv.ReadOnly = true;
+            dgv.RightToLeft = RightToLeft.Yes;
+            dgv.RowHeadersVisible = false;
+            dgv.RowTemplate.Height = 50;
+
+            // ── AlternatingRows Style ──────────────────────────────
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(17, 24, 39);
+            dgv.AlternatingRowsDefaultCellStyle.ForeColor = Color.FromArgb(226, 232, 240);
+            dgv.AlternatingRowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(51, 65, 85);
+            dgv.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.White;
+
+            // ── Column Header Style ────────────────────────────────
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(15, 23, 42);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Alexandria", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(148, 163, 184);
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(15, 23, 42);
+            dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.FromArgb(148, 163, 184);
+            dgv.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            // ── Default Cell Style ─────────────────────────────────
+            dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.DefaultCellStyle.BackColor = Color.FromArgb(30, 41, 59);
+            dgv.DefaultCellStyle.Font = new Font("Alexandria", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dgv.DefaultCellStyle.ForeColor = Color.FromArgb(226, 232, 240);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(51, 65, 85);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.White;
+            dgv.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
+            // ── ThemeStyle ─────────────────────────────────────────
+            dgv.ThemeStyle.BackColor = Color.FromArgb(15, 23, 42);
+            dgv.ThemeStyle.GridColor = Color.FromArgb(30, 41, 59);
+            dgv.ThemeStyle.ReadOnly = true;
+
+            dgv.ThemeStyle.AlternatingRowsStyle.BackColor = Color.FromArgb(17, 24, 39);
+            dgv.ThemeStyle.AlternatingRowsStyle.Font = null;
+            dgv.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.FromArgb(226, 232, 240);
+            dgv.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.FromArgb(51, 65, 85);
+            dgv.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.White;
+
+            dgv.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(15, 23, 42);
+            dgv.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgv.ThemeStyle.HeaderStyle.Font = new Font("Alexandria", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dgv.ThemeStyle.HeaderStyle.ForeColor = Color.FromArgb(148, 163, 184);
+            dgv.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dgv.ThemeStyle.HeaderStyle.Height = 90;
+
+            dgv.ThemeStyle.RowsStyle.BackColor = Color.FromArgb(30, 41, 59);
+            dgv.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgv.ThemeStyle.RowsStyle.Font = new Font("Alexandria", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dgv.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(226, 232, 240);
+            dgv.ThemeStyle.RowsStyle.Height = 50;
+            dgv.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(51, 65, 85);
+            dgv.ThemeStyle.RowsStyle.SelectionForeColor = Color.White;
+        }
+
+
+
+        public static void FillComboBoxWithGridHeaders(DataGridView dgv, ComboBox cbo)
+        {
+            try
+            {
+                cbo.Items.Clear();
+
+                foreach (DataGridViewColumn col in dgv.Columns)
+                {
+                    if (col.Visible && !string.IsNullOrWhiteSpace(col.HeaderText))
+                    {
+                        cbo.Items.Add(col.HeaderText.Trim());
+                    }
+                }
+
+                if (cbo.Items.Count > 0)
+                    cbo.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                ToastManager.ShowError("خطأ", "خطأ أثناء تحميل الحقول: " + ex.Message);
+            }
+        }
+
+
+        public static void OpenForm<T>(Action onClosed = null) where T : Form, new ()
+        {
+            Type formType =typeof(T);
+
+            // لو الفورم شغاله
+            if (_openForms.ContainsKey(formType) && !_openForms[formType].IsDisposed)
+            {
+                Form existingForm = _openForms[formType];
+                if (existingForm.WindowState == FormWindowState.Minimized)
+                {
+                    existingForm.WindowState = FormWindowState.Normal;
+                }
+                existingForm.Focus();
+            }
+            else
+            {
+                T newform = new T();
+                _openForms[formType] = newform;
+
+                if (onClosed != null)
+                {
+                    newform.FormClosed += (s, e) => onClosed();
+                }
+                newform.Show();
+            }
+        }
+
+
+        public static void Attach(Control handle, Form targetForm)
+        {
+            handle.MouseDown += (s, e) =>
+            {
+                if (e.Button != MouseButtons.Left) return;
+                _isDragging = true;
+                _startCursor = Cursor.Position;
+                _startLocation = targetForm.Location;
+            };
+
+            handle.MouseMove += (s, e) =>
+            {
+                if (!_isDragging) return;
+
+                int deltaX = Cursor.Position.X - _startCursor.X;
+                int deltaY = Cursor.Position.Y - _startCursor.Y;
+
+                targetForm.Location = new Point(
+                    _startLocation.X + deltaX,
+                    _startLocation.Y + deltaY
+                );
+            };
+
+            handle.MouseUp += (s, e) =>
+            {
+                _isDragging = false;
+            };
+        }
+
+        /// <summary>
+        /// نفس الفكرة بس لو عايز تحرك UserControl أو Panel جوه فورم
+        /// </summary>
+        public static void AttachToControl(Control handle, Control target)
+        {
+            handle.MouseDown += (s, e) =>
+            {
+                if (e.Button != MouseButtons.Left) return;
+                _isDragging = true;
+                _startCursor = Cursor.Position;
+                _startLocation = target.Location;
+            };
+
+            handle.MouseMove += (s, e) =>
+            {
+                if (!_isDragging) return;
+
+                int deltaX = Cursor.Position.X - _startCursor.X;
+                int deltaY = Cursor.Position.Y - _startCursor.Y;
+
+                target.Location = new Point(
+                    _startLocation.X + deltaX,
+                    _startLocation.Y + deltaY
+                );
+            };
+
+            handle.MouseUp += (s, e) =>
+            {
+                _isDragging = false;
+            };
         }
 
     }

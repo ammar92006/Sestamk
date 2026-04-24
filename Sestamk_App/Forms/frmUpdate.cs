@@ -1,4 +1,3 @@
-﻿using MyWinFormsApp.Classes;
 using Sestamk.Classes;
 using System;
 using System.Collections.Generic;
@@ -10,13 +9,12 @@ using System.Windows.Forms;
 
 namespace Sestamk.Forms
 {
-    public partial class frmUpdate : Form
+    public partial class frmUpdate : BaseForm
     {
         private UpdateManager updateManager;
         private UpdateInfo currentUpdate;
-        // 🔴 مهم جداً: غيّر الأسماء دي
         private const string GITHUB_OWNER = "ammar92006";  // ضع اسم المستخدم بتاعك على GitHub
-        private const string GITHUB_REPO = "Sestamk";          // ضع اسم الـ Repository
+        private const string GITHUB_REPO = "Sestamk";      // ضع اسم الـ Repository
 
         public frmUpdate()
         {
@@ -88,13 +86,7 @@ namespace Sestamk.Forms
 
                 lblStatus.Text = "✓ تم التحميل!";
 
-                DialogResult result = MessageBox.Show(
-                    "تم التحميل بنجاح.\n\nسيتم إعادة تشغيل البرنامج.\n\nمتابعة؟",
-                    "تطبيق التحديث",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
+                if (frmConfirm.Show("تطبيق التحديث", "تم التحميل بنجاح.\n\nسيتم إعادة تشغيل البرنامج.\n\nمتابعة؟"))
                 {
                     updateManager.ApplyUpdate(updateFile);
                 }
@@ -106,7 +98,7 @@ namespace Sestamk.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"خطأ: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ToastManager.ShowError("خطأ", $"خطأ: {ex.Message}");
                 btnDownload.Enabled = true;
                 btnClose.Enabled = true;
             }

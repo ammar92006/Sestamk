@@ -32,6 +32,14 @@
           }
         }
       },
+      "FontAwesome.Sharp/6.6.0": {
+        "runtime": {
+          "lib/net8.0-windows7.0/FontAwesome.Sharp.dll": {
+            "assemblyVersion": "6.6.0.0",
+            "fileVersion": "6.6.0.0"
+          }
+        }
+      },
       "Google.Apis/1.69.0": {
         "dependencies": {
           "Google.Apis.Core": "1.69.0"
@@ -79,6 +87,17 @@
           }
         }
       },
+      "Guna.Charts.WinForms/1.1.0": {
+        "dependencies": {
+          "System.Management": "7.0.2"
+        },
+        "runtime": {
+          "lib/net7.0-windows7.0/Guna.Charts.WinForms.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
+        }
+      },
       "Guna.UI2.WinForms/2.0.4.7": {
         "dependencies": {
           "System.Management": "7.0.2"
@@ -95,6 +114,25 @@
           "lib/net10.0-windows7.0/Krypton.Toolkit.dll": {
             "assemblyVersion": "100.26.1.19",
             "fileVersion": "100.26.1.19"
+          }
+        }
+      },
+      "LibVLCSharp/3.9.6": {
+        "runtime": {
+          "lib/net10.0/LibVLCSharp.dll": {
+            "assemblyVersion": "3.9.6.0",
+            "fileVersion": "3.9.6.0"
+          }
+        }
+      },
+      "LibVLCSharp.WinForms/3.9.6": {
+        "dependencies": {
+          "LibVLCSharp": "3.9.6"
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/LibVLCSharp.WinForms.dll": {
+            "assemblyVersion": "3.9.6.0",
+            "fileVersion": "3.9.6.0"
           }
         }
       },
@@ -447,6 +485,13 @@
       "path": "azure.identity/1.17.1",
       "hashPath": "azure.identity.1.17.1.nupkg.sha512"
     },
+    "FontAwesome.Sharp/6.6.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bJCb2x73UC1nD9+9iMLaUy6Ujf9Pf+buL6FHwVnaoDYT4CQNLazz59hO5gQ0+SMSW0G+ZXmjjShOYr3Jn2UZiw==",
+      "path": "fontawesome.sharp/6.6.0",
+      "hashPath": "fontawesome.sharp.6.6.0.nupkg.sha512"
+    },
     "Google.Apis/1.69.0": {
       "type": "package",
       "serviceable": true,
@@ -475,6 +520,13 @@
       "path": "google.genai/0.15.0",
       "hashPath": "google.genai.0.15.0.nupkg.sha512"
     },
+    "Guna.Charts.WinForms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qHGw3SusTcgUJFWfB91dQKwMxb0+4YBqPqrsFv7oo6E9Ap1OPsuWLafcJTtOzpxRmf8Umns5++xmcZtgL93q1A==",
+      "path": "guna.charts.winforms/1.1.0",
+      "hashPath": "guna.charts.winforms.1.1.0.nupkg.sha512"
+    },
     "Guna.UI2.WinForms/2.0.4.7": {
       "type": "package",
       "serviceable": true,
@@ -488,6 +540,20 @@
       "sha512": "sha512-AFy3MoZzxlXpOyiZujqSKG3SCXktMEi+2MlEOtN7LDW2eMAfOHyyGJTCVqBqTUjTw67bPVLlvRItYEP00EaWIA==",
       "path": "krypton.toolkit/100.26.1.19",
       "hashPath": "krypton.toolkit.100.26.1.19.nupkg.sha512"
+    },
+    "LibVLCSharp/3.9.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MVkeFzsA5nGi/G94CluNif9BQPVkVPv0cikm63YBc8U+AQY8DJTsPp/6YZMM9J5IUBMHLWzQBbT/Iwhp6sc6oA==",
+      "path": "libvlcsharp/3.9.6",
+      "hashPath": "libvlcsharp.3.9.6.nupkg.sha512"
+    },
+    "LibVLCSharp.WinForms/3.9.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-k6yqQRVzRSY6Tt2tPkq31x46aEpjPDTwhy2n/v251nbqQxMQZqdWHlbnnEXfHYI77pIDVpyRXIcUknoZFlXCXQ==",
+      "path": "libvlcsharp.winforms/3.9.6",
+      "hashPath": "libvlcsharp.winforms.3.9.6.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",

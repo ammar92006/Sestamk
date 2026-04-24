@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyWinFormsApp.Classes
+namespace Sestamk.Classes
 {
     public class GitHubRelease
     {

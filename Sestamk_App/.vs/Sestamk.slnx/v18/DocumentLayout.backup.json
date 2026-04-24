@@ -1,56 +1,62 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Sestamk\\",
+  "WorkspaceRootPath": "E:\\Sestamk\\Sestamk_App\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\forms\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C84AF085-D2F3-4757-96C5-C873F4884643}|..\\Updater\\Updater.csproj|e:\\updater\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\forms\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\frmsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C84AF085-D2F3-4757-96C5-C873F4884643}|..\\Updater\\Updater.csproj|e:\\updater\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\scannersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\scannersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|E:\\Sestamk\\forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\scannersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\scannersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\forms\\frmupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\frmupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\printersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\printersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\forms\\frmupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\frmupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\printersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\printersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\classes\\updatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:classes\\updatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\scannersettings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\scannersettings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\classes\\githubrelease.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:classes\\githubrelease.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\salessettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\salessettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\systemsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\systemsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\forms\\frmcustomers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\frmcustomers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\salessettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\salessettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|E:\\Sestamk\\forms\\frmcustomers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\systemsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\systemsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\printersettings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\printersettings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\usercontrol\\uc_settings\\salessettings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_settings\\salessettings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\sestamk_app\\forms\\frmcustomers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:forms\\frmcustomers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|e:\\sestamk\\properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|E:\\Sestamk\\usercontrol\\uc_dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0F26A2A0-D119-0097-66EB-8F1F31428DA3}|Sestamk.csproj|solutionrelative:usercontrol\\uc_dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -60,12 +66,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{25f7e850-ffa1-11d0-b63f-00a0c922e851}"
@@ -75,166 +77,183 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Updater\\Program.cs",
-              "RelativeDocumentMoniker": "..\\Updater\\Program.cs",
-              "ToolTip": "E:\\Updater\\Program.cs",
-              "RelativeToolTip": "..\\Updater\\Program.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAUAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T21:49:27.453Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "E:\\Updater\\Form1.cs",
-              "RelativeDocumentMoniker": "..\\Updater\\Form1.cs",
-              "ToolTip": "E:\\Updater\\Form1.cs [Design]",
-              "RelativeToolTip": "..\\Updater\\Form1.cs [Design]",
+              "Title": "ScannerSettings.cs [Design]",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\ScannerSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\ScannerSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\ScannerSettings.cs [Design]*",
+              "RelativeToolTip": "UserControl\\UC_Settings\\ScannerSettings.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T21:48:54.025Z",
+              "WhenOpened": "2026-04-24T04:09:39.894Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "frmUpdate.cs [Design]",
-              "DocumentMoniker": "E:\\Sestamk\\Forms\\frmUpdate.cs",
-              "RelativeDocumentMoniker": "Forms\\frmUpdate.cs",
-              "ToolTip": "E:\\Sestamk\\Forms\\frmUpdate.cs [Design]",
-              "RelativeToolTip": "Forms\\frmUpdate.cs [Design]",
+              "DocumentIndex": 3,
+              "Title": "ScannerSettings.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\ScannerSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\ScannerSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\ScannerSettings.cs*",
+              "RelativeToolTip": "UserControl\\UC_Settings\\ScannerSettings.cs*",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAlwAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T21:25:51.629Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-04-24T04:09:24.591Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "UpdateManager.cs",
-              "DocumentMoniker": "E:\\Sestamk\\Classes\\UpdateManager.cs",
-              "RelativeDocumentMoniker": "Classes\\UpdateManager.cs",
-              "ToolTip": "E:\\Sestamk\\Classes\\UpdateManager.cs",
-              "RelativeToolTip": "Classes\\UpdateManager.cs",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAkwKkAAAAKAAAAAAAAAA==",
+              "Title": "ScannerSettings.Designer.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\ScannerSettings.Designer.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\ScannerSettings.Designer.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\ScannerSettings.Designer.cs*",
+              "RelativeToolTip": "UserControl\\UC_Settings\\ScannerSettings.Designer.cs*",
+              "ViewState": "AgIAABIAAAAAAAAAAAAWwJsBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T21:25:09.037Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "GitHubRelease.cs",
-              "DocumentMoniker": "E:\\Sestamk\\Classes\\GitHubRelease.cs",
-              "RelativeDocumentMoniker": "Classes\\GitHubRelease.cs",
-              "ToolTip": "E:\\Sestamk\\Classes\\GitHubRelease.cs",
-              "RelativeToolTip": "Classes\\GitHubRelease.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAgwB0AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T21:23:04.779Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Mainform.cs",
-              "DocumentMoniker": "E:\\Sestamk\\Forms\\Mainform.cs",
-              "RelativeDocumentMoniker": "Forms\\Mainform.cs",
-              "ToolTip": "E:\\Sestamk\\Forms\\Mainform.cs*",
-              "RelativeToolTip": "Forms\\Mainform.cs*",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAWwFMAAAB0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T21:32:56.162Z",
+              "WhenOpened": "2026-04-24T04:09:14.64Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "frmUpdate.cs",
-              "DocumentMoniker": "E:\\Sestamk\\Forms\\frmUpdate.cs",
-              "RelativeDocumentMoniker": "Forms\\frmUpdate.cs",
-              "ToolTip": "E:\\Sestamk\\Forms\\frmUpdate.cs",
-              "RelativeToolTip": "Forms\\frmUpdate.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAjwHEAAAAAAAAAAAAAAA==",
+              "Title": "PrinterSettings.cs [Design]",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\PrinterSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\PrinterSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\PrinterSettings.cs [Design]*",
+              "RelativeToolTip": "UserControl\\UC_Settings\\PrinterSettings.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T21:26:22.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Mainform.cs [Design]",
-              "DocumentMoniker": "E:\\Sestamk\\Forms\\Mainform.cs",
-              "RelativeDocumentMoniker": "Forms\\Mainform.cs",
-              "ToolTip": "E:\\Sestamk\\Forms\\Mainform.cs [Design]*",
-              "RelativeToolTip": "Forms\\Mainform.cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T21:32:53.552Z",
+              "WhenOpened": "2026-04-24T03:39:04.222Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Resources.resx",
-              "DocumentMoniker": "E:\\Sestamk\\Properties\\Resources.resx",
-              "RelativeDocumentMoniker": "Properties\\Resources.resx",
-              "ToolTip": "E:\\Sestamk\\Properties\\Resources.resx",
-              "RelativeToolTip": "Properties\\Resources.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-02-06T23:58:33.369Z",
+              "DocumentIndex": 5,
+              "Title": "PrinterSettings.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\PrinterSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\PrinterSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\PrinterSettings.cs*",
+              "RelativeToolTip": "UserControl\\UC_Settings\\PrinterSettings.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T03:37:44.845Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "frmCustomers.cs [Design]",
-              "DocumentMoniker": "E:\\Sestamk\\Forms\\frmCustomers.cs",
-              "RelativeDocumentMoniker": "Forms\\frmCustomers.cs",
-              "ToolTip": "E:\\Sestamk\\Forms\\frmCustomers.cs [Design]*",
-              "RelativeToolTip": "Forms\\frmCustomers.cs [Design]*",
+              "Title": "SystemSettings.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SystemSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\SystemSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SystemSettings.cs",
+              "RelativeToolTip": "UserControl\\UC_Settings\\SystemSettings.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T03:02:12.954Z",
+              "WhenOpened": "2026-04-24T01:50:26.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmSettings.cs [Design]",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\Forms\\frmSettings.cs",
+              "RelativeDocumentMoniker": "Forms\\frmSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\Forms\\frmSettings.cs [Design]*",
+              "RelativeToolTip": "Forms\\frmSettings.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T01:47:19.615Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Sestamk\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "E:\\Sestamk\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "frmSettings.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\Forms\\frmSettings.cs",
+              "RelativeDocumentMoniker": "Forms\\frmSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\Forms\\frmSettings.cs*",
+              "RelativeToolTip": "Forms\\frmSettings.cs*",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAtwG8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T23:50:07.259Z",
+              "WhenOpened": "2026-04-24T01:53:10.596Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "frmCustomers.cs",
-              "DocumentMoniker": "E:\\Sestamk\\Forms\\frmCustomers.cs",
-              "RelativeDocumentMoniker": "Forms\\frmCustomers.cs",
-              "ToolTip": "E:\\Sestamk\\Forms\\frmCustomers.cs*",
-              "RelativeToolTip": "Forms\\frmCustomers.cs*",
-              "ViewState": "AgIAABEAAAAAAAAAAAAxwBEAAAAdAAAAAAAAAA==",
+              "Title": "SalesSettings.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SalesSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\SalesSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SalesSettings.cs",
+              "RelativeToolTip": "UserControl\\UC_Settings\\SalesSettings.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T23:43:00.67Z",
+              "WhenOpened": "2026-04-24T01:50:35.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SalesSettings.cs [Design]",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SalesSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\SalesSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SalesSettings.cs [Design]",
+              "RelativeToolTip": "UserControl\\UC_Settings\\SalesSettings.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T03:29:14.004Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SystemSettings.cs [Design]",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SystemSettings.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\SystemSettings.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SystemSettings.cs [Design]",
+              "RelativeToolTip": "UserControl\\UC_Settings\\SystemSettings.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T01:46:05.336Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PrinterSettings.Designer.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\PrinterSettings.Designer.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\PrinterSettings.Designer.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\PrinterSettings.Designer.cs*",
+              "RelativeToolTip": "UserControl\\UC_Settings\\PrinterSettings.Designer.cs*",
+              "ViewState": "AgIAABIAAAAAAAAAAAAWwMcCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T03:37:35.817Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "UC_Dashboard.cs [Design]",
-              "DocumentMoniker": "E:\\Sestamk\\UserControl\\UC_Dashboard.cs",
-              "RelativeDocumentMoniker": "UserControl\\UC_Dashboard.cs",
-              "ToolTip": "E:\\Sestamk\\UserControl\\UC_Dashboard.cs [Design]",
-              "RelativeToolTip": "UserControl\\UC_Dashboard.cs [Design]",
+              "Title": "SalesSettings.Designer.cs",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SalesSettings.Designer.cs",
+              "RelativeDocumentMoniker": "UserControl\\UC_Settings\\SalesSettings.Designer.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\UserControl\\UC_Settings\\SalesSettings.Designer.cs",
+              "RelativeToolTip": "UserControl\\UC_Settings\\SalesSettings.Designer.cs",
+              "ViewState": "AgIAAIkCAAAAAAAAAAAWwIkCAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-06T20:20:15.08Z",
+              "WhenOpened": "2026-04-24T01:52:50.657Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "frmCustomers.cs [Design]",
+              "DocumentMoniker": "E:\\Sestamk\\Sestamk_App\\Forms\\frmCustomers.cs",
+              "RelativeDocumentMoniker": "Forms\\frmCustomers.cs",
+              "ToolTip": "E:\\Sestamk\\Sestamk_App\\Forms\\frmCustomers.cs [Design]*",
+              "RelativeToolTip": "Forms\\frmCustomers.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T01:46:15.96Z",
               "EditorCaption": " [Design]"
             }
           ]

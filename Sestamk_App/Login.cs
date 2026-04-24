@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.VisualBasic.ApplicationServices;
 using Sestamk.Classes;
 using Sestamk.Forms;
@@ -12,7 +12,7 @@ using System.Net.NetworkInformation;
 
 namespace Sestamk
 {
-    public partial class Login : Form
+    public partial class Login : BaseForm
     {
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -26,12 +26,23 @@ namespace Sestamk
         public Login()
         {
             InitializeComponent();
+            Main_Methods.Attach(pn_0, this);
+            Main_Methods.Attach(lbl_login_subtitle, this);
+            Main_Methods.Attach(lbl_login_title, this);
         }
-        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        private void btn_close_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
+            Environment.Exit(0);
         }
-        private void pn_1_MouseDown(object sender, MouseEventArgs e)
+
+        // Theme logic moved to BaseForm
+        private void chk_show_password_CheckedChanged(object sender, EventArgs e)
+        {
+            txt_password.UseSystemPasswordChar = !chk_show_password.Checked;
+            txt_password.PasswordChar = chk_show_password.Checked ? '\0' : '●';
+        }
+        private void pn_1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -48,12 +59,12 @@ namespace Sestamk
             // التحقق من المدخلات (UI Validation) يبقى كما هو لأنه سريع ومحلي
             if (String.IsNullOrEmpty(txt_username.Text))
             {
-                MessageBox.Show("برجاء ادخال اسم المستخدم");
+                ToastManager.ShowWarning("تنبيه", "برجاء ادخال اسم المستخدم");
                 return;
             }
             if (String.IsNullOrEmpty(txt_password.Text))
             {
-                MessageBox.Show("برجاء ادخال كلمه السر");
+                ToastManager.ShowWarning("تنبيه", "برجاء ادخال كلمه السر");
                 return;
             }
 
@@ -71,7 +82,7 @@ namespace Sestamk
                 return;
             }
 
-            string query = "SELECT * FROM Users WHERE (Username = @enteredusername OR Email = @enteredusername) AND Password = @enteredpassword";
+            string query = "SELECT TOP 1 * FROM Users WHERE (Username = @enteredusername OR Email = @enteredusername)";
 
             try
             {
@@ -81,7 +92,6 @@ namespace Sestamk
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@enteredusername", enteredusername);
-                        cmd.Parameters.AddWithValue("@enteredpassword", enteredpassword);
 
                         // 3. فتح الاتصال بشكل غير متزامن (OpenAsync) لمنع تهنيج الشاشة أثناء انتظار السيرفر
                         await conn.OpenAsync();
@@ -92,6 +102,29 @@ namespace Sestamk
                             // 5. قراءة السطر الأول بشكل غير متزامن (ReadAsync)
                             if (await reader.ReadAsync())
                             {
+                                // ═══ التحقق من كلمة المرور (مع دعم الترقية التلقائية للتشفير) ═══
+                                string storedPassword = reader["Password"]?.ToString() ?? "";
+                                string hashedInput = PasswordHelper.HashPassword(enteredpassword);
+                                bool passwordMatch = (storedPassword == hashedInput) || (storedPassword == enteredpassword);
+
+                                if (!passwordMatch)
+                                {
+                                    Log_Login_info_Async(username: enteredusername, password: "***", full_name: "Nothing", note: "Nothing", login_status: "failed", action_type: "login", fail_reason: "كلمة المرور غير صحيحة");
+                                    ToastManager.ShowError("خطأ", "❌ اسم المستخدم أو كلمة المرور غير صحيحة");
+                                    txt_username.Clear();
+                                    txt_password.Clear();
+                                    txt_username.Focus();
+                                    return;
+                                }
+
+                                // ترقية تلقائية: لو الباسورد كان نص عادي، نحوله لـ Hash
+                                if (storedPassword == enteredpassword && storedPassword != hashedInput)
+                                {
+                                    int tempId = Convert.ToInt32(reader["ID"]);
+                                    _ = DB_Server.ExecuteAsync("UPDATE Users SET Password = @pwd WHERE ID = @id",
+                                        new[] { new SqlParameter("@pwd", hashedInput), new SqlParameter("@id", tempId) });
+                                }
+
                                 // فحص حالة الحظر
                                 bool userStats = reader["Is_blocked"] != DBNull.Value && Convert.ToBoolean(reader["Is_blocked"]);
 
@@ -102,7 +135,7 @@ namespace Sestamk
                                     // 6. يفضل جعل ميثود اللوج async برضه واستدعاؤها بـ await
                                     Log_Login_info_Async(username: enteredusername, password: enteredpassword, full_name: "Nothing", note: "Nothing", login_status: "failed", action_type: "login", fail_reason: msg_block);
 
-                                    MessageBox.Show(msg_block);
+                                    ToastManager.ShowError("محظور", msg_block);
                                     txt_password.Text = String.Empty;
                                     txt_username.Text = String.Empty;
                                     txt_username.Focus();
@@ -113,13 +146,15 @@ namespace Sestamk
                                 UserSession.UserId = Convert.ToInt32(reader["ID"]);
                                 UserSession.UserName = enteredusername;
                                 UserSession.Password = enteredpassword;
-                                UserSession.Full_Name = reader["Full_Name"]?.ToString() ?? "string.Empty";
-                                UserSession.Email = reader["Email"]?.ToString() ?? "string.Empty";
+                                UserSession.Full_Name = reader["Full_Name"]?.ToString() ?? string.Empty;
+                                UserSession.Email = reader["Email"]?.ToString() ?? string.Empty;
+                                UserSession.UserImage = reader["User_Image"]?.ToString() ?? string.Empty;
                                 int roleid = reader["Role_Id"] == DBNull.Value ? 0 : Convert.ToInt32(reader["Role_Id"]);
                                 UserSession.Role_Id = roleid;
 
-                                // 7. تحميل الصلاحيات "Async" لضمان عدم انتقال الشاشة إلا بعد اكتمال التحميل
+                                // تحميل الصلاحيات واسم الدور
                                 await UserSession.LoadPermissionsAsync(roleid);
+                                await UserSession.LoadRoleNameAsync(roleid);
 
                                 Log_Login_info_Async(username: enteredusername, password: enteredpassword, full_name: UserSession.Full_Name, note: "Nothing", login_status: "Success", action_type: "login");
 
@@ -129,12 +164,12 @@ namespace Sestamk
                                 this.Hide();
                                 Mainform mainform = new Mainform();
                                 mainform.Show();
-                                MessageBox.Show("تم تسجيل الدخول بنجاح ✅", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ToastManager.ShowSuccess("نجاح", "تم تسجيل الدخول بنجاح ✅");
                             }
                             else
                             {
                                 Log_Login_info_Async(username: enteredusername, password: enteredpassword, full_name: "Nothing", note: "Nothing", login_status: "failed", action_type: "login", fail_reason: "اسم المستخدم أو كلمة المرور غير صحيحة");
-                                MessageBox.Show("❌ اسم المستخدم أو كلمة المرور غير صحيحة");
+                                ToastManager.ShowError("خطأ", "❌ اسم المستخدم أو كلمة المرور غير صحيحة");
                                 txt_username.Clear();
                                 txt_password.Clear();
                                 txt_username.Focus();
@@ -145,7 +180,7 @@ namespace Sestamk
             }
             catch (Exception ex)
             {
-                MessageBox.Show("خطأ في الاتصال بالسيرفر: " + ex.Message);
+                ToastManager.ShowError("خطأ", "خطأ في الاتصال بالسيرفر: " + ex.Message);
             }
         }
 
@@ -162,8 +197,11 @@ namespace Sestamk
                 }
             }
         }
-        private void Login_Load(object sender, EventArgs e)
+        private async void Login_Load(object sender, EventArgs e)
         {
+            await BackupManager.InitializeDatabaseAsync();
+            ThemeManager.LoadTheme();
+            // ThemeManager.ApplyTheme(this) is handled by BaseForm
             //DB_Server.Connect();
             txt_username.Focus();
             try
@@ -185,12 +223,12 @@ namespace Sestamk
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "License Error");
+                ToastManager.ShowError("خطأ في الترخيص", ex.Message);
                 Application.Exit();
             }
         }
 
-        private void txt_username_KeyDown(object sender, KeyEventArgs e)
+        private void txt_username_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
             if (txt_username.Text == "" )
@@ -216,7 +254,7 @@ namespace Sestamk
       
         }
 
-        private void txt_password_KeyDown(object sender, KeyEventArgs e)
+        private void txt_password_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) 
             {

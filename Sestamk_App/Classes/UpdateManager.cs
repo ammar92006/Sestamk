@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace MyWinFormsApp.Classes
+namespace Sestamk.Classes
 {
     public class UpdateManager
     {
@@ -163,7 +163,6 @@ namespace MyWinFormsApp.Classes
                 throw new Exception($"فشل التحديث: {ex.Message}");
             }
         }
-
         public static string FormatFileSize(long bytes)
         {
             string[] sizes = { "B", "KB", "MB", "GB" };
