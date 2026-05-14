@@ -66,6 +66,27 @@ namespace Sestamk.Classes
                     );
                     INSERT INTO BackupSettings (AutoBackupEnabled, BackupIntervalHours, BackupTime, BackupPath)
                     VALUES (0, 24, '02:00:00', 'C:\SestamkBackups');
+                END
+
+                -- Per-user lockout columns (replaces machine-wide Login_FailCount/Login_LockoutUntil)
+                IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL
+                BEGIN
+                    IF COL_LENGTH('dbo.Users', 'FailCount') IS NULL
+                        ALTER TABLE dbo.Users ADD FailCount INT NOT NULL CONSTRAINT DF_Users_FailCount DEFAULT 0;
+                    IF COL_LENGTH('dbo.Users', 'LockoutUntil') IS NULL
+                        ALTER TABLE dbo.Users ADD LockoutUntil DATETIME2 NULL;
+                END
+
+                -- Drop legacy password column from Login_Log (passwords were logged as '***' only, but the column is unnecessary)
+                IF OBJECT_ID('dbo.Login_Log', 'U') IS NOT NULL AND COL_LENGTH('dbo.Login_Log', 'password') IS NOT NULL
+                BEGIN
+                    DECLARE @df sysname;
+                    SELECT @df = dc.name
+                    FROM sys.default_constraints dc
+                    JOIN sys.columns c ON c.default_object_id = dc.object_id
+                    WHERE c.object_id = OBJECT_ID('dbo.Login_Log') AND c.name = 'password';
+                    IF @df IS NOT NULL EXEC('ALTER TABLE dbo.Login_Log DROP CONSTRAINT ' + @df);
+                    ALTER TABLE dbo.Login_Log DROP COLUMN password;
                 END";
             await DB_Server.ExecuteAsync(query);
         }

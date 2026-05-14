@@ -65,21 +65,39 @@ namespace Sestamk.Classes
 
             return "لا يمكن الحصول على عنوان MAC";
         }
+        private static string _cachedExternalIp;
+        private static DateTime _cachedExternalIpAt;
+        private static readonly TimeSpan _externalIpTtl = TimeSpan.FromMinutes(30);
+        private static readonly object _externalIpLock = new object();
+
         public static string GetExternalIp()
         {
+            lock (_externalIpLock)
+            {
+                if (_cachedExternalIp != null && DateTime.UtcNow - _cachedExternalIpAt < _externalIpTtl)
+                    return _cachedExternalIp;
+            }
+
+            string result;
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
-                    string ip = client.GetStringAsync("https://api.ipify.org").Result;
-                    return ip;
+                    result = client.GetStringAsync("https://api.ipify.org").Result;
                 }
             }
             catch
             {
-                return "لا يمكن الحصول على IP الخارجي";
+                result = "لا يمكن الحصول على IP الخارجي";
             }
+
+            lock (_externalIpLock)
+            {
+                _cachedExternalIp = result;
+                _cachedExternalIpAt = DateTime.UtcNow;
+            }
+            return result;
         }
         public static string GetMachineGuid()
         {
@@ -163,13 +181,25 @@ namespace Sestamk.Classes
             // ── إعدادات عامة ──────────────────────────────────────
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
-            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeColumns = true;
             dgv.AllowUserToResizeRows = false;
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.ScrollBars = ScrollBars.Both;
+            dgv.ColumnHeadersHeight = 50;
             dgv.BackgroundColor = Color.FromArgb(15, 23, 42);
-            dgv.ColumnHeadersHeight = 90;
             dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
+            // Stretch last column to fill remaining space after data binding
+            dgv.DataBindingComplete += (s, e) =>
+            {
+                if (dgv.Columns.Count > 0)
+                {
+                    // Apply minimum width then let the last column fill remaining space
+                    foreach (DataGridViewColumn col in dgv.Columns)
+                        col.MinimumWidth = 60;
+                    dgv.Columns[dgv.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+            };
             dgv.GridColor = Color.FromArgb(30, 41, 59);
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
@@ -217,7 +247,7 @@ namespace Sestamk.Classes
             dgv.ThemeStyle.HeaderStyle.Font = new Font("Alexandria", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dgv.ThemeStyle.HeaderStyle.ForeColor = Color.FromArgb(148, 163, 184);
             dgv.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dgv.ThemeStyle.HeaderStyle.Height = 90;
+            dgv.ThemeStyle.HeaderStyle.Height = 50;
 
             dgv.ThemeStyle.RowsStyle.BackColor = Color.FromArgb(30, 41, 59);
             dgv.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -341,6 +371,19 @@ namespace Sestamk.Classes
             {
                 _isDragging = false;
             };
+        }
+
+
+        public static void SetClipboardTextSafe(string text)
+        {
+            Thread thread = new Thread(() =>
+            {
+                Clipboard.SetText(text);
+            });
+
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
         }
 
     }

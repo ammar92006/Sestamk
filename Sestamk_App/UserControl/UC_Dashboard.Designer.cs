@@ -1219,7 +1219,7 @@ namespace Sestamk.UserControl
             // 
             // UC_Dashboard
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(18, 26, 33);
             Controls.Add(guna2Panel3);
             Controls.Add(guna2Panel1);

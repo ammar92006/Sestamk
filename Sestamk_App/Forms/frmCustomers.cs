@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
@@ -17,6 +17,8 @@ namespace Sestamk.Forms
 {
     public partial class frmCustomers : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1650, 900);
+
         void UpdateLanguageLabel()
         {
             var culture = InputLanguage.CurrentInputLanguage.Culture;
@@ -62,6 +64,11 @@ namespace Sestamk.Forms
             Main_Methods.Attach(panel1, this);
             Main_Methods.Attach(label1, this);
             Main_Methods.Attach(pbLogo, this);
+            Main_Methods.Attach(guna2CirclePictureBox1, this);
+            Main_Methods.Attach(guna2Button4, this);
+            Main_Methods.Attach(guna2Button5, this);
+            Main_Methods.Attach(label3, this);
+            Main_Methods.Attach(label2, this);
         }
 
         private void InitializeCustomerGrid()

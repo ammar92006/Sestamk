@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
 using System;
@@ -13,6 +13,8 @@ namespace Sestamk.Forms
 {
     public partial class frmPayment : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1400, 1024);
+
         // ═══════════════════════════════════════════════════════
         //  Properties — بيانات الفاتورة من فورم المبيعات
         // ═══════════════════════════════════════════════════════
@@ -128,7 +130,9 @@ namespace Sestamk.Forms
                 label2.Text = $"فاتورة رقم: INV-{DateTime.Now:yyyyMMdd-HHmmss}";
 
             // تعيين اسم الكاشير
-            label4.Text = $"الكاشير: {UserSession.Full_Name ?? "غير محدد"}";
+            string cashierName = !string.IsNullOrWhiteSpace(UserSession.Full_Name) ? UserSession.Full_Name :
+                                 (!string.IsNullOrWhiteSpace(UserSession.UserName) ? UserSession.UserName : "غير محدد");
+            label4.Text = $"الكاشير: {cashierName}";
 
             // تعيين طريقة الدفع الافتراضية (نقدي)
             UpdatePaymentMethodSelection(btnSaffari);
@@ -138,7 +142,27 @@ namespace Sestamk.Forms
             UpdateCreditButtonState();
 
             // تعيين الخصم الافتراضي
-            guna2TextBox1.Text = "0";
+            guna2TextBox1.Enabled = SettingsService.EnableDiscount;
+            if (SettingsService.EnableDiscount && SettingsService.DefaultDiscountPercent > 0)
+            {
+                decimal defaultDiscount = ((TotalAmount + ServiceAmount) * SettingsService.DefaultDiscountPercent) / 100m;
+                guna2TextBox1.Text = defaultDiscount.ToString("0.##");
+            }
+            else
+            {
+                guna2TextBox1.Text = "0";
+            }
+
+            // تطبيق إعدادات طرق الدفع
+            btnSaffari.Visible = SettingsService.PaymentCash;
+            btnTable.Visible = SettingsService.PaymentVisa || SettingsService.PaymentMaster || SettingsService.PaymentMada;
+            
+            // تحديد طريقة الدفع الأولى المتاحة إذا كانت الافتراضية مخفية
+            if (!btnSaffari.Visible && btnTable.Visible)
+            {
+                UpdatePaymentMethodSelection(btnTable);
+                _selectedPaymentMethod = 1;
+            }
 
             // حساب المبالغ
             RecalculateAll();
@@ -209,7 +233,15 @@ namespace Sestamk.Forms
             }
 
             // شامل الضريبة 
-            label6.Text = $"شامل الضريبة المضافة {SettingsService.TaxPercent}%";
+            if (SettingsService.EnableTax)
+            {
+                label6.Visible = true;
+                label6.Text = $"شامل الضريبة المضافة {SettingsService.TaxPercent}%";
+            }
+            else
+            {
+                label6.Visible = false;
+            }
         }
 
         // ═══════════════════════════════════════════════════════

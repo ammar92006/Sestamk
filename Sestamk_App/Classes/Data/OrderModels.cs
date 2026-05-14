@@ -43,6 +43,7 @@ namespace Sestamk.Classes.Data
 
         // ═══ بيانات العرض ═══
         public string CustomerName { get; set; } = "عميل نقدي";
+        public string CustomerPhone { get; set; } = string.Empty;
         public string CashierName { get; set; } = string.Empty;
 
         /// <summary>

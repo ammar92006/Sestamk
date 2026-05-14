@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
@@ -10,96 +9,64 @@ namespace Sestamk.Forms
     public partial class BaseForm : Form
     {
         protected Guna2Button btn_theme_toggle_base;
+        private readonly ScaleHelper _scaleHelper = new ScaleHelper();
+
+        /// <summary>
+        /// Override in each form and return the ClientSize written in its Designer.cs.
+        /// When Size.Empty the form will not auto-scale.
+        /// </summary>
+        protected virtual Size DesignClientSize => Size.Empty;
 
         public BaseForm()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            this.SetStyle(
+                ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint |
+                ControlStyles.UserPaint, true);
             this.UpdateStyles();
-            // InitializeThemeToggle(); // تعطيل مؤقت
-        }
-
-        private void InitializeThemeToggle()
-        {
-            // Do not create UI elements in design mode to prevent designer crashing
-            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || System.Diagnostics.Process.GetCurrentProcess().ProcessName.Equals("devenv", StringComparison.OrdinalIgnoreCase)) return;
-
-            btn_theme_toggle_base = new Guna2Button();
-            btn_theme_toggle_base.Name = "btn_theme_toggle_base";
-            btn_theme_toggle_base.Size = new Size(40, 40);
-            
-            // Allow button to float top-left. 
-            // In Arabic UI RTL, Top-Left is often opposite to the standard Top-Right Close buttons.
-            btn_theme_toggle_base.Location = new Point(10, 10);
-            
-            btn_theme_toggle_base.Font = new Font("Segoe UI", 16F);
-            btn_theme_toggle_base.BackColor = Color.Transparent;
-            btn_theme_toggle_base.FillColor = Color.Transparent;
-            btn_theme_toggle_base.ForeColor = Color.Gray;
-            btn_theme_toggle_base.BorderRadius = 15;
-            btn_theme_toggle_base.Cursor = Cursors.Hand;
-            btn_theme_toggle_base.Click += Btn_theme_toggle_Click;
-
-            this.Controls.Add(btn_theme_toggle_base);
-            btn_theme_toggle_base.BringToFront();
-        }
-
-        private void Btn_theme_toggle_Click(object sender, EventArgs e)
-        {
-            ThemeManager.ToggleTheme();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
-            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || System.Diagnostics.Process.GetCurrentProcess().ProcessName.Equals("devenv", StringComparison.OrdinalIgnoreCase)) return;
 
-            if (btn_theme_toggle_base != null)
-            {
-                // Ensure it stays in front of any newly added panels or custom headers
-                btn_theme_toggle_base.BringToFront();
-            }
+            btn_theme_toggle_base?.BringToFront();
 
-            // ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
-            // UpdateThemeToggleUI();
-            // ThemeManager.ApplyTheme(this);
-            
-            if (btn_theme_toggle_base != null)
+            var ds = DesignClientSize;
+            if (ds == Size.Empty) return;
+
+            // Snapshot controls at their design-time positions
+            _scaleHelper.Snapshot(new SizeF(ds.Width, ds.Height), this);
+
+            // If the form is larger than the working area, shrink it to fit.
+            // This handles small screens without forcing Maximized on every form.
+            var screen = Screen.FromControl(this).WorkingArea;
+            if (ds.Width > screen.Width || ds.Height > screen.Height)
             {
-                btn_theme_toggle_base.BringToFront();
+                int newW = Math.Min(ds.Width,  screen.Width);
+                int newH = Math.Min(ds.Height, screen.Height);
+                this.ClientSize = new Size(newW, newH);
+                this.Location = new Point(
+                    screen.Left + (screen.Width  - newW) / 2,
+                    screen.Top  + (screen.Height - newH) / 2);
+                // Scale controls to new size
+                _scaleHelper.ScaleTo(new SizeF(newW, newH), this);
             }
+        }
+
+        protected override void OnClientSizeChanged(EventArgs e)
+        {
+            base.OnClientSizeChanged(e);
+            var ds = DesignClientSize;
+            if (ds != Size.Empty)
+                _scaleHelper.ScaleTo(new SizeF(ClientSize.Width, ClientSize.Height), this);
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime && !System.Diagnostics.Process.GetCurrentProcess().ProcessName.Equals("devenv", StringComparison.OrdinalIgnoreCase))
-            {
-                // ThemeManager.ThemeChanged -= ThemeManager_ThemeChanged;
-            }
             base.OnFormClosed(e);
-        }
-
-        private void ThemeManager_ThemeChanged(object sender, EventArgs e)
-        {
-            UpdateThemeToggleUI();
-            ThemeManager.ApplyTheme(this);
-            
-            if (btn_theme_toggle_base != null)
-            {
-                btn_theme_toggle_base.BringToFront();
-            }
-            
-            this.Invalidate(true);
-        }
-
-        private void UpdateThemeToggleUI()
-        {
-            if (btn_theme_toggle_base != null)
-            {
-                btn_theme_toggle_base.Text = ThemeManager.CurrentTheme == AppTheme.Light ? "🌙" : "☀️";
-            }
         }
     }
 }

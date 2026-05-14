@@ -1606,7 +1606,7 @@
             dgvProducts.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.White;
             dgvProducts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvProducts.BackgroundColor = Color.FromArgb(15, 23, 42);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
@@ -1759,6 +1759,7 @@
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
+            MinimumSize = new Size(1024, 600);
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

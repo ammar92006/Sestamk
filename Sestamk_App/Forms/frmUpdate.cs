@@ -19,8 +19,8 @@ namespace Sestamk.Forms
         public frmUpdate()
         {
             InitializeComponent();
-            string currentVersion = "1.0.0"; // الإصدار الحالي
-            updateManager = new UpdateManager(GITHUB_OWNER, GITHUB_REPO, currentVersion);
+            //string currentVersion = "1.0.0"; // الإصدار الحالي
+            //updateManager = new UpdateManager(GITHUB_OWNER, GITHUB_REPO, currentVersion);
         }
 
         private async void frmUpdate_Load(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace Sestamk.Forms
                 progressBar1.Style = ProgressBarStyle.Marquee;
                 btnDownload.Enabled = false;
 
-                currentUpdate = await updateManager.CheckForUpdatesAsync();
+                //currentUpdate = await updateManager.CheckForUpdatesAsync();
 
                 progressBar1.Style = ProgressBarStyle.Blocks;
                 progressBar1.Value = 0;
@@ -49,7 +49,7 @@ namespace Sestamk.Forms
                     txtChangeLog.Text += "========== ما الجديد ==========\r\n\r\n";
                     txtChangeLog.Text += currentUpdate.ChangeLog;
 
-                    lblFileSize.Text = $"الحجم: {UpdateManager.FormatFileSize(currentUpdate.FileSize)}";
+                    //lblFileSize.Text = $"الحجم: {UpdateManager.FormatFileSize(currentUpdate.FileSize)}";
 
                     btnDownload.Enabled = true;
                 }
@@ -82,13 +82,13 @@ namespace Sestamk.Forms
                     lblStatus.Text = $"جاري التحميل... {percent}%";
                 });
 
-                string updateFile = await updateManager.DownloadUpdateAsync(currentUpdate.DownloadUrl, progress);
+                //string updateFile = await updateManager.DownloadUpdateAsync(currentUpdate.DownloadUrl, progress);
 
                 lblStatus.Text = "✓ تم التحميل!";
 
                 if (frmConfirm.Show("تطبيق التحديث", "تم التحميل بنجاح.\n\nسيتم إعادة تشغيل البرنامج.\n\nمتابعة؟"))
                 {
-                    updateManager.ApplyUpdate(updateFile);
+                    //updateManager.ApplyUpdate(updateFile);
                 }
                 else
                 {

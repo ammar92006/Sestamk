@@ -1,82 +1,147 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.Linq;
 using System.Windows.Forms;
+using Sestamk.Classes;
 
 namespace Sestamk.Forms
 {
     public partial class frmHold_Invoices : BaseForm
     {
-        private FlowLayoutPanel flowInvoices;
-        private List<frmSales.HeldInvoice> _allHeldInvoices;
-        
-        public frmSales.HeldInvoice SelectedInvoiceToRestore { get; private set; }
+        private List<HeldInvoiceDto> _allHeldInvoices;
+        private string _currentFilter = "all";
+
+        public HeldInvoiceDto SelectedInvoiceToRestore { get; private set; }
 
         public frmHold_Invoices()
         {
             InitializeComponent();
-            SetupUI();
             this.Load += FrmHold_Invoices_Load;
-            
-            // إضافة زر الإغلاق كخيار للعودة بدون اختيار
-            var closeBtn = new Guna.UI2.WinForms.Guna2Button
-            {
-                Text = "رجوع",
-                Font = new Font("Alexandria", 12F, FontStyle.Bold),
-                FillColor = Color.FromArgb(239, 68, 68),
-                ForeColor = Color.White,
-                BorderRadius = 10,
-                Size = new Size(118, 45),
-                Location = new Point(12, 17)
-            };
-            closeBtn.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
-            guna2Panel1.Controls.Add(closeBtn);
+
+            guna2TextBox1.TextChanged += SearchBox_TextChanged;
+            btnFilterLocal.Click += BtnFilterLocal_Click;
+            btnFilterSafari.Click += BtnFilterSafari_Click;
+            btnFilterall.Click += BtnFilterAll_Click;
+            btnClose.Click += (s, e) => { this.DialogResult = DialogResult.Cancel; this.Close(); };
+
+            _currentFilter = "all";
+
+            Main_Methods.Attach(pnlTitle, this);
+            Main_Methods.Attach(guna2Panel1, this);
         }
 
-        private void SetupUI()
+        private async void FrmHold_Invoices_Load(object sender, EventArgs e)
         {
-            flowInvoices = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,
-                BackColor = Color.Transparent,
-                Padding = new Padding(20),
-                FlowDirection = FlowDirection.LeftToRight
-            };
-            this.Controls.Add(flowInvoices);
-            flowInvoices.BringToFront(); // Ensure it's above the background but below panels if they are docked top/bottom
-            
-            guna2TextBox1.TextChanged += Guna2TextBox1_TextChanged;
+            UserSession.UpdateUserDisplay(null, null, picAvatar);
+            lblSubtitle.Text = $"نظام نشاط البيع - {SettingsService.StoreName}";
+
+            _allHeldInvoices = await HeldInvoiceService.GetActiveAsync();
+            ApplyFilterAndRender();
         }
 
-        private void FrmHold_Invoices_Load(object sender, EventArgs e)
+        private void SearchBox_TextChanged(object sender, EventArgs e)
         {
-            _allHeldInvoices = frmSales.GetHeldInvoices();
-            RenderInvoices(_allHeldInvoices);
+            ApplyFilterAndRender();
         }
 
-        private void Guna2TextBox1_TextChanged(object sender, EventArgs e)
+        private void BtnFilterAll_Click(object sender, EventArgs e)
         {
-            string search = guna2TextBox1.Text.Trim().ToLower();
-            if (string.IsNullOrEmpty(search))
+            if (_currentFilter == "local")
             {
-                RenderInvoices(_allHeldInvoices);
-                return;
+                _currentFilter = "all";
+                btnFilterLocal.FillColor = Color.FromArgb(31, 41, 55);
+                btnFilterLocal.BorderColor = Color.FromArgb(47, 57, 72);
+                btnFilterLocal.BorderThickness = 2;
+            }
+            else
+            {
+                _currentFilter = "local";
+                btnFilterLocal.FillColor = Color.FromArgb(32, 143, 252);
+                btnFilterLocal.BorderThickness = 0;
+                btnFilterSafari.FillColor = Color.FromArgb(31, 41, 55);
+                btnFilterSafari.BorderColor = Color.FromArgb(47, 57, 72);
+                btnFilterSafari.BorderThickness = 2;
+            }
+            ApplyFilterAndRender();
+        }
+        private void BtnFilterLocal_Click(object sender, EventArgs e)
+        {
+            if (_currentFilter == "local")
+            {
+                _currentFilter = "all";
+                btnFilterLocal.FillColor = Color.FromArgb(31, 41, 55);
+                btnFilterLocal.BorderColor = Color.FromArgb(47, 57, 72);
+                btnFilterLocal.BorderThickness = 2;
+            }
+            else
+            {
+                _currentFilter = "local";
+                btnFilterLocal.FillColor = Color.FromArgb(32, 143, 252);
+                btnFilterLocal.BorderThickness = 0;
+                btnFilterSafari.FillColor = Color.FromArgb(31, 41, 55);
+                btnFilterSafari.BorderColor = Color.FromArgb(47, 57, 72);
+                btnFilterSafari.BorderThickness = 2;
+            }
+            ApplyFilterAndRender();
+        }
+
+        private void BtnFilterSafari_Click(object sender, EventArgs e)
+        {
+            if (_currentFilter == "safari")
+            {
+                _currentFilter = "all";
+                btnFilterSafari.FillColor = Color.FromArgb(31, 41, 55);
+                btnFilterSafari.BorderColor = Color.FromArgb(47, 57, 72);
+                btnFilterSafari.BorderThickness = 2;
+            }
+            else
+            {
+                _currentFilter = "safari";
+                btnFilterSafari.FillColor = Color.FromArgb(32, 143, 252);
+                btnFilterSafari.BorderThickness = 0;
+                btnFilterLocal.FillColor = Color.FromArgb(31, 41, 55);
+                btnFilterLocal.BorderColor = Color.FromArgb(47, 57, 72);
+                btnFilterLocal.BorderThickness = 2;
+            }
+            ApplyFilterAndRender();
+        }
+
+        private void ApplyFilterAndRender()
+        {
+            if (_allHeldInvoices == null)
+                _allHeldInvoices = new List<HeldInvoiceDto>();
+
+            var filtered = _allHeldInvoices.AsEnumerable();
+
+            if (_currentFilter == "local")
+            {
+                filtered = filtered.Where(inv => inv.InvoiceType == 1);
+            }
+            else if (_currentFilter == "safari")
+            {
+                filtered = filtered.Where(inv => inv.InvoiceType == 0 || inv.InvoiceType == 2);
             }
 
-            var filtered = _allHeldInvoices.FindAll(inv =>
-                (inv.CustomerName != null && inv.CustomerName.ToLower().Contains(search))
-            );
-            RenderInvoices(filtered);
+            string search = guna2TextBox1.Text.Trim().ToLower();
+            if (!string.IsNullOrEmpty(search))
+            {
+                filtered = filtered.Where(inv =>
+                    (inv.InvoiceNumber != null && inv.InvoiceNumber.ToLower().Contains(search)) ||
+                    (inv.TableName != null && inv.TableName.ToLower().Contains(search)) ||
+                    (inv.CustomerName != null && inv.CustomerName.ToLower().Contains(search)) ||
+                    (inv.DriverName != null && inv.DriverName.ToLower().Contains(search)) ||
+                    (inv.DisplayTitle != null && inv.DisplayTitle.ToLower().Contains(search))
+                );
+            }
+
+            RenderInvoices(filtered.ToList());
         }
 
-        private void RenderInvoices(List<frmSales.HeldInvoice> invoices)
+        private void RenderInvoices(List<HeldInvoiceDto> invoices)
         {
             flowInvoices.SuspendLayout();
-            
+
             while (flowInvoices.Controls.Count > 0)
             {
                 var ctrl = flowInvoices.Controls[0];
@@ -85,103 +150,134 @@ namespace Sestamk.Forms
             }
 
             decimal totalAmounts = 0;
+            string currency = SettingsService.CurrencyName;
 
             foreach (var inv in invoices)
             {
                 totalAmounts += inv.TotalAmount;
-                var card = CreateInvoiceCard(inv);
+
+                var card = new Sestamk.UserControl.UC_Hold_Invoices(inv);
+                card.Margin = new Padding(12);
+                card.Cursor = Cursors.Hand;
+
+                card.OnRestore += (s, e) =>
+                {
+                    SelectedInvoiceToRestore = inv;
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                };
+
+                card.OnDelete += async (s, e) =>
+                {
+                    if (frmConfirm.Show("حذف الفاتورة", $"هل أنت متأكد من حذف الفاتورة {inv.InvoiceNumber}؟\nلن يمكن استرجاعها."))
+                    {
+                        await HeldInvoiceService.DeleteAsync(inv.HeldInvoiceID);
+                        _allHeldInvoices = await HeldInvoiceService.GetActiveAsync();
+                        ApplyFilterAndRender();
+                        ToastManager.ShowSuccess("حذف", $"تم حذف الفاتورة {inv.InvoiceNumber} بنجاح");
+                    }
+                };
+
+                card.OnView += (s, e) =>
+                {
+                    ShowInvoiceDetails(inv);
+                };
+
                 flowInvoices.Controls.Add(card);
             }
 
-            label4.Text = invoices.Count.ToString();
-            label3.Text = $"{totalAmounts:N2} ج م";
+            var addCard = CreateNewHoldCard();
+            flowInvoices.Controls.Add(addCard);
+
+            lblInvoiceCount.Text = $"عدد الفواتير المعلقة: {invoices.Count}";
+            lblTotalAmount.Text = $"{totalAmounts:N2} {currency}";
+            lblPageInfo.Text = $"< 1 / 1 >";
 
             flowInvoices.ResumeLayout(true);
         }
 
-        private Guna.UI2.WinForms.Guna2Panel CreateInvoiceCard(frmSales.HeldInvoice inv)
+        private Guna.UI2.WinForms.Guna2Panel CreateNewHoldCard()
         {
             var card = new Guna.UI2.WinForms.Guna2Panel
             {
-                Size = new Size(300, 160),
-                FillColor = Color.FromArgb(31, 41, 55),
+                Size = new Size(354, 290),
+                FillColor = Color.Transparent,
+                BorderColor = Color.FromArgb(70, 80, 95),
+                BorderThickness = 2,
                 BorderRadius = 15,
-                Margin = new Padding(15),
-                Cursor = Cursors.Hand
+                Margin = new Padding(12),
+                Cursor = Cursors.Hand,
+                Name = "pnlAddNew_NoTheme"
             };
 
-            var lblName = new Label
+            var lblPlus = new Label
             {
-                Text = string.IsNullOrEmpty(inv.CustomerName) ? "عميل غير محدد" : inv.CustomerName,
-                Font = new Font("Alexandria", 14F, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(10, 15),
-                Size = new Size(280, 30),
-                TextAlign = ContentAlignment.MiddleRight
+                Text = "+",
+                Font = new Font("Segoe UI", 36F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(100, 110, 125),
+                Size = new Size(60, 60),
+                Location = new Point((354 - 60) / 2, 90),
+                TextAlign = ContentAlignment.MiddleCenter
             };
 
-            var lblType = new Label
+            var lblText = new Label
             {
-                Text = inv.InvoiceType == 0 ? "تيك اوي" : (inv.InvoiceType == 1 ? "صالة" : "توصيل"),
-                Font = new Font("Alexandria", 10F, FontStyle.Regular),
-                ForeColor = Color.FromArgb(148, 159, 165),
-                Location = new Point(10, 50),
-                Size = new Size(280, 20),
-                TextAlign = ContentAlignment.MiddleRight
+                Text = "تعليق فاتورة جديدة",
+                Font = new Font("Alexandria", 12F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(100, 110, 125),
+                Size = new Size(250, 30),
+                Location = new Point((354 - 250) / 2, 155),
+                TextAlign = ContentAlignment.MiddleCenter
             };
 
-            var lblTime = new Label
+            EventHandler closeHandler = (s, e) =>
             {
-                Text = inv.HoldTime.ToString("hh:mm tt"),
-                Font = new Font("Segoe UI", 10F),
-                ForeColor = Color.FromArgb(148, 159, 165),
-                Location = new Point(10, 75),
-                Size = new Size(280, 20),
-                TextAlign = ContentAlignment.MiddleRight
-            };
-
-            var lblTotal = new Label
-            {
-                Text = $"{inv.TotalAmount:N2} ج م",
-                Font = new Font("Alexandria", 14F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(45, 204, 113),
-                Location = new Point(10, 110),
-                Size = new Size(280, 30),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-            
-            var btnRestore = new Guna.UI2.WinForms.Guna2Button
-            {
-                Text = "استرجاع",
-                Font = new Font("Alexandria", 10F, FontStyle.Bold),
-                FillColor = Color.FromArgb(32, 143, 252),
-                ForeColor = Color.White,
-                BorderRadius = 8,
-                Size = new Size(100, 35),
-                Location = new Point(180, 110)
-            };
-
-            EventHandler clickHandler = (s, e) =>
-            {
-                SelectedInvoiceToRestore = inv;
-                this.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.Cancel;
                 this.Close();
             };
 
-            card.Click += clickHandler;
-            lblName.Click += clickHandler;
-            lblType.Click += clickHandler;
-            lblTime.Click += clickHandler;
-            lblTotal.Click += clickHandler;
-            btnRestore.Click += clickHandler;
+            card.Click += closeHandler;
+            lblPlus.Click += closeHandler;
+            lblText.Click += closeHandler;
 
-            card.Controls.Add(lblName);
-            card.Controls.Add(lblType);
-            card.Controls.Add(lblTime);
-            card.Controls.Add(lblTotal);
-            card.Controls.Add(btnRestore);
+            card.Controls.Add(lblPlus);
+            card.Controls.Add(lblText);
 
             return card;
+        }
+
+        private void ShowInvoiceDetails(HeldInvoiceDto inv)
+        {
+            string currency = SettingsService.CurrencyName;
+
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine($"رقم الفاتورة: {inv.InvoiceNumber}");
+            sb.AppendLine($"النوع: {inv.InvoiceTypeText}");
+            sb.AppendLine($"التوقيت: {inv.HoldTime:hh:mm tt}");
+            sb.AppendLine($"العميل: {inv.CustomerName}");
+
+            if (!string.IsNullOrEmpty(inv.TableName))
+                sb.AppendLine($"الطاولة: {inv.TableName}");
+            if (!string.IsNullOrEmpty(inv.DriverName))
+                sb.AppendLine($"السائق: {inv.DriverName}");
+
+            sb.AppendLine();
+            sb.AppendLine("══ الأصناف ══");
+            foreach (var item in inv.Items)
+            {
+                sb.AppendLine($"  {item.Quantity}x {item.ItemName} — {item.UnitPrice * item.Quantity:N2} {currency}");
+            }
+            sb.AppendLine();
+            sb.AppendLine($"الإجمالي: {inv.TotalAmount:N2} {currency}");
+
+            MessageBox.Show(
+                sb.ToString(),
+                $"تفاصيل الفاتورة {inv.InvoiceNumber}",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign
+            );
         }
     }
 }

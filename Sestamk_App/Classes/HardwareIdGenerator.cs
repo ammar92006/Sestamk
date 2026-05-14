@@ -44,62 +44,62 @@ namespace Sestamk.Classes
             return Convert.ToHexString(hash);
         }
 
-        public static void SaveLicense(LicenseModel license)
-        {
-            license.Signature = ComputeHmac(
-                license.CompanyId +
-                license.SubscriptionEnd.ToString("O") +
-                license.DeviceFingerprint
-            );
+        //public static void SaveLicense(LicenseModel license)
+        //{
+        //    license.Signature = ComputeHmac(
+        //        license.CompanyId +
+        //        license.SubscriptionEnd.ToString("O") +
+        //        license.DeviceFingerprint
+        //    );
 
-            string json = JsonSerializer.Serialize(license);
-            byte[] encrypted = Encrypt(json);
+        //    string json = JsonSerializer.Serialize(license);
+        //    byte[] encrypted = Encrypt(json);
 
-            File.WriteAllBytes(LicensePath, encrypted);
-        }
-        public static LicenseModel LoadLicense()
-        {
-            if (!File.Exists(LicensePath))
-                return null;
+        //    File.WriteAllBytes(LicensePath, encrypted);
+        //}
+        //public static LicenseModel LoadLicense()
+        //{
+        //    if (!File.Exists(LicensePath))
+        //        return null;
 
-            byte[] encrypted = File.ReadAllBytes(LicensePath);
-            string json = Decrypt(encrypted);
+        //    byte[] encrypted = File.ReadAllBytes(LicensePath);
+        //    string json = Decrypt(encrypted);
 
-            var license = JsonSerializer.Deserialize<LicenseModel>(json);
+        //    var license = JsonSerializer.Deserialize<LicenseModel>(json);
 
-            string expectedSig = ComputeHmac(
-                license.CompanyId +
-                license.SubscriptionEnd.ToString("O") +
-                license.DeviceFingerprint
-            );
+        //    string expectedSig = ComputeHmac(
+        //        license.CompanyId +
+        //        license.SubscriptionEnd.ToString("O") +
+        //        license.DeviceFingerprint
+        //    );
 
-            if (license.Signature != expectedSig)
-                throw new SecurityException("License Tampered");
+        //    if (license.Signature != expectedSig)
+        //        throw new SecurityException("License Tampered");
 
-            if (license.DeviceFingerprint != HardwareIdGenerator.GetHWID())
-                throw new SecurityException("Invalid Device");
+        //    if (license.DeviceFingerprint != HardwareIdGenerator.GetHWID())
+        //        throw new SecurityException("Invalid Device");
 
-            if (DateTime.UtcNow > license.SubscriptionEnd)
-                throw new SecurityException("License Expired");
+        //    if (DateTime.UtcNow > license.SubscriptionEnd)
+        //        throw new SecurityException("License Expired");
 
-            return license;
-        }
-        public static void ValidateOfflineUsage(LicenseModel license)
-        {
-            // انتهى الاشتراك
-            if (DateTime.UtcNow > license.SubscriptionEnd)
-                throw new SecurityException("انتهت مدة الاشتراك");
+        //    return license;
+        //}
+        //public static void ValidateOfflineUsage(LicenseModel license)
+        //{
+        //    // انتهى الاشتراك
+        //    if (DateTime.UtcNow > license.SubscriptionEnd)
+        //        throw new SecurityException("انتهت مدة الاشتراك");
 
-            // أقصى مدة أوفلاين
-            var offlineDays = (DateTime.UtcNow - license.LastOnlineCheck).TotalDays;
+        //    // أقصى مدة أوفلاين
+        //    var offlineDays = (DateTime.UtcNow - license.LastOnlineCheck).TotalDays;
 
-            if (offlineDays > license.MaxOfflineDays)
-                throw new SecurityException("يجب الاتصال بالإنترنت للتحقق من التفعيل");
+        //    if (offlineDays > license.MaxOfflineDays)
+        //        throw new SecurityException("يجب الاتصال بالإنترنت للتحقق من التفعيل");
 
-            // حماية إضافية ضد التلاعب بالساعة
-            if (license.LastOnlineCheck > DateTime.UtcNow.AddMinutes(5))
-                throw new SecurityException("تم اكتشاف تلاعب في وقت النظام");
-        }
+        //    // حماية إضافية ضد التلاعب بالساعة
+        //    if (license.LastOnlineCheck > DateTime.UtcNow.AddMinutes(5))
+        //        throw new SecurityException("تم اكتشاف تلاعب في وقت النظام");
+        //}
 
 
         public static string GetHWID()

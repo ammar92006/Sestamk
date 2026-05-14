@@ -828,6 +828,7 @@ namespace Sestamk.Forms
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
+            FormClosed += Mainform_FormClosed;
             guna2Panel1.ResumeLayout(false);
             guna2Panel11.ResumeLayout(false);
             guna2Panel10.ResumeLayout(false);

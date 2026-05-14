@@ -1,4 +1,4 @@
-namespace Sestamk
+﻿namespace Sestamk
 {
     partial class Login
     {
@@ -18,25 +18,25 @@ namespace Sestamk
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(components);
             pn_0 = new Guna.UI2.WinForms.Guna2GradientPanel();
             lbl_title_ar = new Label();
-            label1 = new Label();
+            lblVersion = new Label();
             lbl_subtitle_ar = new Label();
             btn_add_account = new Guna.UI2.WinForms.Guna2Button();
             pn_1 = new Guna.UI2.WinForms.Guna2Panel();
@@ -49,6 +49,7 @@ namespace Sestamk
             chk_show_password = new Guna.UI2.WinForms.Guna2CheckBox();
             link_forgot_password = new LinkLabel();
             btn_login = new Guna.UI2.WinForms.Guna2Button();
+            guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             pn_0.SuspendLayout();
             pn_1.SuspendLayout();
             SuspendLayout();
@@ -61,16 +62,16 @@ namespace Sestamk
             // pn_0
             // 
             pn_0.Controls.Add(lbl_title_ar);
-            pn_0.Controls.Add(label1);
+            pn_0.Controls.Add(lblVersion);
             pn_0.Controls.Add(lbl_subtitle_ar);
             pn_0.Controls.Add(btn_add_account);
-            pn_0.CustomizableEdges = customizableEdges13;
+            pn_0.CustomizableEdges = customizableEdges27;
             resources.ApplyResources(pn_0, "pn_0");
             pn_0.FillColor = Color.FromArgb(19, 28, 38);
             pn_0.FillColor2 = Color.FromArgb(16, 25, 35);
             pn_0.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             pn_0.Name = "pn_0";
-            pn_0.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            pn_0.ShadowDecoration.CustomizableEdges = customizableEdges28;
             // 
             // lbl_title_ar
             // 
@@ -79,12 +80,12 @@ namespace Sestamk
             lbl_title_ar.ForeColor = Color.White;
             lbl_title_ar.Name = "lbl_title_ar";
             // 
-            // label1
+            // lblVersion
             // 
-            label1.BackColor = Color.Transparent;
-            resources.ApplyResources(label1, "label1");
-            label1.ForeColor = Color.LightGray;
-            label1.Name = "label1";
+            lblVersion.BackColor = Color.Transparent;
+            resources.ApplyResources(lblVersion, "lblVersion");
+            lblVersion.ForeColor = Color.LightGray;
+            lblVersion.Name = "lblVersion";
             // 
             // lbl_subtitle_ar
             // 
@@ -99,14 +100,14 @@ namespace Sestamk
             btn_add_account.BorderColor = Color.White;
             btn_add_account.BorderRadius = 8;
             btn_add_account.BorderThickness = 2;
-            btn_add_account.CustomizableEdges = customizableEdges11;
+            btn_add_account.CustomizableEdges = customizableEdges25;
             btn_add_account.FillColor = Color.Transparent;
             resources.ApplyResources(btn_add_account, "btn_add_account");
             btn_add_account.ForeColor = Color.White;
             btn_add_account.HoverState.FillColor = Color.White;
             btn_add_account.HoverState.ForeColor = Color.FromArgb(19, 28, 38);
             btn_add_account.Name = "btn_add_account";
-            btn_add_account.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btn_add_account.ShadowDecoration.CustomizableEdges = customizableEdges26;
             // 
             // pn_1
             // 
@@ -120,28 +121,28 @@ namespace Sestamk
             pn_1.Controls.Add(chk_show_password);
             pn_1.Controls.Add(link_forgot_password);
             pn_1.Controls.Add(btn_login);
-            pn_1.CustomizableEdges = customizableEdges9;
+            pn_1.CustomizableEdges = customizableEdges23;
             resources.ApplyResources(pn_1, "pn_1");
             pn_1.Name = "pn_1";
-            pn_1.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            pn_1.ShadowDecoration.CustomizableEdges = customizableEdges24;
             pn_1.MouseDown += pn_1_MouseDown;
             // 
             // label2
             // 
             resources.ApplyResources(label2, "label2");
-            label2.ForeColor = Color.LightGray;
+            label2.ForeColor = Color.White;
             label2.Name = "label2";
             // 
             // btn_close
             // 
             resources.ApplyResources(btn_close, "btn_close");
-            btn_close.CustomizableEdges = customizableEdges1;
+            btn_close.CustomizableEdges = customizableEdges15;
             btn_close.FillColor = Color.Transparent;
             btn_close.HoverState.FillColor = Color.FromArgb(232, 17, 35);
             btn_close.HoverState.IconColor = Color.White;
             btn_close.IconColor = Color.White;
             btn_close.Name = "btn_close";
-            btn_close.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btn_close.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btn_close.Click += btn_close_Click;
             // 
             // lbl_login_title
@@ -162,7 +163,7 @@ namespace Sestamk
             txt_username.BorderColor = Color.DimGray;
             txt_username.BorderRadius = 8;
             txt_username.Cursor = Cursors.IBeam;
-            txt_username.CustomizableEdges = customizableEdges3;
+            txt_username.CustomizableEdges = customizableEdges17;
             txt_username.DefaultText = "";
             txt_username.FillColor = Color.FromArgb(16, 22, 27);
             txt_username.FocusedState.BorderColor = Color.FromArgb(32, 143, 252);
@@ -174,7 +175,7 @@ namespace Sestamk
             txt_username.Name = "txt_username";
             txt_username.PlaceholderText = "اسم المستخدم او الايميل";
             txt_username.SelectedText = "";
-            txt_username.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            txt_username.ShadowDecoration.CustomizableEdges = customizableEdges18;
             txt_username.TextOffset = new Point(10, 0);
             txt_username.KeyDown += txt_username_KeyDown;
             // 
@@ -184,7 +185,7 @@ namespace Sestamk
             txt_password.BorderColor = Color.DimGray;
             txt_password.BorderRadius = 8;
             txt_password.Cursor = Cursors.IBeam;
-            txt_password.CustomizableEdges = customizableEdges5;
+            txt_password.CustomizableEdges = customizableEdges19;
             txt_password.DefaultText = "";
             txt_password.FillColor = Color.FromArgb(16, 22, 27);
             txt_password.FocusedState.BorderColor = Color.FromArgb(32, 143, 252);
@@ -197,7 +198,7 @@ namespace Sestamk
             txt_password.PasswordChar = '●';
             txt_password.PlaceholderText = "كلمة المرور";
             txt_password.SelectedText = "";
-            txt_password.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            txt_password.ShadowDecoration.CustomizableEdges = customizableEdges20;
             txt_password.TextOffset = new Point(10, 0);
             txt_password.UseSystemPasswordChar = true;
             txt_password.KeyDown += txt_password_KeyDown;
@@ -229,14 +230,25 @@ namespace Sestamk
             // 
             btn_login.BackColor = Color.Transparent;
             btn_login.BorderRadius = 8;
-            btn_login.CustomizableEdges = customizableEdges7;
+            btn_login.CustomizableEdges = customizableEdges21;
             btn_login.FillColor = Color.FromArgb(32, 143, 252);
             resources.ApplyResources(btn_login, "btn_login");
             btn_login.ForeColor = Color.White;
             btn_login.HoverState.FillColor = Color.FromArgb(24, 110, 195);
             btn_login.Name = "btn_login";
-            btn_login.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btn_login.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btn_login.Click += btn_login_Click;
+            // 
+            // guna2BorderlessForm1
+            // 
+            guna2BorderlessForm1.AnimateWindow = true;
+            guna2BorderlessForm1.AnimationInterval = 300;
+            guna2BorderlessForm1.BorderRadius = 25;
+            guna2BorderlessForm1.ContainerControl = this;
+            guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
+            guna2BorderlessForm1.ResizeForm = false;
+            guna2BorderlessForm1.ShadowColor = Color.FromArgb(10, 14, 20);
+            guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
             // Login
             // 
@@ -247,6 +259,7 @@ namespace Sestamk
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
             Load += Login_Load;
+            Shown += Login_Shown;
             pn_0.ResumeLayout(false);
             pn_0.PerformLayout();
             pn_1.ResumeLayout(false);
@@ -271,7 +284,8 @@ namespace Sestamk
         private Guna.UI2.WinForms.Guna2CheckBox chk_show_password;
         private System.Windows.Forms.LinkLabel link_forgot_password;
         private Guna.UI2.WinForms.Guna2ControlBox btn_close;
-        private Label label1;
+        private Label lblVersion;
         private Label label2;
+        private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
     }
 }

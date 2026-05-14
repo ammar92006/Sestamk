@@ -1,4 +1,4 @@
-﻿namespace Sestamk.Forms
+namespace Sestamk.Forms
 {
     partial class frmSettings
     {
@@ -65,13 +65,13 @@
             panelMain = new Guna.UI2.WinForms.Guna2Panel();
             guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2Button11 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button10 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button9 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button8 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
-            guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
+            btnNotificationsSettings = new Guna.UI2.WinForms.Guna2Button();
+            btnAbout = new Guna.UI2.WinForms.Guna2Button();
+            btnActivationSettings = new Guna.UI2.WinForms.Guna2Button();
+            btnUpdatesSettings = new Guna.UI2.WinForms.Guna2Button();
+            btnReceiptSettings = new Guna.UI2.WinForms.Guna2Button();
+            btnDatabase = new Guna.UI2.WinForms.Guna2Button();
+            btnWhatsAppSettings = new Guna.UI2.WinForms.Guna2Button();
             btnScannerSettings = new Guna.UI2.WinForms.Guna2Button();
             btnPrinterSettings = new Guna.UI2.WinForms.Guna2Button();
             btnSalesSettings = new Guna.UI2.WinForms.Guna2Button();
@@ -124,13 +124,13 @@
             // 
             // guna2Panel5
             // 
-            guna2Panel5.Controls.Add(guna2Button11);
-            guna2Panel5.Controls.Add(guna2Button10);
-            guna2Panel5.Controls.Add(guna2Button9);
-            guna2Panel5.Controls.Add(guna2Button8);
-            guna2Panel5.Controls.Add(guna2Button7);
-            guna2Panel5.Controls.Add(guna2Button6);
-            guna2Panel5.Controls.Add(guna2Button5);
+            guna2Panel5.Controls.Add(btnNotificationsSettings);
+            guna2Panel5.Controls.Add(btnAbout);
+            guna2Panel5.Controls.Add(btnActivationSettings);
+            guna2Panel5.Controls.Add(btnUpdatesSettings);
+            guna2Panel5.Controls.Add(btnReceiptSettings);
+            guna2Panel5.Controls.Add(btnDatabase);
+            guna2Panel5.Controls.Add(btnWhatsAppSettings);
             guna2Panel5.Controls.Add(btnScannerSettings);
             guna2Panel5.Controls.Add(btnPrinterSettings);
             guna2Panel5.Controls.Add(btnSalesSettings);
@@ -143,145 +143,173 @@
             guna2Panel5.Size = new Size(362, 887);
             guna2Panel5.TabIndex = 3;
             // 
-            // guna2Button11
+            // btnNotificationsSettings
             // 
-            guna2Button11.BorderRadius = 10;
-            guna2Button11.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button11.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button11.CustomizableEdges = customizableEdges3;
-            guna2Button11.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button11.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button11.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button11.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button11.FillColor = Color.Empty;
-            guna2Button11.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button11.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button11.Location = new Point(11, 403);
-            guna2Button11.Name = "guna2Button11";
-            guna2Button11.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Button11.Size = new Size(340, 70);
-            guna2Button11.TabIndex = 10;
-            guna2Button11.Text = "الإشعارات والتنبيهات";
+            btnNotificationsSettings.BorderRadius = 10;
+            btnNotificationsSettings.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnNotificationsSettings.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnNotificationsSettings.CustomizableEdges = customizableEdges3;
+            btnNotificationsSettings.DisabledState.BorderColor = Color.DarkGray;
+            btnNotificationsSettings.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnNotificationsSettings.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnNotificationsSettings.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnNotificationsSettings.FillColor = Color.Empty;
+            btnNotificationsSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNotificationsSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnNotificationsSettings.Image = Properties.Resources.notification;
+            btnNotificationsSettings.ImageAlign = HorizontalAlignment.Left;
+            btnNotificationsSettings.ImageSize = new Size(32, 32);
+            btnNotificationsSettings.Location = new Point(11, 403);
+            btnNotificationsSettings.Name = "btnNotificationsSettings";
+            btnNotificationsSettings.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnNotificationsSettings.Size = new Size(340, 70);
+            btnNotificationsSettings.TabIndex = 10;
+            btnNotificationsSettings.Text = "الإشعارات والتنبيهات";
+            btnNotificationsSettings.Click += btnNotificationsSettings_Click;
             // 
-            // guna2Button10
+            // btnAbout
             // 
-            guna2Button10.BorderRadius = 10;
-            guna2Button10.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button10.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button10.CustomizableEdges = customizableEdges5;
-            guna2Button10.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button10.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button10.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button10.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button10.FillColor = Color.Empty;
-            guna2Button10.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button10.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button10.Location = new Point(11, 793);
-            guna2Button10.Name = "guna2Button10";
-            guna2Button10.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Button10.Size = new Size(340, 70);
-            guna2Button10.TabIndex = 9;
-            guna2Button10.Text = "حول البرنامج";
+            btnAbout.BorderRadius = 10;
+            btnAbout.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnAbout.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnAbout.CustomizableEdges = customizableEdges5;
+            btnAbout.DisabledState.BorderColor = Color.DarkGray;
+            btnAbout.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnAbout.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnAbout.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnAbout.FillColor = Color.Empty;
+            btnAbout.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAbout.ForeColor = Color.FromArgb(229, 231, 235);
+            btnAbout.Image = Properties.Resources.information1;
+            btnAbout.ImageAlign = HorizontalAlignment.Left;
+            btnAbout.ImageSize = new Size(32, 32);
+            btnAbout.Location = new Point(11, 793);
+            btnAbout.Name = "btnAbout";
+            btnAbout.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnAbout.Size = new Size(340, 70);
+            btnAbout.TabIndex = 9;
+            btnAbout.Text = "حول البرنامج";
+            btnAbout.Click += btnAbout_Click;
             // 
-            // guna2Button9
+            // btnActivationSettings
             // 
-            guna2Button9.BorderRadius = 10;
-            guna2Button9.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button9.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button9.CustomizableEdges = customizableEdges7;
-            guna2Button9.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button9.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button9.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button9.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button9.FillColor = Color.Empty;
-            guna2Button9.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button9.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button9.Location = new Point(11, 715);
-            guna2Button9.Name = "guna2Button9";
-            guna2Button9.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Button9.Size = new Size(340, 70);
-            guna2Button9.TabIndex = 8;
-            guna2Button9.Text = "التفعيل";
+            btnActivationSettings.BorderRadius = 10;
+            btnActivationSettings.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnActivationSettings.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnActivationSettings.CustomizableEdges = customizableEdges7;
+            btnActivationSettings.DisabledState.BorderColor = Color.DarkGray;
+            btnActivationSettings.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnActivationSettings.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnActivationSettings.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnActivationSettings.FillColor = Color.Empty;
+            btnActivationSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnActivationSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnActivationSettings.Image = Properties.Resources.activation;
+            btnActivationSettings.ImageAlign = HorizontalAlignment.Left;
+            btnActivationSettings.ImageSize = new Size(32, 32);
+            btnActivationSettings.Location = new Point(11, 715);
+            btnActivationSettings.Name = "btnActivationSettings";
+            btnActivationSettings.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnActivationSettings.Size = new Size(340, 70);
+            btnActivationSettings.TabIndex = 8;
+            btnActivationSettings.Text = "التفعيل";
+            btnActivationSettings.Click += btnActivationSettings_Click;
             // 
-            // guna2Button8
+            // btnUpdatesSettings
             // 
-            guna2Button8.BorderRadius = 10;
-            guna2Button8.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button8.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button8.CustomizableEdges = customizableEdges9;
-            guna2Button8.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button8.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button8.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button8.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button8.FillColor = Color.Empty;
-            guna2Button8.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button8.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button8.Location = new Point(11, 637);
-            guna2Button8.Name = "guna2Button8";
-            guna2Button8.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Button8.Size = new Size(340, 70);
-            guna2Button8.TabIndex = 7;
-            guna2Button8.Text = "التحديثات";
+            btnUpdatesSettings.BorderRadius = 10;
+            btnUpdatesSettings.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnUpdatesSettings.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnUpdatesSettings.CustomizableEdges = customizableEdges9;
+            btnUpdatesSettings.DisabledState.BorderColor = Color.DarkGray;
+            btnUpdatesSettings.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnUpdatesSettings.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnUpdatesSettings.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnUpdatesSettings.FillColor = Color.Empty;
+            btnUpdatesSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnUpdatesSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnUpdatesSettings.Image = Properties.Resources.refresh_page_option;
+            btnUpdatesSettings.ImageAlign = HorizontalAlignment.Left;
+            btnUpdatesSettings.ImageSize = new Size(32, 32);
+            btnUpdatesSettings.Location = new Point(11, 637);
+            btnUpdatesSettings.Name = "btnUpdatesSettings";
+            btnUpdatesSettings.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnUpdatesSettings.Size = new Size(340, 70);
+            btnUpdatesSettings.TabIndex = 7;
+            btnUpdatesSettings.Text = "التحديثات";
+            btnUpdatesSettings.Click += btnUpdatesSettings_Click;
             // 
-            // guna2Button7
+            // btnReceiptSettings
             // 
-            guna2Button7.BorderRadius = 10;
-            guna2Button7.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button7.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button7.CustomizableEdges = customizableEdges11;
-            guna2Button7.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button7.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button7.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button7.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button7.FillColor = Color.Empty;
-            guna2Button7.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button7.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button7.Location = new Point(11, 481);
-            guna2Button7.Name = "guna2Button7";
-            guna2Button7.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Button7.Size = new Size(340, 70);
-            guna2Button7.TabIndex = 6;
-            guna2Button7.Text = "إعدادات الفاتورة";
+            btnReceiptSettings.BorderRadius = 10;
+            btnReceiptSettings.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnReceiptSettings.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnReceiptSettings.CustomizableEdges = customizableEdges11;
+            btnReceiptSettings.DisabledState.BorderColor = Color.DarkGray;
+            btnReceiptSettings.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnReceiptSettings.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnReceiptSettings.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnReceiptSettings.FillColor = Color.Empty;
+            btnReceiptSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnReceiptSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnReceiptSettings.Image = Properties.Resources.invoice;
+            btnReceiptSettings.ImageAlign = HorizontalAlignment.Left;
+            btnReceiptSettings.ImageSize = new Size(32, 32);
+            btnReceiptSettings.Location = new Point(11, 481);
+            btnReceiptSettings.Name = "btnReceiptSettings";
+            btnReceiptSettings.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnReceiptSettings.Size = new Size(340, 70);
+            btnReceiptSettings.TabIndex = 6;
+            btnReceiptSettings.Text = "إعدادات الفاتورة";
+            btnReceiptSettings.Click += btnReceiptSettings_Click;
             // 
-            // guna2Button6
+            // btnDatabase
             // 
-            guna2Button6.BorderRadius = 10;
-            guna2Button6.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button6.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button6.CustomizableEdges = customizableEdges13;
-            guna2Button6.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button6.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button6.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button6.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button6.FillColor = Color.Empty;
-            guna2Button6.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button6.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button6.Location = new Point(11, 559);
-            guna2Button6.Name = "guna2Button6";
-            guna2Button6.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            guna2Button6.Size = new Size(340, 70);
-            guna2Button6.TabIndex = 5;
-            guna2Button6.Text = "إعدادات المطعم";
+            btnDatabase.BorderRadius = 10;
+            btnDatabase.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnDatabase.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnDatabase.CustomizableEdges = customizableEdges13;
+            btnDatabase.DisabledState.BorderColor = Color.DarkGray;
+            btnDatabase.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnDatabase.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnDatabase.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnDatabase.FillColor = Color.Empty;
+            btnDatabase.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDatabase.ForeColor = Color.FromArgb(229, 231, 235);
+            btnDatabase.Image = Properties.Resources.database;
+            btnDatabase.ImageAlign = HorizontalAlignment.Left;
+            btnDatabase.ImageSize = new Size(32, 32);
+            btnDatabase.Location = new Point(11, 559);
+            btnDatabase.Name = "btnDatabase";
+            btnDatabase.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnDatabase.Size = new Size(340, 70);
+            btnDatabase.TabIndex = 5;
+            btnDatabase.Text = "إعدادات قاعدة البيانات";
+            btnDatabase.Click += btnDatabase_Click;
             // 
-            // guna2Button5
+            // btnWhatsAppSettings
             // 
-            guna2Button5.BorderRadius = 10;
-            guna2Button5.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            guna2Button5.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
-            guna2Button5.CustomizableEdges = customizableEdges15;
-            guna2Button5.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button5.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button5.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button5.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button5.FillColor = Color.Empty;
-            guna2Button5.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2Button5.ForeColor = Color.FromArgb(229, 231, 235);
-            guna2Button5.Location = new Point(11, 325);
-            guna2Button5.Name = "guna2Button5";
-            guna2Button5.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2Button5.Size = new Size(340, 70);
-            guna2Button5.TabIndex = 4;
-            guna2Button5.Text = "إعدادات الواتساب";
+            btnWhatsAppSettings.BorderRadius = 10;
+            btnWhatsAppSettings.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnWhatsAppSettings.CheckedState.FillColor = Color.FromArgb(58, 141, 252);
+            btnWhatsAppSettings.CustomizableEdges = customizableEdges15;
+            btnWhatsAppSettings.DisabledState.BorderColor = Color.DarkGray;
+            btnWhatsAppSettings.DisabledState.CustomBorderColor = Color.DarkGray;
+            btnWhatsAppSettings.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnWhatsAppSettings.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnWhatsAppSettings.FillColor = Color.Empty;
+            btnWhatsAppSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnWhatsAppSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnWhatsAppSettings.Image = Properties.Resources.whatsapp;
+            btnWhatsAppSettings.ImageAlign = HorizontalAlignment.Left;
+            btnWhatsAppSettings.ImageSize = new Size(32, 32);
+            btnWhatsAppSettings.Location = new Point(11, 325);
+            btnWhatsAppSettings.Name = "btnWhatsAppSettings";
+            btnWhatsAppSettings.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnWhatsAppSettings.Size = new Size(340, 70);
+            btnWhatsAppSettings.TabIndex = 4;
+            btnWhatsAppSettings.Text = "إعدادات الواتساب";
+            btnWhatsAppSettings.Click += btnWhatsAppSettings_Click;
             // 
             // btnScannerSettings
             // 
@@ -296,6 +324,9 @@
             btnScannerSettings.FillColor = Color.Empty;
             btnScannerSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnScannerSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnScannerSettings.Image = Properties.Resources.barcode;
+            btnScannerSettings.ImageAlign = HorizontalAlignment.Left;
+            btnScannerSettings.ImageSize = new Size(32, 32);
             btnScannerSettings.Location = new Point(11, 247);
             btnScannerSettings.Name = "btnScannerSettings";
             btnScannerSettings.ShadowDecoration.CustomizableEdges = customizableEdges18;
@@ -317,6 +348,9 @@
             btnPrinterSettings.FillColor = Color.Empty;
             btnPrinterSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnPrinterSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnPrinterSettings.Image = Properties.Resources.print;
+            btnPrinterSettings.ImageAlign = HorizontalAlignment.Left;
+            btnPrinterSettings.ImageSize = new Size(32, 32);
             btnPrinterSettings.Location = new Point(11, 169);
             btnPrinterSettings.Name = "btnPrinterSettings";
             btnPrinterSettings.ShadowDecoration.CustomizableEdges = customizableEdges20;
@@ -338,6 +372,9 @@
             btnSalesSettings.FillColor = Color.Empty;
             btnSalesSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSalesSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnSalesSettings.Image = Properties.Resources.discount__1_;
+            btnSalesSettings.ImageAlign = HorizontalAlignment.Left;
+            btnSalesSettings.ImageSize = new Size(32, 32);
             btnSalesSettings.Location = new Point(11, 91);
             btnSalesSettings.Name = "btnSalesSettings";
             btnSalesSettings.ShadowDecoration.CustomizableEdges = customizableEdges22;
@@ -360,6 +397,9 @@
             btnSystemSettings.FillColor = Color.Empty;
             btnSystemSettings.Font = new Font("Alexandria", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSystemSettings.ForeColor = Color.FromArgb(229, 231, 235);
+            btnSystemSettings.Image = Properties.Resources.settings__3_;
+            btnSystemSettings.ImageAlign = HorizontalAlignment.Left;
+            btnSystemSettings.ImageSize = new Size(32, 32);
             btnSystemSettings.Location = new Point(11, 13);
             btnSystemSettings.Name = "btnSystemSettings";
             btnSystemSettings.ShadowDecoration.CustomizableEdges = customizableEdges24;
@@ -384,7 +424,7 @@
             // 
             label2.Font = new Font("Alexandria", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(156, 163, 175);
-            label2.Location = new Point(159, 65);
+            label2.Location = new Point(160, 65);
             label2.Name = "label2";
             label2.Size = new Size(191, 33);
             label2.TabIndex = 1;
@@ -395,7 +435,7 @@
             // 
             label1.Font = new Font("Alexandria", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(229, 231, 223);
-            label1.Location = new Point(189, 16);
+            label1.Location = new Point(190, 16);
             label1.Name = "label1";
             label1.Size = new Size(161, 49);
             label1.TabIndex = 0;
@@ -411,8 +451,8 @@
             // 
             // frmSettings
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1600, 1000);
             Controls.Add(guna2Panel1);
             FormBorderStyle = FormBorderStyle.None;
@@ -438,16 +478,16 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
         private Label label2;
         private Label label1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button8;
-        private Guna.UI2.WinForms.Guna2Button guna2Button7;
-        private Guna.UI2.WinForms.Guna2Button guna2Button6;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
+        private Guna.UI2.WinForms.Guna2Button btnUpdatesSettings;
+        private Guna.UI2.WinForms.Guna2Button btnReceiptSettings;
+        private Guna.UI2.WinForms.Guna2Button btnDatabase;
+        private Guna.UI2.WinForms.Guna2Button btnWhatsAppSettings;
         private Guna.UI2.WinForms.Guna2Button btnScannerSettings;
         private Guna.UI2.WinForms.Guna2Button btnPrinterSettings;
         private Guna.UI2.WinForms.Guna2Button btnSalesSettings;
-        private Guna.UI2.WinForms.Guna2Button guna2Button11;
-        private Guna.UI2.WinForms.Guna2Button guna2Button10;
-        private Guna.UI2.WinForms.Guna2Button guna2Button9;
+        private Guna.UI2.WinForms.Guna2Button btnNotificationsSettings;
+        private Guna.UI2.WinForms.Guna2Button btnAbout;
+        private Guna.UI2.WinForms.Guna2Button btnActivationSettings;
         private Guna.UI2.WinForms.Guna2BorderlessForm guna2BorderlessForm1;
     }
 }

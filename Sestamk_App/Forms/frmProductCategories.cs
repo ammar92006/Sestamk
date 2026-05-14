@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
@@ -15,6 +15,8 @@ namespace Sestamk.Forms
 {
     public partial class frmProductCategories : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1650, 1000);
+
         private Guna.UI2.WinForms.Guna2CirclePictureBox _selectedCircle = null;
         private System.Windows.Forms.UserControl _selectedgrid = null;
         private int _selectedColorID = 0;
@@ -454,8 +456,10 @@ namespace Sestamk.Forms
             CategoryImagePanel.Visible = false;
             txtCategoryNote.Text = clickedCard.CategoryNotes;
 
-            cmbCategoryType.SelectedIndex = clickedCard.CategoryTypeID == 0
-                ? -1 : clickedCard.CategoryTypeID - 1;
+            if (clickedCard.CategoryTypeID > 0)
+                cmbCategoryType.SelectedValue = clickedCard.CategoryTypeID;
+            else
+                cmbCategoryType.SelectedIndex = -1;
 
             lblCreatedDate.Text = clickedCard.CreatedDate;
 
@@ -707,9 +711,7 @@ namespace Sestamk.Forms
 
         private void OpenAddColorDialog()
         {
-            using (var dlg = new frmCustomers())
-                if (dlg.ShowDialog() == DialogResult.OK)
-                    LoadColorsFromDatabase();
+            UC_AddColor.ShowDialog(this, () => LoadColorsFromDatabase());
         }
 
         // ════════════════════════════════════════════════════
@@ -868,7 +870,8 @@ namespace Sestamk.Forms
                 cmd.Parameters.AddWithValue("@Notes", txtCategoryNote.Text.Trim());
                 cmd.Parameters.AddWithValue("@User", UserSession.UserId);
                 cmd.Parameters.AddWithValue("@ColorID", _selectedColorID);
-                cmd.Parameters.AddWithValue("@CategoryTypeID", cmbCategoryType.SelectedIndex - 1);
+                cmd.Parameters.AddWithValue("@CategoryTypeID",
+                    cmbCategoryType.SelectedValue ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Image", CategoryImageBase64 ?? (object)DBNull.Value);
                 await conn.OpenAsync();
                 return (int)await cmd.ExecuteScalarAsync();

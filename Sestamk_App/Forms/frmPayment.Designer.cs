@@ -1153,6 +1153,7 @@
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
+            MinimumSize = new Size(1024, 700);
             guna2Panel1.ResumeLayout(false);
             guna2Panel9.ResumeLayout(false);
             guna2Panel8.ResumeLayout(false);

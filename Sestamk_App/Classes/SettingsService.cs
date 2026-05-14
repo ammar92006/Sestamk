@@ -5,19 +5,11 @@ using System.Threading.Tasks;
 
 namespace Sestamk.Classes
 {
-    /// <summary>
-    /// خدمة الإعدادات — تجلب القيم من جدول SystemSettings بدل الـ Hardcoded
-    /// مع Cache محلي لتجنب الاستعلام المتكرر
-    /// </summary>
     public static class SettingsService
     {
-        // ═══ Cache محلي — يُحمَّل مرة واحدة عند بدء التشغيل ═══
         private static Dictionary<string, string> _cache = new Dictionary<string, string>();
         private static bool _isLoaded = false;
 
-        /// <summary>
-        /// تحميل كل الإعدادات في الذاكرة (يُستدعى مرة عند فتح التطبيق)
-        /// </summary>
         public static async Task LoadAllAsync()
         {
             try
@@ -34,18 +26,16 @@ namespace Sestamk.Classes
                         _cache[key] = value;
                 }
                 _isLoaded = true;
+
+                DB_Server.Initialize(DB_DataSource, DB_UserID, DB_Password);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading settings: {ex.Message}");
-                // استخدم القيم الافتراضية
                 LoadDefaults();
             }
         }
 
-        /// <summary>
-        /// تحميل القيم الافتراضية في حالة فشل الاتصال
-        /// </summary>
         private static void LoadDefaults()
         {
             _cache["TaxPercent"] = "14";
@@ -55,17 +45,26 @@ namespace Sestamk.Classes
             _cache["CurrencyName"] = "جنية";
             _cache["StoreName"] = "سيستمك";
             _cache["StorePhone"] = "";
+            _cache["StorePhone2"] = "";
             _cache["StoreAddress"] = "";
             _cache["DefaultPrinterName"] = "";
             _cache["PrintReceiptOnPayment"] = "true";
             _cache["OpenDrawerOnPayment"] = "true";
             _cache["RequireShiftToSell"] = "false";
+            _cache["Receipt_FontSize"] = "8.5";
+            _cache["ShowTax"] = "true";
+            _cache["ShowDiscount"] = "true";
+            _cache["ShowCashier"] = "true";
+            _cache["Receipt_Footer"] = "شكراً لزيارتكم\nنتمنى لكم تجربة سعيدة";
+            _cache["Receipt_LogoPath"] = "";
+            _cache["ShowLogo"] = "true";
+            _cache["Receipt_Style"] = "Classic";
+            _cache["DefaultOrderType"] = "Takeaway";
+            _cache["DB_DataSource"] = SecureConfig.DbDataSource;
+            _cache["DB_UserID"] = SecureConfig.DbUserId;
+            _cache["DB_Password"] = SecureConfig.DbPassword;
             _isLoaded = true;
         }
-
-        // ═══════════════════════════════════════════════════════
-        //  جلب القيم — مع دعم أنواع مختلفة
-        // ═══════════════════════════════════════════════════════
 
         public static string GetString(string key, string defaultValue = "")
         {
@@ -91,15 +90,10 @@ namespace Sestamk.Classes
             return bool.TryParse(val, out bool result) ? result : defaultValue;
         }
 
-        // ═══════════════════════════════════════════════════════
-        //  تحديث إعداد واحد
-        // ═══════════════════════════════════════════════════════
-
         public static async Task SetAsync(string key, string value)
         {
             try
             {
-                // MERGE = INSERT or UPDATE
                 string query = @"
                     IF EXISTS (SELECT 1 FROM SystemSettings WHERE SettingKey = @Key)
                         UPDATE SystemSettings SET SettingValue = @Value, LastModified = GETDATE() WHERE SettingKey = @Key
@@ -112,7 +106,6 @@ namespace Sestamk.Classes
                     new SqlParameter("@Value", value ?? "")
                 });
 
-                // تحديث الـ Cache
                 _cache[key] = value ?? "";
             }
             catch (Exception ex)
@@ -121,10 +114,6 @@ namespace Sestamk.Classes
             }
         }
 
-        // ═══════════════════════════════════════════════════════
-        //  اختصارات للإعدادات الشائعة
-        // ═══════════════════════════════════════════════════════
-
         public static decimal TaxPercent => GetDecimal("TaxPercent", 14m);
         public static decimal ServicePriceTable => GetDecimal("ServicePriceTable", 20.50m);
         public static decimal ServicePriceDelivery => GetDecimal("ServicePriceDelivery", 50m);
@@ -132,10 +121,82 @@ namespace Sestamk.Classes
         public static string CurrencyName => GetString("CurrencyName", "جنية");
         public static string StoreName => GetString("StoreName", "سيستمك");
         public static string StorePhone => GetString("StorePhone", "");
+        public static string StorePhone2 => GetString("StorePhone2", "");
         public static string StoreAddress => GetString("StoreAddress", "");
         public static string DefaultPrinterName => GetString("DefaultPrinterName", "");
         public static bool PrintReceiptOnPayment => GetBool("PrintReceiptOnPayment", true);
         public static bool OpenDrawerOnPayment => GetBool("OpenDrawerOnPayment", true);
         public static bool RequireShiftToSell => GetBool("RequireShiftToSell", false);
+
+        // WhatsApp Settings
+        public static bool   WhatsAppEnabled        => GetBool("WhatsApp_Enabled", false);
+        public static string WhatsAppServerUrl       => GetString("WhatsApp_ServerUrl", "http://127.0.0.1:3000");
+        public static bool   WhatsAppAutoSendInvoice => GetBool("WhatsApp_AutoSendInvoice", false);
+        public static string WhatsAppWelcomeTemplate => GetString("WhatsApp_WelcomeTemplate", "مرحباً بك في {store_name}!");
+        public static string WhatsAppInvoiceTemplate => GetString("WhatsApp_InvoiceTemplate", "تم تأكيد طلبك رقم #{order_number}\nالإجمالي: {total} {currency}\nشكراً لزيارتكم 🙏");
+        public static string WhatsAppInvoiceFormat   => GetString("WhatsApp_InvoiceFormat", "Text");
+        public static int    WhatsAppMaxRetries      => GetInt("WhatsApp_MaxRetries", 5);
+        public static int    WhatsAppMaxParallel     => GetInt("WhatsApp_MaxParallel", 3);
+        public static int    MaxLoginAttempts        => GetInt("Login_MaxAttempts", 5);
+
+        // Notification & Alert Settings
+        public static bool NotificationNewOrderSound   => GetBool("Notification_NewOrderSound", true);
+        public static bool NotificationErrorSound      => GetBool("Notification_ErrorSound", true);
+        public static bool NotificationPrintFailAlert  => GetBool("Notification_PrintFailAlert", true);
+        public static bool NotificationLowStockAlert   => GetBool("Notification_LowStockAlert", true);
+
+        // Printer Settings
+        public static string PrinterPaperSize      => GetString("Printer_PaperSize", "80mm");
+        public static int    PrinterInvoiceCopies  => GetInt("Printer_InvoiceCopies", 1);
+        public static string PrinterCashDrawerPort => GetString("Printer_CashDrawerPort", "");
+
+        // Receipt Customization
+        public static float  ReceiptFontSize   => (float)GetDecimal("Receipt_FontSize", 8.5m);
+        public static bool   ShowTax           => GetBool("ShowTax", true);
+        public static bool   ShowDiscount      => GetBool("ShowDiscount", true);
+        public static bool   ShowCashier       => GetBool("ShowCashier", true);
+        public static string ReceiptFooter     => GetString("Receipt_Footer", "شكراً لزيارتكم\nنتمنى لكم تجربة سعيدة");
+        public static string ReceiptLogoPath   => GetString("Receipt_LogoPath", "");
+        public static bool   ShowLogo          => GetBool("ShowLogo", true);
+        public static string ReceiptStyle      => GetString("Receipt_Style", "Classic");
+
+        // Sales Settings
+        public static bool   SalesEnableDineIn      => GetBool("Sales_EnableDineIn", true);
+        public static bool   SalesEnableTakeaway    => GetBool("Sales_EnableTakeaway", true);
+        public static bool   SalesEnableDelivery    => GetBool("Sales_EnableDelivery", true);
+        public static int    DefaultPilotId         => GetInt("DefaultPilotId", 0);
+        public static string DefaultPilotName       => GetString("DefaultPilotName", "");
+        public static bool   EnableTax              => GetBool("EnableTax", true);
+        public static bool   EnableDiscount         => GetBool("EnableDiscount", true);
+        public static decimal DefaultDiscountPercent => GetDecimal("DefaultDiscountPercent", 0m);
+        public static bool   PaymentCash            => GetBool("Payment_Cash", true);
+        public static bool   PaymentVisa            => GetBool("Payment_Visa", true);
+        public static bool   PaymentMaster          => GetBool("Payment_Master", true);
+        public static bool   PaymentMada            => GetBool("Payment_Mada", true);
+
+        // Scanner Settings
+        public static bool   ScannerEnabled  => GetBool("Scanner_Enabled", false);
+        public static string ScannerConnectionType => GetString("Scanner_ConnectionType", "USB");
+        public static string ScannerCOMPort  => GetString("Scanner_COMPort", "");
+        public static string ScannerBaudRate => GetString("Scanner_BaudRate", "9600");
+        public static int    ScannerTimeout  => GetInt("Scanner_Timeout", 100);
+
+        // System Settings
+        public static string SystemLanguage         => GetString("System_Language", "العربية");
+        public static bool   SystemAutoBackup       => GetBool("System_AutoBackup", false);
+        public static string SystemBackupPath       => GetString("System_BackupPath", "");
+        public static bool   SystemRunAtStartup     => GetBool("System_RunAtStartup", false);
+        public static bool   SystemAutoLogoutEnabled=> GetBool("System_AutoLogoutEnabled", false);
+        public static int    SystemAutoLogoutTimer  => GetInt("System_AutoLogoutTimer", 15);
+
+        public static string DefaultOrderType       => GetString("DefaultOrderType", "Takeaway");
+
+        // Database Settings — defaults come from SecureConfig (DPAPI-encrypted local file)
+        public static string DB_DataSource => GetString("DB_DataSource", SecureConfig.DbDataSource);
+        public static string DB_UserID     => GetString("DB_UserID", SecureConfig.DbUserId);
+        public static string DB_Password   => GetString("DB_Password", SecureConfig.DbPassword);
+
+        // Updates Settings
+        public static bool AutoUpdateEnabled => GetBool("AutoUpdate_Enabled", true);
     }
 }

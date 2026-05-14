@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -10,31 +10,33 @@ namespace Sestamk.Classes
 {
     public static class GeminiAI
     {
-        // ضع API Key الخاص بك هنا
-        private static readonly string apiKey = "AIzaSyCxnP6qJu72QTQsDZJO-8ZsidyPXu3B3Y8";
-
-        // استخدام نفس الـ model من المثال الرسمي
         private static readonly string modelName = "gemini-3-flash-preview";
         private static readonly string baseUrl = "https://generativelanguage.googleapis.com/v1beta";
 
-        private static readonly HttpClient client = new HttpClient
-        {
-            Timeout = TimeSpan.FromSeconds(30)
-        };
+        private static HttpClient? _client;
 
-        static GeminiAI()
+        private static HttpClient GetClient()
         {
-            client.DefaultRequestHeaders.Add("x-goog-api-key", apiKey);
-            client.DefaultRequestHeaders.Add("User-Agent", "Sestamk-GeminiClient/1.0");
+            if (_client != null) return _client;
+
+            string apiKey = SecureConfig.GeminiApiKey;
+            _client = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
+
+            if (!string.IsNullOrEmpty(apiKey))
+                _client.DefaultRequestHeaders.Add("x-goog-api-key", apiKey);
+
+            _client.DefaultRequestHeaders.Add("User-Agent", "Sestamk-GeminiClient/1.0");
+            return _client;
         }
 
-        /// <summary>
-        /// توليد نص من Gemini AI
-        /// </summary>
         public static async Task<string> GenerateText(string prompt)
         {
             if (string.IsNullOrWhiteSpace(prompt))
                 throw new ArgumentException("النص المدخل لا يمكن أن يكون فارغاً", nameof(prompt));
+
+            string apiKey = SecureConfig.GeminiApiKey;
+            if (string.IsNullOrEmpty(apiKey))
+                throw new InvalidOperationException("لم يتم تكوين مفتاح Gemini API. قم بإعداده من الإعدادات.");
 
             try
             {
@@ -53,7 +55,7 @@ namespace Sestamk.Classes
                 };
 
                 var url = $"{baseUrl}/models/{modelName}:generateContent";
-                var response = await client.PostAsJsonAsync(url, requestBody);
+                var response = await GetClient().PostAsJsonAsync(url, requestBody);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -83,9 +85,6 @@ namespace Sestamk.Classes
             }
         }
 
-        /// <summary>
-        /// توليد نص مع خيارات متقدمة
-        /// </summary>
         public static async Task<string> GenerateText(
             string prompt,
             double temperature = 1.0,
@@ -94,6 +93,10 @@ namespace Sestamk.Classes
         {
             if (string.IsNullOrWhiteSpace(prompt))
                 throw new ArgumentException("النص المدخل لا يمكن أن يكون فارغاً", nameof(prompt));
+
+            string apiKey = SecureConfig.GeminiApiKey;
+            if (string.IsNullOrEmpty(apiKey))
+                throw new InvalidOperationException("لم يتم تكوين مفتاح Gemini API. قم بإعداده من الإعدادات.");
 
             try
             {
@@ -119,7 +122,7 @@ namespace Sestamk.Classes
                 };
 
                 var url = $"{baseUrl}/models/{modelName}:generateContent";
-                var response = await client.PostAsJsonAsync(url, requestBody, cancellationToken);
+                var response = await GetClient().PostAsJsonAsync(url, requestBody, cancellationToken);
 
                 if (!response.IsSuccessStatusCode)
                 {

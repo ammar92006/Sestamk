@@ -1084,7 +1084,6 @@
             guna2vScrollBar1.TabIndex = 110;
             guna2vScrollBar1.ThumbColor = Color.FromArgb(51, 65, 85);
             guna2vScrollBar1.ThumbSize = 100F;
-            guna2vScrollBar1.Value = 350;
             // 
             // guna2Panel3
             // 
@@ -1386,8 +1385,8 @@
             // 
             // frmProductCategories
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1650, 1000);
             Controls.Add(guna2Panel13);
             Controls.Add(guna2Panel1);
@@ -1395,6 +1394,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmProductCategories";
             StartPosition = FormStartPosition.CenterScreen;
+            MinimumSize = new Size(1024, 600);
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

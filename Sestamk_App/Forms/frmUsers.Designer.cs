@@ -1,4 +1,4 @@
-namespace Sestamk.Forms
+﻿namespace Sestamk.Forms
 {
     partial class frmUsers
     {
@@ -1280,6 +1280,7 @@ namespace Sestamk.Forms
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
+            MinimumSize = new Size(1024, 600);
             Text = "إدارة المستخدمين";
             pnlTitleBar.ResumeLayout(false);
             pnlRight.ResumeLayout(false);

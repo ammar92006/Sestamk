@@ -1,4 +1,4 @@
-using Google.GenAI;
+﻿using Google.GenAI;
 using Google.GenAI.Types;
 using Guna.Charts.WinForms;
 using Guna.UI2.WinForms;
@@ -20,6 +20,8 @@ namespace Sestamk.Forms
 {
     public partial class Mainform : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1600, 900);
+
         #region ── Constants ──────────────────────────────────────────────────
 
         // ─── Dark Mode Color Palette ───
@@ -54,6 +56,21 @@ namespace Sestamk.Forms
         private Label lblUserName = null!;
         private Label lblUserRole = null!;
 
+        // ─── Dashboard KPI Labels ───
+        private Label lblTodaySalesValue = null!;
+        private Label lblTodaySalesTrend = null!;
+        private Label lblOrdersValue = null!;
+        private Label lblOrdersTrend = null!;
+        private Label lblTablesValue = null!;
+        private Label lblTablesTrend = null!;
+
+        // ─── Dashboard Grids ───
+        private Guna.UI2.WinForms.Guna2DataGridView dgvRecentOrders = null!;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvTables = null!;
+
+        // ─── Dashboard bottom panels ───
+        private Guna.UI2.WinForms.Guna2Panel pnlBottomRow = null!;
+
         #endregion
 
         #region ── Constructor ────────────────────────────────────────────────
@@ -62,21 +79,20 @@ namespace Sestamk.Forms
         {
             InitializeComponent();
 
-            // Load user UserControl dashboard
-            UC_Dashboard dashboard = new UC_Dashboard();
-            dashboard.Dock = DockStyle.Fill;
-
             // Setup user profile in sidebar
             SetupUserProfile();
-
-            // Setup the sales chart with dark mode theme
-            ConfigureSalesChart();
 
             // Setup the collapsible sidebar navigation
             SetupSidebarNavigation();
 
+            // Build the live dashboard widgets inside the existing content panel
+            BuildDashboardWidgets();
+
             // Load user info and apply permissions
             LoadUserInfoAndApplyPermissions();
+
+            // Load live data asynchronously
+            _ = LoadDashboardDataAsync();
         }
 
         #endregion
@@ -111,7 +127,7 @@ namespace Sestamk.Forms
             // Set default user icon from resources if available
             if (Properties.Resources.profile__1_ != null)
                 picUserAvatar.Image = Properties.Resources.profile__1_;
-            
+
             // ─── User Name Label ───
             lblUserName = new Label
             {
@@ -338,93 +354,424 @@ namespace Sestamk.Forms
 
         #endregion
 
+        #region ── Dashboard: Widget Setup ────────────────────────────────────
+
+        /// <summary>
+        /// Wires the existing designer KPI labels to tracked fields,
+        /// then builds the chart panel and the bottom Orders + Tables row.
+        /// </summary>
+        private void BuildDashboardWidgets()
+        {
+            // ─── Point tracked fields to existing designer labels ───
+            // guna2Panel8 = مبيعات اليوم  (label6=value, label8=trend)
+            lblTodaySalesValue = label6;
+            lblTodaySalesTrend = label8;
+
+            // guna2Panel9 = الطلبات  (label11=value, label9=trend)
+            lblOrdersValue = label11;
+            lblOrdersTrend = label9;
+
+            // guna2Panel10 = الطاولات  (label15=value, label13=trend)
+            lblTablesValue = label15;
+            lblTablesTrend = label13;
+
+            // ─── Apply consistent fonts to values (designer uses no explicit font) ───
+            foreach (Label lbl in new[] { lblTodaySalesValue, lblOrdersValue, lblTablesValue })
+            {
+                lbl.Font = new Font("Alexandria", 26F, FontStyle.Bold);
+                lbl.TextAlign = ContentAlignment.MiddleCenter;
+            }
+
+            // ─── Configure the chart with dark theme ───
+            ConfigureSalesChart();
+
+            // ─── Build the bottom row: Recent Orders | Tables Status ───
+            BuildBottomRow();
+        }
+
+        /// <summary>
+        /// Creates the bottom panel row directly inside guna2Panel1 (the content area).
+        /// Left half = Recent Orders grid; Right half = Tables Status grid.
+        /// </summary>
+        private void BuildBottomRow()
+        {
+            // Container row panel placed below the chart (guna2Panel11 ends at y=285+529=814, add 20 gap)
+            pnlBottomRow = new Guna.UI2.WinForms.Guna2Panel
+            {
+                Location = new Point(140, 830),
+                Size = new Size(1092, 400),
+                FillColor = Color.Transparent,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
+
+            // ─── Left card: Recent Orders ───
+            var pnlOrders = BuildCardPanel("آخر الطلبات اليوم", 0, 0, 536, 400);
+            dgvRecentOrders = BuildDashboardDgv();
+            dgvRecentOrders.Location = new Point(10, 55);
+            dgvRecentOrders.Size = new Size(516, 330);
+            SetupOrdersColumns();
+            pnlOrders.Controls.Add(dgvRecentOrders);
+
+            // ─── Right card: Tables Status ───
+            var pnlTablesCard = BuildCardPanel("حالة الطاولات", 556, 0, 536, 400);
+            dgvTables = BuildDashboardDgv();
+            dgvTables.Location = new Point(10, 55);
+            dgvTables.Size = new Size(516, 330);
+            SetupTablesColumns();
+            pnlTablesCard.Controls.Add(dgvTables);
+
+            pnlBottomRow.Controls.Add(pnlOrders);
+            pnlBottomRow.Controls.Add(pnlTablesCard);
+            guna2Panel1.Controls.Add(pnlBottomRow);
+        }
+
+        /// <summary>Creates a styled card panel matching the KPI cards.</summary>
+        private Guna.UI2.WinForms.Guna2Panel BuildCardPanel(string title, int x, int y, int w, int h)
+        {
+            var card = new Guna.UI2.WinForms.Guna2Panel
+            {
+                Location = new Point(x, y),
+                Size = new Size(w, h),
+                FillColor = Color.FromArgb(31, 41, 55),
+                BorderColor = Color.FromArgb(55, 65, 81),
+                BorderRadius = 20,
+                BorderThickness = 3
+            };
+
+            var lbl = new Label
+            {
+                Text = title,
+                Font = new Font("Alexandria", 14F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(229, 231, 235),
+                BackColor = Color.Transparent,
+                AutoSize = false,
+                Size = new Size(w - 20, 42),
+                Location = new Point(10, 10),
+                TextAlign = ContentAlignment.MiddleRight,
+                RightToLeft = RightToLeft.Yes
+            };
+            card.Controls.Add(lbl);
+            return card;
+        }
+
+        /// <summary>Creates a Guna2DataGridView styled with Main_Methods dark-mode theme.</summary>
+        private Guna.UI2.WinForms.Guna2DataGridView BuildDashboardDgv()
+        {
+            var dgv = new Guna.UI2.WinForms.Guna2DataGridView
+            {
+                ReadOnly = true,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                BackgroundColor = Color.FromArgb(31, 41, 55),
+                GridColor = Color.FromArgb(30, 41, 59),
+                BorderStyle = BorderStyle.None,
+                RightToLeft = RightToLeft.Yes,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                RowHeadersVisible = false,
+                ScrollBars = ScrollBars.Vertical
+            };
+            Main_Methods.StyleDataGridView(dgv);
+            return dgv;
+        }
+
+        private void SetupOrdersColumns()
+        {
+            dgvRecentOrders.Columns.Clear();
+            AddColumn(dgvRecentOrders, "رقم الفاتورة", 0.15f);
+            AddColumn(dgvRecentOrders, "الوقت", 0.12f);
+            AddColumn(dgvRecentOrders, "العميل", 0.22f);
+            AddColumn(dgvRecentOrders, "النوع", 0.15f);
+            AddColumn(dgvRecentOrders, "الإجمالي", 0.18f);
+            AddColumn(dgvRecentOrders, "الحالة", 0.18f);
+        }
+
+        private void SetupTablesColumns()
+        {
+            dgvTables.Columns.Clear();
+            AddColumn(dgvTables, "رقم الطاولة", 0.20f);
+            AddColumn(dgvTables, "الاسم", 0.22f);
+            AddColumn(dgvTables, "القسم", 0.20f);
+            AddColumn(dgvTables, "السعة", 0.13f);
+            AddColumn(dgvTables, "الحالة", 0.25f);
+        }
+
+        private static void AddColumn(DataGridView dgv, string name, float fillWeight)
+        {
+            dgv.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                HeaderText = name,
+                FillWeight = fillWeight * 100,
+                MinimumWidth = 50,
+                SortMode = DataGridViewColumnSortMode.NotSortable
+            });
+        }
+
+        #endregion
+
+        #region ── Dashboard: Data Loading ────────────────────────────────────
+
+        /// <summary>
+        /// Loads all live dashboard data asynchronously and updates the UI.
+        /// </summary>
+        private async Task LoadDashboardDataAsync()
+        {
+            try
+            {
+                // Run the four queries in parallel
+                var summaryTask = DashboardService.GetTodaySummaryAsync();
+                var tablesTask = DashboardService.GetTablesCountAsync();
+                var weeklyTask = DashboardService.GetWeeklySalesAsync();
+                var ordersTask = DashboardService.GetRecentOrdersAsync();
+                var tablesGridTask = DashboardService.GetTablesStatusAsync();
+
+                await Task.WhenAll(summaryTask, tablesTask, weeklyTask, ordersTask, tablesGridTask);
+
+                if (IsDisposed) return;
+
+                // Marshal to UI thread
+                Invoke(() =>
+                {
+                    UpdateKpiCards(summaryTask.Result, tablesTask.Result);
+                    UpdateSalesChart(weeklyTask.Result);
+                    UpdateOrdersGrid(ordersTask.Result);
+                    UpdateTablesGrid(tablesGridTask.Result);
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"LoadDashboardDataAsync: {ex.Message}");
+            }
+        }
+
+        // ─── KPI Cards ───────────────────────────────────────────────────────
+
+        private void UpdateKpiCards(
+            (decimal TodaySales, int TodayOrders, decimal YesterdaySales, int YesterdayOrders) summary,
+            (int Available, int Occupied, int Total) tables)
+        {
+            // مبيعات اليوم
+            lblTodaySalesValue.Text = summary.TodaySales.ToString("N0");
+            lblTodaySalesTrend.Text = BuildTrend(summary.TodaySales, summary.YesterdaySales, "عن أمس");
+            lblTodaySalesTrend.ForeColor = TrendColor(summary.TodaySales, summary.YesterdaySales);
+
+            // الطلبات
+            lblOrdersValue.Text = summary.TodayOrders.ToString("N0");
+            lblOrdersTrend.Text = BuildTrend(summary.TodayOrders, summary.YesterdayOrders, "عن أمس");
+            lblOrdersTrend.ForeColor = TrendColor(summary.TodayOrders, summary.YesterdayOrders);
+
+            // الطاولات
+            lblTablesValue.Text = tables.Available.ToString();
+            int tableDiff = tables.Available - (tables.Total - tables.Occupied - tables.Available);
+            if (tables.Total > 0)
+            {
+                string tablesTrend = $"{tables.Available} متاحة من {tables.Total}";
+                lblTablesTrend.Text = tablesTrend;
+                lblTablesTrend.ForeColor = tables.Available > 0
+                    ? Color.FromArgb(0, 217, 111)
+                    : Color.Red;
+            }
+            else
+            {
+                lblTablesTrend.Text = "لا توجد طاولات";
+                lblTablesTrend.ForeColor = CHART_TEXT_MUTED;
+            }
+        }
+
+        private static string BuildTrend(decimal today, decimal yesterday, string suffix)
+        {
+            if (yesterday == 0)
+                return today > 0 ? $"+100% {suffix}" : $"0% {suffix}";
+
+            decimal pct = Math.Round((today - yesterday) / yesterday * 100, 1);
+            string sign = pct >= 0 ? "+" : "";
+            return $"{sign}{pct}% {suffix}";
+        }
+
+        private static string BuildTrend(int today, int yesterday, string suffix)
+            => BuildTrend((decimal)today, (decimal)yesterday, suffix);
+
+        private static Color TrendColor(decimal today, decimal yesterday)
+            => today >= yesterday ? Color.FromArgb(0, 217, 111) : Color.Red;
+
+        private static Color TrendColor(int today, int yesterday)
+            => TrendColor((decimal)today, (decimal)yesterday);
+
+        // ─── Chart ───────────────────────────────────────────────────────────
+
+        private void UpdateSalesChart(DataTable dt)
+        {
+            salesChart.Datasets.Clear();
+
+            var salesDs = new Guna.Charts.WinForms.GunaSplineDataset
+            {
+                Label = "المبيعات",
+                BorderColor = CHART_ACCENT_BLUE,
+                BorderWidth = 3,
+                PointRadius = 5,
+                FillColor = CHART_FILL_BLUE
+            };
+
+            var ordersDs = new Guna.Charts.WinForms.GunaSplineDataset
+            {
+                Label = "الطلبات",
+                BorderColor = CHART_ACCENT_PURPLE,
+                BorderWidth = 2,
+                PointRadius = 4,
+                FillColor = Color.Transparent
+            };
+
+            // Build a map of the last 7 days so missing days show as 0
+            var dayMap = new System.Collections.Generic.Dictionary<DateTime, (decimal Sales, int Orders)>();
+            for (int i = 6; i >= 0; i--)
+                dayMap[DateTime.Today.AddDays(-i)] = (0, 0);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var day = Convert.ToDateTime(row["OrderDay"]).Date;
+                if (dayMap.ContainsKey(day))
+                    dayMap[day] = (Convert.ToDecimal(row["TotalSales"]), Convert.ToInt32(row["TotalOrders"]));
+            }
+
+            foreach (var kvp in dayMap)
+            {
+                string label = FormatDayLabel(kvp.Key);
+                salesDs.DataPoints.Add(label, (double)kvp.Value.Sales);
+                ordersDs.DataPoints.Add(label, kvp.Value.Orders);
+            }
+
+            salesChart.Datasets.Add(salesDs);
+            salesChart.Datasets.Add(ordersDs);
+            salesChart.Update();
+        }
+
+        private static string FormatDayLabel(DateTime date)
+        {
+            return date.DayOfWeek switch
+            {
+                DayOfWeek.Saturday => "السبت",
+                DayOfWeek.Sunday => "الاحد",
+                DayOfWeek.Monday => "الاثنين",
+                DayOfWeek.Tuesday => "الثلاثاء",
+                DayOfWeek.Wednesday => "الاربعاء",
+                DayOfWeek.Thursday => "الخميس",
+                DayOfWeek.Friday => "الجمعة",
+                _ => date.ToString("dd/MM")
+            };
+        }
+
+        // ─── Orders Grid ─────────────────────────────────────────────────────
+
+        private void UpdateOrdersGrid(DataTable dt)
+        {
+            dgvRecentOrders.Rows.Clear();
+
+            string[] columns = { "رقم الفاتورة", "الوقت", "العميل", "النوع", "الإجمالي", "الحالة" };
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int idx = dgvRecentOrders.Rows.Add(
+                    row["رقم الفاتورة"],
+                    row["الوقت"],
+                    row["العميل"],
+                    row["النوع"],
+                    Convert.ToDecimal(row["الإجمالي"]).ToString("N2"),
+                    row["الحالة"]
+                );
+
+                // Color-code status cell
+                int statusCode = row["StatusCode"] != DBNull.Value ? Convert.ToInt32(row["StatusCode"]) : -1;
+                var statusCell = dgvRecentOrders.Rows[idx].Cells["الحالة"];
+                statusCell.Style.ForeColor = StatusCodeToColor(statusCode);
+                statusCell.Style.Font = new Font("Alexandria", 10F, FontStyle.Bold);
+            }
+        }
+
+        private static Color StatusCodeToColor(int code) => code switch
+        {
+            0 => Color.FromArgb(99, 132, 255),    // جديد — blue
+            1 => Color.FromArgb(255, 193, 7),     // قيد التحضير — amber
+            2 => Color.FromArgb(72, 219, 163),    // جاهز — teal
+            3 => Color.FromArgb(0, 217, 111),     // مُسلَّم — green
+            4 => Color.Red,                        // ملغي
+            5 => Color.FromArgb(167, 106, 255),   // مرتجع — purple
+            _ => Color.FromArgb(229, 231, 235)
+        };
+
+        // ─── Tables Grid ─────────────────────────────────────────────────────
+
+        private void UpdateTablesGrid(DataTable dt)
+        {
+            dgvTables.Rows.Clear();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int idx = dgvTables.Rows.Add(
+                    row["رقم الطاولة"],
+                    row["الاسم"],
+                    row["القسم"],
+                    row["السعة"],
+                    row["الحالة"]
+                );
+
+                string rawStatus = row["StatusRaw"]?.ToString()?.ToLower() ?? "";
+                var statusCell = dgvTables.Rows[idx].Cells["الحالة"];
+                statusCell.Style.ForeColor = TableStatusToColor(rawStatus);
+                statusCell.Style.Font = new Font("Alexandria", 10F, FontStyle.Bold);
+            }
+        }
+
+        private static Color TableStatusToColor(string status) => status switch
+        {
+            "available" => Color.FromArgb(0, 217, 111),
+            "occupied" => Color.Red,
+            "reserved" => Color.FromArgb(255, 193, 7),
+            "cleaning" => Color.FromArgb(99, 132, 255),
+            "maintenance" => Color.FromArgb(167, 106, 255),
+            _ => Color.FromArgb(229, 231, 235)
+        };
+
+        #endregion
+
         #region ── Sales Chart Configuration ──────────────────────────────────
 
         /// <summary>
-        /// Configures the sales chart with a professional dark mode theme.
-        /// Sets up colors, axes, grid lines, tooltips, and sample data.
+        /// Applies dark-mode theme to the chart axes, fonts, and background.
+        /// Data is loaded separately via UpdateSalesChart().
         /// </summary>
         private void ConfigureSalesChart()
         {
-            // Clear previous data to prevent duplicate rendering on re-init
-            salesChart.Datasets.Clear();
-
-            // ─── Background ───
             salesChart.BackColor = CHART_BACKGROUND;
 
-            // ─── Y-Axis Configuration ───
             salesChart.YAxes.GridLines.Color = CHART_GRID;
             salesChart.YAxes.GridLines.Display = true;
             salesChart.YAxes.Ticks.Font.FontName = "Segoe UI";
             salesChart.YAxes.Ticks.Font.Size = 11;
 
-            // ─── X-Axis Configuration ───
             salesChart.XAxes.GridLines.Display = false;
             salesChart.XAxes.Ticks.Font.FontName = "Segoe UI";
             salesChart.XAxes.Ticks.Font.Size = 11;
 
-            // ─── Legend ───
             salesChart.Legend.LabelFont.FontName = "Segoe UI";
             salesChart.Legend.LabelFont.Size = 12;
 
-            // ─── Title ───
             salesChart.Title.Font.FontName = "Segoe UI";
             salesChart.Title.Font.Size = 14;
             salesChart.Title.Font.Style = ChartFontStyle.Bold;
             salesChart.Title.ForeColor = CHART_TEXT;
 
-            // ─── Tooltips ───
             salesChart.Tooltips.TitleFont.FontName = "Segoe UI";
             salesChart.Tooltips.TitleFont.Size = 11;
             salesChart.Tooltips.TitleFont.Style = ChartFontStyle.Bold;
             salesChart.Tooltips.BodyFont.FontName = "Segoe UI";
             salesChart.Tooltips.BodyFont.Size = 10;
             salesChart.Tooltips.BodyForeColor = CHART_TEXT;
-
-            // ─── Primary Dataset: Sales Line ───
-            var salesDataset = new GunaSplineDataset();
-            salesDataset.Label = "المبيعات";
-            salesDataset.BorderColor = CHART_ACCENT_BLUE;
-            salesDataset.BorderWidth = 3;
-            salesDataset.PointRadius = 5;
-            salesDataset.FillColor = CHART_FILL_BLUE;
-
-            // Sample weekly sales data
-            salesDataset.DataPoints.Add("السبت", 420);
-            salesDataset.DataPoints.Add("الاحد", 520);
-            salesDataset.DataPoints.Add("الاثنين", 480);
-            salesDataset.DataPoints.Add("الثلاثاء", 580);
-            salesDataset.DataPoints.Add("الاربعاء", 450);
-            salesDataset.DataPoints.Add("الخميس", 700);
-            salesDataset.DataPoints.Add("الجمعة", 900);
-
-            salesChart.Datasets.Add(salesDataset);
-
-            // ─── Secondary Dataset: Orders Line ───
-            var ordersDataset = new GunaSplineDataset();
-            ordersDataset.Label = "الطلبات";
-            ordersDataset.BorderColor = CHART_ACCENT_PURPLE;
-            ordersDataset.BorderWidth = 2;
-            ordersDataset.PointRadius = 4;
-            ordersDataset.FillColor = Color.Transparent;
-
-            ordersDataset.DataPoints.Add("السبت", 32);
-            ordersDataset.DataPoints.Add("الاحد", 38);
-            ordersDataset.DataPoints.Add("الاثنين", 35);
-            ordersDataset.DataPoints.Add("الثلاثاء", 42);
-            ordersDataset.DataPoints.Add("الاربعاء", 30);
-            ordersDataset.DataPoints.Add("الخميس", 55);
-            ordersDataset.DataPoints.Add("الجمعة", 68);
-
-            salesChart.Datasets.Add(ordersDataset);
-
-            // Force the chart to re-render
-            salesChart.Update();
         }
 
         #endregion
-
-        #region ── Sidebar Navigation Setup ───────────────────────────────────
 
         /// <summary>
         /// Initializes the collapsible sidebar navigation system.
@@ -475,7 +822,6 @@ namespace Sestamk.Forms
             btn.Click += clickHandler;
         }
 
-        #endregion
 
         #region ── Collapsible Section Event Handlers ─────────────────────────
 
@@ -487,7 +833,7 @@ namespace Sestamk.Forms
                     Main_Methods.OpenForm<frmSales>();
                     break;
                 case "المرتجع":
-                    ToastManager.ShowInfo("قريباً", "هذه الميزة ستتوفر في التحديث القادم");
+                    Main_Methods.OpenForm<frmReturns>();
                     break;
                 case "الطيارين":
                     Main_Methods.OpenForm<frmDeliveryStaff>();
@@ -544,8 +890,8 @@ namespace Sestamk.Forms
 
         private void guna2Button11_Click(object sender, EventArgs e)
         {
-            // Reports
-            ToastManager.ShowInfo("التقارير", "سيتم فتح شاشة التقارير");
+            guna2Button11.Checked = true;
+            Main_Methods.OpenForm<frmSalesReports>(onClosed: () => guna2Button11.Checked = false);
         }
 
         private void guna2Button12_Click(object sender, EventArgs e)
@@ -578,16 +924,8 @@ namespace Sestamk.Forms
         /// </summary>
         private void btn_logout_Click(object sender, EventArgs e)
         {
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(
-                "هل أنت متأكد من تسجيل الخروج؟",
-                "تسجيل الخروج",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
-
-            if (result != DialogResult.Yes)
-                return;
+            bool confirmed = frmConfirm.Show("تسجيل الخروج", "هل أنت متأكد من تسجيل الخروج؟");
+            if (!confirmed) return;
 
             // User confirmed - proceed with logout
             PerformLogout();
@@ -620,7 +958,7 @@ namespace Sestamk.Forms
                     // Attempt to clear text boxes
                     var txtUser = loginForm.Controls.Find("txt_username", true).FirstOrDefault() as Guna.UI2.WinForms.Guna2TextBox;
                     var txtPass = loginForm.Controls.Find("txt_password", true).FirstOrDefault() as Guna.UI2.WinForms.Guna2TextBox;
-                    
+
                     if (txtUser != null) txtUser.Clear();
                     if (txtPass != null) txtPass.Clear();
 
@@ -704,7 +1042,7 @@ namespace Sestamk.Forms
 
         private void btn_Menu6_Click(object sender, EventArgs e)
         {
-            ToastManager.ShowWarning("Low Stock", "Chicken is running low.");
+            NotificationHelper.NotifyLowStock("دجاج", 5);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -713,5 +1051,10 @@ namespace Sestamk.Forms
         }
 
         #endregion
+
+        private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

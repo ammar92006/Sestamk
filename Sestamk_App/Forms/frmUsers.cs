@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
@@ -15,6 +15,8 @@ namespace Sestamk.Forms
 {
     public partial class frmUsers : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1650, 1050);
+
         #region ── Constants ──────────────────────────────────────────────────
 
         private static readonly Color TAB_ACTIVE = Color.FromArgb(94, 148, 255);
@@ -196,7 +198,7 @@ namespace Sestamk.Forms
         {
             // ─── Users Grid Columns ───
             dgvUsers.AutoGenerateColumns = false;
-            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvUsers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvUsers.ScrollBars = ScrollBars.Both;
 
             dgvUsers.Columns.AddRange(new DataGridViewColumn[]
@@ -217,7 +219,7 @@ namespace Sestamk.Forms
 
             // ─── Permissions Grid Columns ───
             dgvPermissions.AutoGenerateColumns = false;
-            dgvPermissions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvPermissions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvPermissions.Columns.AddRange(new DataGridViewColumn[]
             {
                 new DataGridViewTextBoxColumn { Name = "colModule", HeaderText = "القسم / الموديول", Width = 180, ReadOnly = true },

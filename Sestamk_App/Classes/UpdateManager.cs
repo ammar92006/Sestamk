@@ -1,181 +1,272 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace Sestamk.Classes
+namespace Sestamk
 {
+    // نفس كلاسات الـ Manifest اللي في أداة الرفع عشان نقدر نقرأ الملف
+    public class UpdateManifest
+    {
+        public string Version { get; set; }
+        public string ReleaseDate { get; set; }
+        public string Channel { get; set; } 
+        public List<string> WhatsNew { get; set; } = new List<string>();
+        public bool IsMandatory { get; set; }
+        public List<FileChange> Changes { get; set; } = new List<FileChange>();
+    }
+
+    public class FileChange
+    {
+        public string OriginalName { get; set; }
+        public string TargetPath { get; set; }
+        public string Hash { get; set; }
+        public long SizeBytes { get; set; }
+        public string Url { get; set; }
+        public string Action { get; set; }
+    }
+
     public class UpdateManager
     {
-        private readonly string githubOwner;
-        private readonly string githubRepo;
-        private readonly string currentVersion;
+        // 🔴 ضع رابط تحميل الـ manifest من إصداراتك على GitHub (تأكد من تعديل اسم حسابك والمستودع)
+        private const string ManifestUrl = "https://github.com/ammar92006/Sestamk/releases/latest/download/manifest.json";
 
-        public UpdateManager(string owner, string repo, string version)
-        {
-            githubOwner = owner;
-            githubRepo = repo;
-            currentVersion = version;
-        }
-
-        public async Task<UpdateInfo> CheckForUpdatesAsync()
+        public static async Task<bool> CheckAndDownloadUpdatesAsync()
         {
             try
             {
-                string apiUrl = $"https://api.github.com/repos/{githubOwner}/{githubRepo}/releases/latest";
-
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", "MyApp-Updater");
-                    client.Timeout = TimeSpan.FromSeconds(30);
+                    // GitHub يتطلب User-Agent
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
 
-                    string json = await client.GetStringAsync(apiUrl);
-                    GitHubRelease release = JsonConvert.DeserializeObject<GitHubRelease>(json);
+                    // 1. تحميل الـ Manifest من السيرفر
+                    string json = await client.GetStringAsync(ManifestUrl);
+                    UpdateManifest manifest = JsonConvert.DeserializeObject<UpdateManifest>(json);
 
-                    GitHubAsset zipAsset = release.assets.Find(a => a.name.EndsWith(".zip"));
-
-                    if (zipAsset == null)
-                        throw new Exception("لم يتم العثور على ملف ZIP");
-
-                    bool updateAvailable = CompareVersions(currentVersion, release.tag_name);
-
-                    return new UpdateInfo
+                    if (manifest.Version == LicenseManager.AppVersion)
                     {
-                        UpdateAvailable = updateAvailable,
-                        CurrentVersion = currentVersion,
-                        LatestVersion = release.tag_name,
-                        DownloadUrl = zipAsset.browser_download_url,
-                        ChangeLog = release.body ?? "لا توجد ملاحظات",
-                        FileSize = zipAsset.size,
-                        FileName = zipAsset.name,
-                        IsPrerelease = release.prerelease
-                    };
+                        return false; // لا يوجد تحديث، النسخة متطابقة
+                    }
+
+                    return await DownloadUpdateFilesAsync(manifest);
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"خطأ: {ex.Message}");
+                throw new Exception("فشل في تحميل التحديثات: " + ex.Message);
             }
         }
 
-        private bool CompareVersions(string current, string latest)
+        //public static async Task<bool> DownloadUpdateFilesAsync(UpdateManifest manifest)
+        //{
+        //    try
+        //    {
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
+
+        //            // 2. مقارنة الملفات وتحديد ما يجب تحميله
+        //            List<FileChange> filesToDownload = new List<FileChange>();
+        //            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+        //            foreach (var file in manifest.Changes)
+        //            {
+        //                string localFilePath = Path.Combine(baseDir, file.TargetPath);
+
+        //                // إذا كان الملف غير موجود أو الهاش الخاص به مختلف، نضيفه لقائمة التحميل
+        //                if (!File.Exists(localFilePath) || CalculateSHA256(localFilePath) != file.Hash)
+        //                {
+        //                    filesToDownload.Add(file);
+        //                }
+        //            }
+
+        //            if (filesToDownload.Count == 0)
+        //            {
+        //                return true; // الملفات متطابقة تماماً أو تم تحميلها مسبقاً
+        //            }
+
+        //            // 3. إنشاء مجلد TempUpdate للتحميل فيه
+        //            string tempDir = Path.Combine(baseDir, "TempUpdate");
+        //            if (!Directory.Exists(tempDir))
+        //            {
+        //                Directory.CreateDirectory(tempDir);
+        //            }
+
+        //            // 4. تحميل الملفات المتغيرة فقط
+        //            foreach (var file in filesToDownload)
+        //            {
+        //                string tempFilePath = Path.Combine(tempDir, file.TargetPath);
+
+        //                // إنشاء المجلدات الفرعية إن وجدت (مثلاً مجلد Data أو Images)
+        //                Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
+
+        //                byte[] fileData = await client.GetByteArrayAsync(file.Url);
+        //                File.WriteAllBytes(tempFilePath, fileData);
+        //            }
+
+        //            return true; // تم تحميل التحديثات بنجاح في مجلد TempUpdate
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        // دالة حساب الهاش للمقارنة المحلية
+        private static string CalculateSHA256(string filePath)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                using (FileStream fileStream = File.OpenRead(filePath))
+                {
+                    byte[] hashBytes = sha256.ComputeHash(fileStream);
+                    return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+                }
+            }
+        }
+
+        // الدالة الأولى: بتجيب البيانات بس (عشان نعرضها للمستخدم)
+        //public static async Task<UpdateManifest> GetUpdateInfoAsync()
+        //{
+        //    try
+        //    {
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
+        //            string json = await client.GetStringAsync(ManifestUrl);
+        //            UpdateManifest manifest = JsonConvert.DeserializeObject<UpdateManifest>(json);
+
+        //            //MessageBox.Show(manifest.Version);
+        //            //MessageBox.Show(LicenseManager.AppVersion);
+        //            // لو الإصدار مختلف عن الحالي، نرجع البيانات
+        //            if (manifest.Version != LicenseManager.AppVersion)
+        //            {
+        //                return manifest;
+        //            }
+        //            return null; // لا يوجد تحديث
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return null; // خطأ في الاتصال
+        //    }
+        //}
+
+        // 🔴 الدالة الآن تستقبل الرابط الديناميكي
+        public static async Task<UpdateManifest> GetUpdateInfoAsync(string dynamicManifestUrl)
         {
             try
             {
-                string cleanCurrent = current.TrimStart('v');
-                string cleanLatest = latest.TrimStart('v');
+                if (string.IsNullOrEmpty(dynamicManifestUrl)) return null;
 
-                Version currentVer = new Version(cleanCurrent);
-                Version latestVer = new Version(cleanLatest);
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
+                    string json = await client.GetStringAsync(dynamicManifestUrl);
+                    UpdateManifest manifest = JsonConvert.DeserializeObject<UpdateManifest>(json);
 
-                return latestVer > currentVer;
+                    if (manifest.Version != LicenseManager.AppVersion)
+                    {
+                        return manifest;
+                    }
+                    return null;
+                }
             }
             catch
             {
-                return string.Compare(latest, current, StringComparison.OrdinalIgnoreCase) > 0;
+                return null;
             }
         }
 
-        public async Task<string> DownloadUpdateAsync(string downloadUrl, IProgress<int> progress)
-        {
-            string tempPath = Path.Combine(Path.GetTempPath(), "AppUpdate.zip");
 
+        // الدالة الثانية: بتقوم بالتحميل الفعلي لما المستخدم يضغط "تحديث الآن"
+        //public static async Task<bool> DownloadUpdateFilesAsync(UpdateManifest manifest)
+        //{
+        //    try
+        //    {
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
+
+        //            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        //            string tempDir = Path.Combine(baseDir, "TempUpdate");
+
+        //            if (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
+
+        //            foreach (var file in manifest.Changes)
+        //            {
+        //                string localFilePath = Path.Combine(baseDir, file.TargetPath);
+
+        //                // لو الملف اتغير أو مش موجود، نحمله
+        //                if (!File.Exists(localFilePath) || CalculateSHA256(localFilePath) != file.Hash)
+        //                {
+        //                    string tempFilePath = Path.Combine(tempDir, file.TargetPath);
+        //                    Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
+
+        //                    byte[] fileData = await client.GetByteArrayAsync(file.Url);
+        //                    File.WriteAllBytes(tempFilePath, fileData);
+        //                }
+        //            }
+        //            return true;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        // تمت إضافة IProgress<int> progress = null
+        public static async Task<bool> DownloadUpdateFilesAsync(UpdateManifest manifest, IProgress<int> progress = null)
+        {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    client.Timeout = TimeSpan.FromMinutes(30);
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
 
-                    using (HttpResponseMessage response = await client.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead))
+                    string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                    string tempDir = Path.Combine(baseDir, "TempUpdate");
+
+                    if (!Directory.Exists(tempDir)) Directory.CreateDirectory(tempDir);
+
+                    int totalFiles = manifest.Changes.Count;
+                    int processedFiles = 0;
+
+                    foreach (var file in manifest.Changes)
                     {
-                        response.EnsureSuccessStatusCode();
+                        string localFilePath = Path.Combine(baseDir, file.TargetPath);
 
-                        long? totalBytes = response.Content.Headers.ContentLength;
-
-                        using (Stream contentStream = await response.Content.ReadAsStreamAsync())
-                        using (FileStream fileStream = new FileStream(tempPath, FileMode.Create))
+                        // لو الملف اتغير أو مش موجود، نحمله
+                        if (!File.Exists(localFilePath) || CalculateSHA256(localFilePath) != file.Hash)
                         {
-                            byte[] buffer = new byte[8192];
-                            long totalRead = 0;
-                            int bytesRead;
+                            string tempFilePath = Path.Combine(tempDir, file.TargetPath);
+                            Directory.CreateDirectory(Path.GetDirectoryName(tempFilePath));
 
-                            while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                            {
-                                await fileStream.WriteAsync(buffer, 0, bytesRead);
-                                totalRead += bytesRead;
+                            byte[] fileData = await client.GetByteArrayAsync(file.Url);
+                            File.WriteAllBytes(tempFilePath, fileData);
+                        }
 
-                                if (totalBytes.HasValue)
-                                {
-                                    int percentage = (int)((totalRead * 100) / totalBytes.Value);
-                                    progress?.Report(percentage);
-                                }
-                            }
+                        // 🔴 حساب النسبة المئوية وإرسالها للفورم
+                        processedFiles++;
+                        if (progress != null && totalFiles > 0)
+                        {
+                            int percentage = (int)Math.Round((double)(100 * processedFiles) / totalFiles);
+                            progress.Report(percentage);
                         }
                     }
+                    return true;
                 }
-
-                return tempPath;
             }
-            catch (Exception ex)
+            catch
             {
-                if (File.Exists(tempPath))
-                    File.Delete(tempPath);
-
-                throw new Exception($"فشل التحميل: {ex.Message}");
+                return false;
             }
-        }
-
-        public void ApplyUpdate(string updateFilePath)
-        {
-            try
-            {
-                string updaterPath = Path.Combine(Application.StartupPath, "Updater.exe");
-
-                if (!File.Exists(updaterPath))
-                    throw new FileNotFoundException("Updater.exe غير موجود");
-
-                var updateConfig = new
-                {
-                    UpdateFile = updateFilePath,
-                    TargetPath = Application.StartupPath,
-                    MainExecutable = Application.ExecutablePath,
-                    ProcessId = Process.GetCurrentProcess().Id
-                };
-
-                string configPath = Path.Combine(Path.GetTempPath(), "update_config.json");
-                File.WriteAllText(configPath, JsonConvert.SerializeObject(updateConfig));
-
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = updaterPath,
-                    Arguments = $"\"{configPath}\"",
-                    UseShellExecute = true
-                };
-
-                Process.Start(startInfo);
-                Application.Exit();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"فشل التحديث: {ex.Message}");
-            }
-        }
-        public static string FormatFileSize(long bytes)
-        {
-            string[] sizes = { "B", "KB", "MB", "GB" };
-            double len = bytes;
-            int order = 0;
-
-            while (len >= 1024 && order < sizes.Length - 1)
-            {
-                order++;
-                len = len / 1024;
-            }
-
-            return $"{len:0.##} {sizes[order]}";
         }
     }
 }

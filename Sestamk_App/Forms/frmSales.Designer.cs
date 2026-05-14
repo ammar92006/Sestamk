@@ -1,4 +1,4 @@
-namespace Sestamk.Forms
+﻿namespace Sestamk.Forms
 {
     partial class frmSales
     {
@@ -126,7 +126,7 @@ namespace Sestamk.Forms
             btnDelivery = new Guna.UI2.WinForms.Guna2Button();
             btnTable = new Guna.UI2.WinForms.Guna2Button();
             btnSaffari = new Guna.UI2.WinForms.Guna2Button();
-            label8 = new Label();
+            lbl_invoicecode = new Label();
             label7 = new Label();
             guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             pnlHeader = new Guna.UI2.WinForms.Guna2Panel();
@@ -579,7 +579,7 @@ namespace Sestamk.Forms
             guna2Panel11.BorderColor = Color.FromArgb(20, 40, 59);
             guna2Panel11.BorderThickness = 1;
             guna2Panel11.Controls.Add(guna2Panel14);
-            guna2Panel11.Controls.Add(label8);
+            guna2Panel11.Controls.Add(lbl_invoicecode);
             guna2Panel11.Controls.Add(label7);
             guna2Panel11.CustomizableEdges = customizableEdges35;
             guna2Panel11.Dock = DockStyle.Top;
@@ -667,16 +667,16 @@ namespace Sestamk.Forms
             btnSaffari.Text = "تيك اوي";
             btnSaffari.Click += btnSaffari_Click;
             // 
-            // label8
-            // 
-            label8.Font = new Font("Alexandria", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.FromArgb(241, 245, 249);
-            label8.Location = new Point(12, 9);
-            label8.Name = "label8";
-            label8.Size = new Size(207, 38);
-            label8.TabIndex = 1;
-            label8.Text = "1";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // lbl_invoicecode
+            //
+            lbl_invoicecode.Font = new Font("Alexandria", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_invoicecode.ForeColor = Color.FromArgb(241, 245, 249);
+            lbl_invoicecode.Location = new Point(12, 9);
+            lbl_invoicecode.Name = "lbl_invoicecode";
+            lbl_invoicecode.Size = new Size(207, 38);
+            lbl_invoicecode.TabIndex = 1;
+            lbl_invoicecode.Text = "---";
+            lbl_invoicecode.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -1037,6 +1037,8 @@ namespace Sestamk.Forms
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
+            MinimumSize = new Size(1024, 600);
+            WindowState = FormWindowState.Maximized;
             pn_container.ResumeLayout(false);
             guna2Panel5.ResumeLayout(false);
             guna2Panel16.ResumeLayout(false);
@@ -1094,7 +1096,7 @@ namespace Sestamk.Forms
         private Guna.UI2.WinForms.Guna2Panel guna2Panel13;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel12;
         private Label label7;
-        private Label label8;
+        private Label lbl_invoicecode;
         private Guna.UI2.WinForms.Guna2Button btnSaffari;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel14;
         private Guna.UI2.WinForms.Guna2Button btnDelivery;

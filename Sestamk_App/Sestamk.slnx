@@ -1,4 +1,6 @@
 <Solution>
-  <Project Path="../Updater/Updater.csproj" Id="b173ed8b-3dd9-43e9-a04e-fc39931aaee8" />
+  <Project Path="../SestamkPublisher/SestamkPublisher.csproj" Id="64482cba-721e-46e0-8094-cb6167bae3cf" />
+  <Project Path="../Sestamk_Installer/Sestamk_Installer.csproj" Id="b7cb3ae5-fa9b-483d-944f-38bca4c85936" />
+  <Project Path="../Updater/Updater.csproj" Id="6c06a359-508b-4508-8632-e1af2c790fb7" />
   <Project Path="Sestamk.csproj" />
 </Solution>

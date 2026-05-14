@@ -1788,7 +1788,7 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(51, 65, 85);
             dataGridViewCellStyle1.SelectionForeColor = Color.White;
             dgvCustomers.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvCustomers.BackgroundColor = Color.FromArgb(15, 23, 42);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 23, 42);
@@ -2107,6 +2107,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmCustomers";
             StartPosition = FormStartPosition.CenterScreen;
+            MinimumSize = new Size(1024, 600);
             Text = "العملاء";
             InputLanguageChanged += frmCustomers_InputLanguageChanged;
             panel1.ResumeLayout(false);

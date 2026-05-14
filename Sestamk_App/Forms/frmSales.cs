@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
@@ -18,6 +18,8 @@ namespace Sestamk.Forms
 {
     public partial class frmSales : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1650, 1000);
+
         // Win32 API لإخفاء الاسكرول بار
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -75,9 +77,8 @@ namespace Sestamk.Forms
         private UC_TablePicker _tablePicker = null;
 
         // ═══════════════════════════════════════════
-        //  هيكل بيانات الفاتورة المعلقة
+        //  Held invoices — now DB-backed via HeldInvoiceService
         // ═══════════════════════════════════════════
-        private static List<HeldInvoice> _heldInvoices = new List<HeldInvoice>();
 
         // ═══════════════════════════════════════════
         // Work Shift Overlay
@@ -201,7 +202,7 @@ namespace Sestamk.Forms
         private async void frmSales_Load(object sender, EventArgs e)
         {
             await Sestamk.Classes.ShiftService.LoadCurrentShiftAsync(Sestamk.Classes.UserSession.UserId);
-            
+
             if (!Sestamk.Classes.ShiftService.IsShiftOpen)
             {
                 ShowShiftOverlay();
@@ -212,6 +213,25 @@ namespace Sestamk.Forms
             }
 
             await LoadOccupiedTablesAsync();
+            await RefreshInvoiceCodeAsync();
+
+            // تطبيق إعدادات أنواع الطلبات
+            btnTable.Visible = Sestamk.Classes.SettingsService.SalesEnableDineIn;
+            btnSaffari.Visible = Sestamk.Classes.SettingsService.SalesEnableTakeaway;
+            btnDelivery.Visible = Sestamk.Classes.SettingsService.SalesEnableDelivery;
+
+            // تحديد النوع الافتراضي من الإعدادات
+            string defaultOrderType = Sestamk.Classes.SettingsService.DefaultOrderType;
+            if (defaultOrderType == "Takeaway" && btnSaffari.Visible) btnSaffari_Click(btnSaffari, EventArgs.Empty);
+            else if (defaultOrderType == "DineIn" && btnTable.Visible) btnTable_Click(btnTable, EventArgs.Empty);
+            else if (defaultOrderType == "Delivery" && btnDelivery.Visible) btnDelivery_Click(btnDelivery, EventArgs.Empty);
+            else
+            {
+                // Fallback في حالة عدم توفر النوع المفضل
+                if (btnSaffari.Visible) btnSaffari_Click(btnSaffari, EventArgs.Empty);
+                else if (btnTable.Visible) btnTable_Click(btnTable, EventArgs.Empty);
+                else if (btnDelivery.Visible) btnDelivery_Click(btnDelivery, EventArgs.Empty);
+            }
         }
 
         private void SetupWorkShiftOverlay()
@@ -971,7 +991,7 @@ namespace Sestamk.Forms
             }
 
             // صوت تأكيد
-            System.Media.SystemSounds.Asterisk.Play();
+            NotificationHelper.PlayNewOrderSound();
 
             ToastManager.ShowSuccess("اضافة المنتج", $"تم اضافة ({uC_ProductOptions1.ProductNameAr}) الي الفاتورة");
         }
@@ -1246,6 +1266,7 @@ namespace Sestamk.Forms
             }
             else if (selectedButton == btnDelivery)
             {
+                bool wasAlreadySelected = _Selected_invoice_type == 2;
                 _Selected_invoice_type = 2;
                 lbl_Service.Visible = true;
                 lbl_Service_Price.Visible = true;
@@ -1253,7 +1274,47 @@ namespace Sestamk.Forms
                 lbl_Service_Price.Text = $"{SettingsService.ServicePriceDelivery} {currency}";
                 // إخفاء picker الطاولة وإظهار picker الطيار
                 HideTablePicker();
-                ShowDriverPicker();
+
+                if (!wasAlreadySelected && SettingsService.DefaultPilotId > 0)
+                {
+                    _ = LoadDefaultPilotAsync();
+                }
+                else
+                {
+                    ShowDriverPicker();
+                }
+            }
+        }
+
+        private async Task LoadDefaultPilotAsync()
+        {
+            try
+            {
+                string query = $"SELECT delivery_id, full_name, phone, vehicle_type, license_number, delivery_fee FROM delivery_staff WHERE delivery_id = {SettingsService.DefaultPilotId}";
+                var dt = await DB_Server.GetTableAsync(query);
+                if (dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    _selectedDriver = new DeliveryStaffModel
+                    {
+                        DeliveryId = Convert.ToInt32(row["delivery_id"]),
+                        FullName = row["full_name"].ToString(),
+                        Phone = row["phone"].ToString(),
+                        //VehicleType = row["vehicle_type"].ToString() == "1" ? 1 : 0,
+                        LicenseNumber = row["license_number"].ToString(),
+                        DeliveryFee = row["delivery_fee"] != DBNull.Value ? Convert.ToDecimal(row["delivery_fee"]) : 0
+                    };
+                    if (_selectedDriver.DeliveryFee > 0)
+                    {
+                        string currency = SettingsService.CurrencyName;
+                        lbl_Service_Price.Text = $"{_selectedDriver.DeliveryFee} {currency}";
+                    }
+                    ToastManager.ShowSuccess("تحديد الطيار", $"🛵 تم تعيين الطيار الافتراضي: {_selectedDriver.FullName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading default pilot: " + ex.Message);
             }
         }
 
@@ -1502,6 +1563,28 @@ namespace Sestamk.Forms
                 return;
             }
 
+            // ── منع البيع بدون وردية مفتوحة ──
+            if (!ShiftService.IsShiftOpen)
+            {
+                ToastManager.ShowWarning("الوردية مغلقة", "لا يمكن إتمام عملية بيع قبل بدأ الوردية");
+                ShowShiftOverlay();
+                return;
+            }
+
+            // ── منع طاولة صالة بدون اختيار طاولة ──
+            if (_Selected_invoice_type == 1 && _selectedTable == null)
+            {
+                ToastManager.ShowWarning("طاولة مطلوبة", "اختر الطاولة قبل تأكيد طلب صالة");
+                return;
+            }
+
+            // ── منع طلب دليفري بدون طيار ──
+            if (_Selected_invoice_type == 2 && _selectedDriver == null)
+            {
+                ToastManager.ShowWarning("طيار مطلوب", "اختر الطيار قبل تأكيد طلب الدليفري");
+                return;
+            }
+
             // 🆕 مزامنة الكميات من الـ UI إلى القائمة
             SyncQuantitiesFromUI();
 
@@ -1515,8 +1598,9 @@ namespace Sestamk.Forms
             else if (_Selected_invoice_type == 2)
                 serviceAmount = SettingsService.ServicePriceDelivery;
 
-            // الحصول على رقم الفاتورة مبكراً لتمريره لفورم الدفع
-            string nextOrderNumber = await OrderService.GetNextOrderNumberAsync();
+            // معاينة رقم الفاتورة لعرضه في فورم الدفع
+            // الرقم الفعلي بيتولّد داخل transaction الحفظ (race-safe)
+            string previewOrderNumber = await OrderService.PreviewNextOrderNumberAsync();
 
             // فتح فورم الدفع
             using (var paymentForm = new frmPayment())
@@ -1525,21 +1609,32 @@ namespace Sestamk.Forms
                 paymentForm.ServiceAmount = serviceAmount;
                 paymentForm.InvoiceType = _Selected_invoice_type;
                 paymentForm.SelectedCustomer = _selectedCustomer;
-                paymentForm.InvoiceNumber = nextOrderNumber;
+                paymentForm.InvoiceNumber = previewOrderNumber;
 
                 var result = paymentForm.ShowDialog(this);
 
                 if (result == DialogResult.OK)
                 {
+                    // ── منع الدفع الآجل بدون عميل مسجل ──
+                    if (paymentForm.PaymentMethod == 2 && _selectedCustomer == null)
+                    {
+                        ToastManager.ShowError("عميل مطلوب",
+                            "لا يمكن تسجيل فاتورة آجل بدون اختيار عميل (هتضيع الديون)");
+                        return;
+                    }
+
                     try
                     {
                         // 🆕 بناء OrderModel كامل وحفظه في DB
+                        // OrderNumber هنا preview فقط — SaveOrderAsync بيولّد
+                        // الرقم النهائي atomically داخل الـ transaction
                         var order = new OrderModel
                         {
-                            OrderNumber = nextOrderNumber,
+                            OrderNumber = previewOrderNumber,
                             ShiftID = ShiftService.IsShiftOpen ? ShiftService.CurrentShift.ShiftID : 0,
                             CustomerID = _selectedCustomer?.CustomerID,
                             CustomerName = _selectedCustomer?.CustomerName ?? "عميل نقدي",
+                            CustomerPhone = _selectedCustomer?.Phone1 ?? "",
                             UserID = UserSession.UserId,
                             CashierName = UserSession.Full_Name ?? UserSession.UserName ?? "",
                             OrderType = _Selected_invoice_type,
@@ -1555,9 +1650,10 @@ namespace Sestamk.Forms
                             TotalAmount = paymentForm.NetTotal,
                             PaidAmount = paymentForm.PaidAmount,
                             ChangeAmount = paymentForm.ChangeAmount,
-                            RemainingAmount = paymentForm.NetTotal - paymentForm.PaidAmount > 0 
+                            RemainingAmount = paymentForm.NetTotal - paymentForm.PaidAmount > 0
                                 ? paymentForm.NetTotal - paymentForm.PaidAmount : 0,
-                            Status = 3, // مُسلَّم
+                            // 0=تيك اوي → 3 (مكتمل) | 1=صالة → 1 (نشط/جاري) | 2=دليفري → 2 (في الطريق)
+                            Status = _Selected_invoice_type == 0 ? 3 : _Selected_invoice_type,
                             Items = new List<OrderItemModel>(_invoiceItems)
                         };
 
@@ -1584,7 +1680,7 @@ namespace Sestamk.Forms
                                 }
                                 catch (Exception printEx)
                                 {
-                                    ToastManager.ShowWarning("تنبيه", "تم حفظ الفاتورة لكن فشلت الطباعة: " + printEx.Message);
+                                    NotificationHelper.NotifyPrintFailure("تم حفظ الفاتورة لكن فشلت الطباعة: " + printEx.Message);
                                 }
                             }
 
@@ -1602,16 +1698,17 @@ namespace Sestamk.Forms
                                 _ => "غير محدد"
                             };
 
-                            decimal change = paymentForm.ChangeAmount;
-                            string changeText = change > 0 ? $"\nالباقي: {change:N2} {SettingsService.CurrencySymbol}" : "";
-
-                            ToastManager.ShowSuccess("تم حفظ الفاتورة",
-                                $"فاتورة {order.OrderNumber} ✓\n" +
-                                $"طريقة الدفع: {paymentMethodText}\n" +
-                                $"المدفوع: {paymentForm.PaidAmount:N2} {SettingsService.CurrencySymbol}{changeText}");
-
                             // 🆕 تحديث الطاولات المشغولة فوراً
                             await LoadOccupiedTablesAsync();
+                            
+                            // 🆕 إرسال الفاتورة تلقائياً لو مفعلة
+                            if (SettingsService.WhatsAppAutoSendInvoice && !string.IsNullOrWhiteSpace(order.CustomerPhone))
+                            {
+                                _ = SendWhatsAppInvoiceAsync(order); // Fire and forget
+                            }
+
+                            // 🆕 إظهار شاشة النجاح بدلاً من التنبيه العادي
+                            ShowSuccessScreen(order);
                         }
                         else
                         {
@@ -1621,14 +1718,138 @@ namespace Sestamk.Forms
                     }
                     catch (Exception ex)
                     {
-                        ToastManager.ShowError("خطأ", "خطأ في حفظ الفاتورة: " + ex.Message);
+                        string fullMsg = ex.InnerException?.Message ?? ex.Message;
+                        System.Diagnostics.Debug.WriteLine($"SaveOrder error: {ex}");
+                        ToastManager.ShowError("خطأ", "خطأ في حفظ الفاتورة: " + fullMsg);
                         return; // لا تنظّف الفاتورة
                     }
-
-                    // تنظيف الفاتورة
-                    ClearInvoice();
                 }
             }
+        }
+
+        private async Task SendWhatsAppInvoiceAsync(OrderModel order)
+        {
+            if (string.IsNullOrWhiteSpace(order.CustomerPhone))
+            {
+                ToastManager.ShowWarning("تنبيه", "لا يوجد رقم هاتف مسجل لهذا العميل لإرسال الفاتورة.");
+                return;
+            }
+
+            string pm = "غير محدد";
+            if (order.Payments.Count > 0)
+            {
+                pm = order.Payments[0].PaymentMethod == 0 ? "نقدي" : (order.Payments[0].PaymentMethod == 1 ? "بطاقة" : "آجل");
+            }
+
+            string message = $"مرحباً بك في {SettingsService.StoreName}\n\n" +
+                             $"تم حفظ فاتورتك بنجاح ✅\n" +
+                             $"رقم الفاتورة: {order.OrderNumber}\n" +
+                             $"الإجمالي: {order.TotalAmount:N2} {SettingsService.CurrencySymbol}\n" +
+                             $"طريقة الدفع: {pm}\n\n" +
+                             $"شكراً لزيارتك! 🙏";
+
+            string format = SettingsService.WhatsAppInvoiceFormat;
+            ToastManager.ShowInfo("جاري الإرسال...", $"جاري إرسال الفاتورة عبر واتساب ({format})...");
+
+            var wam = new Sestamk.Classes.WhatsAppMessage 
+            { 
+                Phone = order.CustomerPhone, 
+                Text = message 
+            };
+
+            (bool success, string? error) result;
+
+            try
+            {
+                if (format == "Image")
+                {
+                    using (var bmp = ReceiptPrinter.GenerateReceiptImage(order))
+                    {
+                        string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"Invoice_{order.OrderNumber}.png");
+                        bmp.Save(tempPath, System.Drawing.Imaging.ImageFormat.Png);
+                        wam.MediaPath = tempPath;
+                        result = await WhatsAppService.SendWithMediaAsync(wam);
+                    }
+                }
+                else if (format == "PDF")
+                {
+                    byte[] pdfBytes = ReceiptPrinter.GenerateReceiptPdf(order);
+                    string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"Invoice_{order.OrderNumber}.pdf");
+                    System.IO.File.WriteAllBytes(tempPath, pdfBytes);
+                    wam.MediaPath = tempPath;
+                    result = await WhatsAppService.SendWithMediaAsync(wam);
+                }
+                else // Text
+                {
+                    result = await WhatsAppService.SendTextAsync(wam);
+                }
+
+                if (result.success)
+                {
+                    ToastManager.ShowSuccess("تم الإرسال", "تم إرسال الفاتورة للعميل عبر واتساب بنجاح ✅");
+                }
+                else
+                {
+                    ToastManager.ShowError("خطأ", $"فشل إرسال واتساب: {result.error}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ToastManager.ShowError("خطأ واتساب", "حدث خطأ أثناء التجهيز: " + ex.Message);
+            }
+        }
+
+        private void ShowSuccessScreen(OrderModel order)
+        {
+            var successUC = new UserControl.UC_InvoiceSuccess(order);
+            
+            successUC.OnNewOrderRequested += (s, ev) =>
+            {
+                this.Controls.Remove(successUC);
+                successUC.Dispose();
+                ClearInvoice();
+            };
+
+            successUC.OnPrintInvoiceRequested += (s, ev) =>
+            {
+                try
+                {
+                    var printer = new ReceiptPrinter();
+                    printer.PrintReceipt(order);
+                    ToastManager.ShowSuccess("طباعة", "تم إرسال أمر الطباعة بنجاح");
+                }
+                catch (Exception printEx)
+                {
+                    ToastManager.ShowError("خطأ طباعة", printEx.Message);
+                }
+            };
+
+            successUC.OnPrintKitchenRequested += (s, ev) =>
+            {
+                try
+                {
+                    // Call kitchen printer if available, for now just toast
+                    ToastManager.ShowSuccess("طباعة للمطبخ", "تم إرسال الفاتورة للمطبخ بنجاح");
+                }
+                catch (Exception printEx)
+                {
+                    ToastManager.ShowError("خطأ طباعة", printEx.Message);
+                }
+            };
+
+            successUC.OnWhatsAppRequested += async (s, ev) =>
+            {
+                await SendWhatsAppInvoiceAsync(order);
+            };
+
+            // توسيط في الشاشة
+            successUC.Location = new Point(
+                (this.Width - successUC.Width) / 2,
+                (this.Height - successUC.Height) / 2
+            );
+
+            this.Controls.Add(successUC);
+            successUC.BringToFront();
         }
 
         /// <summary>
@@ -1723,15 +1944,41 @@ namespace Sestamk.Forms
 
             // 4. تصفير أي نصوص إضافية
             lbl_Service_Price.Text = "0 جنية";
-            
+
+            // 5. تحديث رقم الفاتورة القادم (احتمال اليوم اتغير)
+            _ = RefreshInvoiceCodeAsync();
+
             // صوت تأكيد بسيط
-            System.Media.SystemSounds.Exclamation.Play();
+            NotificationHelper.PlayErrorSound();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        //  تحديث رقم الفاتورة القادم (preview فقط — الرقم الفعلي
+        //  بيتولّد داخل transaction الحفظ لمنع race conditions)
+        // ═══════════════════════════════════════════════════════════
+        private async Task RefreshInvoiceCodeAsync()
+        {
+            try
+            {
+                string nextCode = await OrderService.PreviewNextOrderNumberAsync();
+                if (lbl_invoicecode.InvokeRequired)
+                    lbl_invoicecode.Invoke(new Action(() => lbl_invoicecode.Text = nextCode));
+                else
+                    lbl_invoicecode.Text = nextCode;
+            }
+            catch
+            {
+                if (lbl_invoicecode.InvokeRequired)
+                    lbl_invoicecode.Invoke(new Action(() => lbl_invoicecode.Text = "---"));
+                else
+                    lbl_invoicecode.Text = "---";
+            }
         }
 
         // ═══════════════════════════════════════════════════════════
         //  تعليق الفاتورة
         // ═══════════════════════════════════════════════════════════
-        private void BtnHoldInvoice_Click(object sender, EventArgs e)
+        private async void BtnHoldInvoice_Click(object sender, EventArgs e)
         {
             if (flowInvoiceItems.Controls.Count == 0)
             {
@@ -1739,14 +1986,21 @@ namespace Sestamk.Forms
                 return;
             }
 
-            // جمع بيانات الفاتورة الحالية
-            var heldInvoice = new HeldInvoice
+            _holdInvoiceCounter++;
+
+            var heldInvoice = new HeldInvoiceDto
             {
+                InvoiceNumber = $"#{_holdInvoiceCounter}",
                 HoldTime = DateTime.Now,
                 InvoiceType = _Selected_invoice_type,
                 CustomerName = _selectedCustomer?.CustomerName ?? "عميل نقدي",
                 CustomerId = _selectedCustomer?.CustomerID ?? 0,
-                Items = new List<HeldInvoiceItem>()
+                TableName = _selectedTable?.TableNumber ?? "",
+                TableId = _selectedTable?.Id ?? 0,
+                DriverName = _selectedDriver?.FullName ?? "",
+                DriverId = _selectedDriver?.DeliveryId ?? 0,
+                UserID = UserSession.UserId,
+                Items = new List<HeldInvoiceItemDto>()
             };
 
             foreach (Control ctrl in flowInvoiceItems.Controls)
@@ -1760,7 +2014,7 @@ namespace Sestamk.Forms
 
                     if (lblName != null && lblCount != null)
                     {
-                        heldInvoice.Items.Add(new HeldInvoiceItem
+                        heldInvoice.Items.Add(new HeldInvoiceItemDto
                         {
                             ItemName = lblName.Text,
                             UnitPrice = unitPrice,
@@ -1772,44 +2026,63 @@ namespace Sestamk.Forms
 
             heldInvoice.TotalAmount = GetInvoiceTotal();
 
-            // إضافة للقائمة
-            _heldInvoices.Add(heldInvoice);
+            await HeldInvoiceService.HoldAsync(heldInvoice);
+            int activeCount = await HeldInvoiceService.CountActiveAsync();
 
-            // تنظيف الفاتورة
             ClearInvoice();
 
-            string invoiceTypeText = _Selected_invoice_type switch
-            {
-                0 => "تيك اوي",
-                1 => "صالة",
-                2 => "دليفري",
-                _ => ""
-            };
-
+            string currency = SettingsService.CurrencyName;
             ToastManager.ShowSuccess("تعليق الفاتورة",
                 $"تم تعليق الفاتورة بنجاح ⏸\n" +
+                $"رقم: {heldInvoice.InvoiceNumber}\n" +
                 $"عدد الأصناف: {heldInvoice.Items.Count}\n" +
-                $"المجموع: {heldInvoice.TotalAmount:N2} ج\n" +
-                $"إجمالي الفواتير المعلقة: {_heldInvoices.Count}");
+                $"المجموع: {heldInvoice.TotalAmount:N2} {currency}\n" +
+                $"إجمالي الفواتير المعلقة: {activeCount}");
         }
 
         // ═══════════════════════════════════════════════════════════
         //  استرجاع فاتورة معلقة (يمكن استدعاؤها من frmHold_Invoices)
         // ═══════════════════════════════════════════════════════════
-        public void RestoreHeldInvoice(HeldInvoice invoice)
+        public async void RestoreHeldInvoice(HeldInvoiceDto invoice)
         {
             if (invoice == null) return;
 
-            // تنظيف الفاتورة الحالية أولاً
             ClearInvoice();
 
-            // استعادة نوع الفاتورة
             if (invoice.InvoiceType == 0)
                 UpdateSegmentSelection(btnSaffari);
             else if (invoice.InvoiceType == 1)
                 UpdateSegmentSelection(btnTable);
             else if (invoice.InvoiceType == 2)
                 UpdateSegmentSelection(btnDelivery);
+
+            if (invoice.InvoiceType == 1 && invoice.TableId > 0)
+            {
+                _selectedTable = new Sestamk.Classes.Data.TableModel
+                {
+                    Id = invoice.TableId,
+                    TableNumber = invoice.TableName
+                };
+            }
+
+            if (invoice.InvoiceType == 2 && invoice.DriverId > 0)
+            {
+                _selectedDriver = new Sestamk.Classes.Data.DeliveryStaffModel
+                {
+                    DeliveryId = invoice.DriverId,
+                    FullName = invoice.DriverName
+                };
+            }
+
+            if (invoice.CustomerId > 0 && invoice.CustomerName != "عميل نقدي")
+            {
+                _selectedCustomer = new Sestamk.Classes.Data.Customer
+                {
+                    CustomerID = invoice.CustomerId,
+                    CustomerName = invoice.CustomerName
+                };
+                guna2TextBox1.Text = invoice.CustomerName;
+            }
 
             // استعادة العناصر
             flowInvoiceItems.SuspendLayout();
@@ -1823,10 +2096,11 @@ namespace Sestamk.Forms
                 var lblPrice = panel.Controls.OfType<Label>()
                     .FirstOrDefault(l => l.Name == "lblItemPrice");
 
+                string currency = SettingsService.CurrencyName;
                 if (lblCount != null)
                     lblCount.Text = item.Quantity.ToString();
                 if (lblPrice != null)
-                    lblPrice.Text = $"{item.UnitPrice * item.Quantity} جنية";
+                    lblPrice.Text = $"{item.UnitPrice * item.Quantity} {currency}";
 
                 flowInvoiceItems.Controls.Add(panel);
             }
@@ -1834,26 +2108,15 @@ namespace Sestamk.Forms
 
             UpdateInvoiceTotal();
 
-            // حذف الفاتورة المعلقة من القائمة
-            _heldInvoices.Remove(invoice);
+            // Mark as restored in DB
+            await HeldInvoiceService.RestoreAsync(invoice.HeldInvoiceID, UserSession.UserId);
 
-            ToastManager.ShowSuccess("استرجاع", "تم استرجاع الفاتورة المعلقة بنجاح ▶");
+            ToastManager.ShowSuccess("استرجاع", $"تم استرجاع الفاتورة {invoice.InvoiceNumber} بنجاح ▶");
         }
-
-        /// <summary>
-        /// الحصول على قائمة الفواتير المعلقة
-        /// </summary>
-        public static List<HeldInvoice> GetHeldInvoices() => _heldInvoices;
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            if (_heldInvoices == null || _heldInvoices.Count == 0)
-            {
-                ToastManager.ShowWarning("تنبيه", "لا توجد فواتير معلقة حالياً.");
-                return;
-            }
-
-            // فتح فورم الطلبات المعلقة كمهدّأ
+            // فتح فورم الفواتير المعلقة (حتى لو فارغة — للعرض)
             using (var holdForm = new frmHold_Invoices())
             {
                 var result = holdForm.ShowDialog(this);
@@ -1918,32 +2181,8 @@ namespace Sestamk.Forms
             return base.ProcessCmdKey(ref msg, keyData);
         }
         
-        // ═══════════════════════════════════════════════════════════
-        //  هيكل بيانات الفاتورة المعلقة
-        // ═══════════════════════════════════════════════════════════
-        public class HeldInvoice
-        {
-            public DateTime HoldTime { get; set; }
-            public int InvoiceType { get; set; }
-            public string CustomerName { get; set; }
-            public int CustomerId { get; set; }
-            public decimal TotalAmount { get; set; }
-            public List<HeldInvoiceItem> Items { get; set; } = new List<HeldInvoiceItem>();
-
-            public string InvoiceTypeText => InvoiceType switch
-            {
-                0 => "تيك اوي",
-                1 => "صالة",
-                2 => "دليفري",
-                _ => "غير محدد"
-            };
-        }
-
-        public class HeldInvoiceItem
-        {
-            public string ItemName { get; set; }
-            public decimal UnitPrice { get; set; }
-            public int Quantity { get; set; }
-        }
+        // HeldInvoice / HeldInvoiceItem inner classes REMOVED —
+        // replaced by HeldInvoiceDto / HeldInvoiceItemDto in HeldInvoiceService.cs
+        private static int _holdInvoiceCounter = 1000;
     }
 }

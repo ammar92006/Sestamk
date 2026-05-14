@@ -117,7 +117,7 @@ namespace Sestamk.UserControl
             // ═══════════════════════════════════
             //  UC_DriverPicker
             // ═══════════════════════════════════
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.pnlContainer);
             this.Name = "UC_DriverPicker";
             this.Size = new System.Drawing.Size(600, 750);

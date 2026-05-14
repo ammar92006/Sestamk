@@ -5,22 +5,30 @@ namespace Sestamk.Classes
 {
     public static class DB_Server
     {
-        // 1. خلي سلسلة الاتصال ثابتة وجاهزة
+        private static string _dataSource = SecureConfig.DbDataSource;
+        private static string _userID = SecureConfig.DbUserId;
+        private static string _password = SecureConfig.DbPassword;
+
         private static string ConnectionString => new SqlConnectionStringBuilder
         {
-            DataSource = @".\SQLEXPRESS",
+            DataSource = _dataSource,
             InitialCatalog = "DB_Sestamk",
-            UserID = "Sestamk_App",
-            Password = "StrongPassword123!",
+            IntegratedSecurity = true,
             MultipleActiveResultSets = true,
             Encrypt = false,
-            TrustServerCertificate = true
+            TrustServerCertificate = true,
+            ConnectTimeout = 15
         }.ConnectionString;
 
-        // 2. بدل ما نثبت "Conn"، بنعمل ميثود ترجع اتصال جديد (ADO.NET بيعمل Pooling تلقائي فده أسرع بكتير)
+        public static void Initialize(string dataSource, string userId, string password)
+        {
+            if (!string.IsNullOrWhiteSpace(dataSource)) _dataSource = dataSource;
+            if (!string.IsNullOrWhiteSpace(userId)) _userID = userId;
+            if (!string.IsNullOrWhiteSpace(password)) _password = password;
+        }
+
         public static SqlConnection GetConnection() => new SqlConnection(ConnectionString);
 
-        // 3. ميثود سحرية لسحب البيانات "Async" عشان البرنامج ميهنجش نهائي
         public static async Task<DataTable> GetTableAsync(string query, SqlParameter[] parameters = null)
         {
             DataTable dt = new DataTable();
@@ -43,12 +51,12 @@ namespace Sestamk.Classes
             }
             catch (Exception ex)
             {
-                ToastManager.ShowError("خطأ", "خطأ في جلب البيانات: " + ex.Message);
+                string errorMsg = ex is SqlException ? "خطأ في الاتصال بالسيرفر: " : "خطأ في جلب البيانات: ";
+                ToastManager.ShowError("خطأ", errorMsg + ex.Message);
             }
             return dt;
         }
 
-        // 4. تنفيذ INSERT / UPDATE / DELETE بدون إرجاع بيانات
         public static async Task<int> ExecuteAsync(string query, SqlParameter[] parameters = null)
         {
             using (SqlConnection conn = GetConnection())
@@ -63,7 +71,6 @@ namespace Sestamk.Classes
             }
         }
 
-        // 5. إرجاع قيمة واحدة (مثل COUNT, MAX, أو إعداد معين)
         public static async Task<object> ScalarAsync(string query, SqlParameter[] parameters = null)
         {
             using (SqlConnection conn = GetConnection())
@@ -78,10 +85,8 @@ namespace Sestamk.Classes
             }
         }
 
-        // 6. تنفيذ INSERT وإرجاع الـ ID الجديد (SCOPE_IDENTITY)
         public static async Task<int> ExecuteWithIdentityAsync(string query, SqlParameter[] parameters = null)
         {
-            // يجب أن ينتهي الـ query بـ SELECT SCOPE_IDENTITY()
             using (SqlConnection conn = GetConnection())
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -95,7 +100,6 @@ namespace Sestamk.Classes
             }
         }
 
-        // 7. تنفيذ عدة عمليات في Transaction واحد (للحفاظ على تكامل البيانات)
         public static async Task<bool> ExecuteTransactionAsync(Func<SqlConnection, SqlTransaction, Task> action)
         {
             using (SqlConnection conn = GetConnection())

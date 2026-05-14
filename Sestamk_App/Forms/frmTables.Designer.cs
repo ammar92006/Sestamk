@@ -825,8 +825,8 @@ namespace Sestamk.Forms
             // 
             // frmTables
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(15, 23, 42);
             ClientSize = new Size(1400, 850);
             Controls.Add(splitContainer);

@@ -362,7 +362,7 @@
             guna2ComboBox2.Name = "guna2ComboBox2";
             guna2ComboBox2.RightToLeft = RightToLeft.Yes;
             guna2ComboBox2.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2ComboBox2.Size = new Size(293, 51);
+            guna2ComboBox2.Size = new Size(548, 51);
             guna2ComboBox2.StartIndex = 0;
             guna2ComboBox2.TabIndex = 5;
             guna2ComboBox2.TextAlign = HorizontalAlignment.Center;
@@ -581,7 +581,7 @@
             guna2ComboBox1.Name = "guna2ComboBox1";
             guna2ComboBox1.RightToLeft = RightToLeft.Yes;
             guna2ComboBox1.ShadowDecoration.CustomizableEdges = customizableEdges29;
-            guna2ComboBox1.Size = new Size(293, 51);
+            guna2ComboBox1.Size = new Size(548, 51);
             guna2ComboBox1.StartIndex = 0;
             guna2ComboBox1.TabIndex = 5;
             guna2ComboBox1.TextAlign = HorizontalAlignment.Center;
@@ -675,7 +675,7 @@
             guna2vScrollBar1.InUpdate = false;
             guna2vScrollBar1.LargeChange = 1000;
             guna2vScrollBar1.Location = new Point(0, 0);
-            guna2vScrollBar1.Maximum = 1322;
+            guna2vScrollBar1.Maximum = 1000;
             guna2vScrollBar1.Name = "guna2vScrollBar1";
             guna2vScrollBar1.Padding = new Padding(0, 12, 0, 12);
             guna2vScrollBar1.ScrollbarSize = 18;
@@ -684,7 +684,6 @@
             guna2vScrollBar1.TabIndex = 77;
             guna2vScrollBar1.ThumbColor = Color.FromArgb(41, 48, 57);
             guna2vScrollBar1.ThumbSize = 100F;
-            guna2vScrollBar1.Value = 300;
             // 
             // PrinterSettings
             // 

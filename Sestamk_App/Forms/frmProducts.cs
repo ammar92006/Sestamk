@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
@@ -14,6 +14,8 @@ namespace Sestamk.Forms
 {
     public partial class frmProducts : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1650, 1000);
+
         // ══════════════════════════════════════════════
         //  📊  Data
         // ══════════════════════════════════════════════

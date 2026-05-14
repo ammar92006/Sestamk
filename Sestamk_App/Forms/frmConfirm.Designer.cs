@@ -156,7 +156,7 @@ namespace Sestamk.Forms
             // 
             // frmConfirm
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(500, 320);
             this.Controls.Add(this.pnlOverlay);

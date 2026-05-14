@@ -1,4 +1,4 @@
-﻿using Sestamk.Classes;
+using Sestamk.Classes;
 using Sestamk.UserControl.UC_Settings;
 using System;
 using System.Collections.Generic;
@@ -109,6 +109,50 @@ namespace Sestamk.Forms
 
             LoadUserControl("scanner", () => new ScannerSettings());
             setActiveButton(btnScannerSettings);
+        }
+
+        private void btnWhatsAppSettings_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("whatsapp", () => new WhatsAppSettings());
+            setActiveButton(btnWhatsAppSettings);
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("about", () => new About());
+            setActiveButton(btnAbout);
+        }
+
+        private void btnNotificationsSettings_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("notifications", () => new NotificationsSettings());
+            setActiveButton(btnNotificationsSettings);
+        }
+
+        private void btnActivationSettings_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("activation", () => new ActivationSettings());
+            setActiveButton(btnActivationSettings);
+        }
+
+        private void btnUpdatesSettings_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("updates", () => new UpdatesSettings());
+            setActiveButton(btnUpdatesSettings);
+        }
+
+
+
+        private void btnReceiptSettings_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("receipt", () => new ReceiptSettings());
+            setActiveButton(btnReceiptSettings);
+        }
+
+        private void btnDatabase_Click(object sender, EventArgs e)
+        {
+            LoadUserControl("database", () => new DatabaseSettings());  
+            setActiveButton(btnDatabase);
         }
     }
 }

@@ -140,7 +140,7 @@ namespace Sestamk.Forms
             // 
             // frmToast
             // 
-            AutoScaleMode = AutoScaleMode.None;
+            AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(30, 41, 59);
             ClientSize = new Size(340, 90);
             Controls.Add(guna2Panel1);

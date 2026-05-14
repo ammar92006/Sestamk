@@ -17,7 +17,6 @@ namespace Sestamk.Classes
         public static string RoleName { get; set; } = string.Empty;
         public static string UserName { get; set; }
         public static string Full_Name { get; set; }
-        public static string Password { get; set; }
         public static string Email { get; set; }
         public static string UserImage { get; set; } = string.Empty;
         public static string raw { get; set; } =  Main_Methods.GetMachineGuid() + "|" +
@@ -134,7 +133,6 @@ namespace Sestamk.Classes
             RoleName = string.Empty;
             UserName = string.Empty;
             Full_Name = string.Empty;
-            Password = string.Empty;
             Email = string.Empty;
             UserImage = string.Empty;
             Permissions = new DataTable();

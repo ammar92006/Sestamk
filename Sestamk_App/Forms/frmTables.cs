@@ -1,4 +1,4 @@
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using Sestamk.Classes;
 using Sestamk.Classes.Data;
@@ -14,6 +14,8 @@ namespace Sestamk.Forms
 {
     public partial class frmTables : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1400, 850);
+
         // ═══════════════════════════════════════════
         //  📊 Data
         // ═══════════════════════════════════════════
@@ -68,7 +70,7 @@ namespace Sestamk.Forms
 
             // تفعيل الاسكرول الأفقي
             dgvTables.ScrollBars = ScrollBars.Both;
-            dgvTables.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            dgvTables.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             dgvTables.Columns.AddRange(new DataGridViewColumn[]
             {

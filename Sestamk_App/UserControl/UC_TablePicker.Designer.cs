@@ -136,8 +136,8 @@ namespace Sestamk.UserControl
             // 
             // UC_TablePicker
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(pnlContainer);
             Name = "UC_TablePicker";
             Size = new Size(700, 600);

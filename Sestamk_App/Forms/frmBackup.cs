@@ -1,4 +1,4 @@
-using Sestamk.Classes;
+﻿using Sestamk.Classes;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +11,8 @@ namespace Sestamk.Forms
 {
     public partial class frmBackup : BaseForm
     {
+        protected override Size DesignClientSize => new Size(1300, 900);
+
         public frmBackup()
         {
             InitializeComponent();
