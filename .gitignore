@@ -19,7 +19,8 @@ packages/
 node_modules/
 
 # Claude / tooling
-.claude/worktrees/
+.claude/
+.gemini/
 
 # OS
 Thumbs.db
