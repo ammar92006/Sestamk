@@ -1,0 +1,40 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Node
+node_modules/
+
+# Claude / tooling
+.claude/
+.gemini/
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Logs / local config
+*.log
+config.dat
+
+# Secrets
+*.env
+.env
+
+# Local DB backups / scratch files
+*.bak
+jnuih

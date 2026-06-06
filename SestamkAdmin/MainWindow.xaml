@@ -1,0 +1,171 @@
+<ui:FluentWindow x:Class="SestamkAdmin.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:pages="clr-namespace:SestamkAdmin.Views.Pages"
+                 Title="Sestamk Control Center"
+                 Width="1280" Height="800"
+                 MinWidth="1040" MinHeight="640"
+                 WindowStartupLocation="CenterScreen"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 FlowDirection="RightToLeft"
+                 FontFamily="{StaticResource AppFontFamily}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- شريط العنوان -->
+        <ui:TitleBar Grid.Row="0" Title="مركز التحكم — Sestamk">
+            <ui:TitleBar.Icon>
+                <ui:SymbolIcon Symbol="ShieldKeyhole24" />
+            </ui:TitleBar.Icon>
+        </ui:TitleBar>
+
+        <!-- التنقّل -->
+        <ui:NavigationView Grid.Row="1" x:Name="RootNavigation"
+                           PaneDisplayMode="Left"
+                           OpenPaneLength="248"
+                           IsBackButtonVisible="Collapsed"
+                           FrameMargin="0">
+
+            <ui:NavigationView.Header>
+                <StackPanel Margin="24,12,24,0" Orientation="Horizontal">
+                    <ui:SymbolIcon Symbol="ShieldKeyhole24" FontSize="22"
+                                   Foreground="{StaticResource BrandPrimaryBrush}"
+                                   VerticalAlignment="Center" />
+                    <TextBlock Text="Sestamk" FontSize="20" FontWeight="Bold"
+                               Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" />
+                    <TextBlock Text="Control" FontSize="20" FontWeight="Light"
+                               Foreground="{StaticResource BrandPrimaryBrush}"
+                               Margin="4,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+            </ui:NavigationView.Header>
+
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Content="الرئيسية" TargetPageType="{x:Type pages:DashboardPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Home24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="الشركات" TargetPageType="{x:Type pages:CompaniesPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Building24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="التراخيص والتفعيل" TargetPageType="{x:Type pages:LicensesPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Key24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="الأجهزة" TargetPageType="{x:Type pages:DevicesPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Desktop24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="المستخدمون" TargetPageType="{x:Type pages:UsersPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="People24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="المميزات" TargetPageType="{x:Type pages:FeaturesPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Apps24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="التحديثات" TargetPageType="{x:Type pages:UpdatesPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="ArrowSync24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="الطلبات" TargetPageType="{x:Type pages:RequestsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="MailInbox24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="الإشعارات" TargetPageType="{x:Type pages:NotificationsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Alert24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="الإعلانات" TargetPageType="{x:Type pages:AnnouncementsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Megaphone24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="الموزّعون" TargetPageType="{x:Type pages:ResellersPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="PeopleTeam24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="السجلات والتدقيق" TargetPageType="{x:Type pages:LogsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="History24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="قنوات التحديث" TargetPageType="{x:Type pages:ChannelsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="ChannelShare24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem Content="المشرفون" TargetPageType="{x:Type pages:AdminUsersPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="PersonAccounts24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem Content="الإعدادات" TargetPageType="{x:Type pages:SettingsPage}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="Settings24" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.FooterMenuItems>
+
+            <!-- بطاقة المستخدم أسفل القائمة الجانبية -->
+            <ui:NavigationView.PaneFooter>
+                <Border Background="#16233A" BorderBrush="#2A3447" BorderThickness="1"
+                        CornerRadius="10" Margin="10,4,10,10" Padding="10,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Width="38" Height="38" CornerRadius="19"
+                                Background="{StaticResource BrandGradientBrush}">
+                            <TextBlock x:Name="lblAvatar" Text="A" FontWeight="Bold" Foreground="White"
+                                       FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="10,0" VerticalAlignment="Center">
+                            <TextBlock x:Name="lblAdminName" Text="المسؤول" FontWeight="SemiBold" FontSize="13"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock x:Name="lblAdminRole" Text="super_admin" FontSize="11"
+                                       Foreground="{StaticResource BrandMutedBrush}" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                        <ui:Button Grid.Column="2" Icon="{ui:SymbolIcon SignOut24}" Appearance="Transparent"
+                                   ToolTip="تسجيل الخروج" Padding="7" VerticalAlignment="Center"
+                                   Click="Logout_Click" />
+                    </Grid>
+                </Border>
+            </ui:NavigationView.PaneFooter>
+        </ui:NavigationView>
+    </Grid>
+</ui:FluentWindow>

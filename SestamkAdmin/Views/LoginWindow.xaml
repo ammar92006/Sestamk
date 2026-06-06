@@ -1,0 +1,104 @@
+<ui:FluentWindow x:Class="SestamkAdmin.Views.LoginWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 Title="Sestamk Control Center"
+                 Width="940" Height="600"
+                 MinWidth="940" MinHeight="600"
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="NoResize"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 FlowDirection="RightToLeft"
+                 FontFamily="{StaticResource AppFontFamily}"
+                 Background="{StaticResource AppBackgroundBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.05*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== لوحة البراند (يمين في RTL) ===== -->
+        <Border Grid.Column="0" CornerRadius="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#065F46" Offset="0" />
+                    <GradientStop Color="#0F766E" Offset="0.5" />
+                    <GradientStop Color="#0C4A6E" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <!-- دوائر زخرفية -->
+                <Ellipse Width="320" Height="320" HorizontalAlignment="Left" VerticalAlignment="Top"
+                         Margin="-120,-120,0,0" Opacity="0.10" Fill="White" />
+                <Ellipse Width="220" Height="220" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                         Margin="0,0,-80,-80" Opacity="0.08" Fill="White" />
+                <Ellipse Width="140" Height="140" HorizontalAlignment="Right" VerticalAlignment="Top"
+                         Margin="0,60,40,0" Opacity="0.06" Fill="White" />
+
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40">
+                    <!-- شعار -->
+                    <Border Width="96" Height="96" CornerRadius="24" HorizontalAlignment="Center"
+                            Background="#22FFFFFF" BorderBrush="#44FFFFFF" BorderThickness="1">
+                        <ui:SymbolIcon Symbol="ShieldKeyhole24" FontSize="48" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+
+                    <TextBlock Text="Sestamk" FontSize="45" FontWeight="Bold" Foreground="White"
+                               HorizontalAlignment="Center" Margin="0,24,0,0" />
+                    <TextBlock Text="مركز التحكم" FontSize="22" FontWeight="SemiBold" Foreground="#D1FAE5"
+                               HorizontalAlignment="Center" Margin="0,2,0,0" />
+
+                    <Border Width="60" Height="3" CornerRadius="2" Background="#5EEAD4"
+                            HorizontalAlignment="Center" Margin="0,18,0,18" />
+
+                    <TextBlock Text="إدارة كاملة للتفعيلات والتراخيص والتحديثات والعملاء"
+                               FontSize="15" Foreground="#A7F3D0" TextAlignment="Center"
+                               TextWrapping="Wrap" MaxWidth="320" LineHeight="24" />
+                </StackPanel>
+
+                <TextBlock Text="© 2026 Sestamk — جميع الحقوق محفوظة"
+                           Foreground="#8CD9C4" FontSize="12"
+                           HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,24" />
+            </Grid>
+        </Border>
+
+        <!-- ===== نموذج الدخول ===== -->
+        <Grid Grid.Column="1">
+            <ui:TitleBar Grid.Row="0" VerticalAlignment="Top" ShowMaximize="False" ShowMinimize="False" />
+
+            <StackPanel VerticalAlignment="Center" Margin="48,0">
+                <TextBlock Text="مرحباً بعودتك " FontSize="26" FontWeight="Bold"
+                           Foreground="White" />
+                <TextBlock Text="سجّل دخولك للوصول إلى لوحة التحكم"
+                           Style="{StaticResource MutedText}" Margin="0,6,0,32" />
+
+                <TextBlock Text="اسم المستخدم" FontWeight="SemiBold" Margin="2,0,0,6" />
+                <ui:TextBox x:Name="txtUsername" PlaceholderText="أدخل اسم المستخدم"
+                            Icon="{ui:SymbolIcon Person24}" FontSize="14" Padding="12,10" />
+
+                <TextBlock Text="كلمة المرور" FontWeight="SemiBold" Margin="2,18,0,6" />
+                <ui:PasswordBox x:Name="txtPassword" PlaceholderText="أدخل كلمة المرور"
+                                Icon="{ui:SymbolIcon Password24}" FontSize="14" Padding="12,10" />
+
+                <TextBlock x:Name="lblError" Foreground="{StaticResource BrandDangerBrush}"
+                           FontSize="13" Margin="2,14,0,0" TextWrapping="Wrap"
+                           Visibility="Collapsed" />
+
+                <ui:Button x:Name="btnLogin" Content="تسجيل الدخول" Appearance="Primary"
+                           Icon="{ui:SymbolIcon ArrowEnterLeft24}"
+                           HorizontalAlignment="Stretch" Height="46" FontSize="15"
+                           Margin="0,28,0,0" Click="BtnLogin_Click" />
+
+                <ui:ProgressRing x:Name="loading" IsIndeterminate="True" Visibility="Collapsed"
+                                 Width="28" Height="28" Margin="0,18,0,0" HorizontalAlignment="Center" />
+
+                <TextBlock x:Name="lblVersion" Text="الإصدار 1.0.0"
+                           Style="{StaticResource MutedText}" FontSize="11"
+                           HorizontalAlignment="Center" Margin="0,30,0,0" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</ui:FluentWindow>

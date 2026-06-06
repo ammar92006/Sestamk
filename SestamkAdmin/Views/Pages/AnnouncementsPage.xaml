@@ -1,0 +1,76 @@
+<Page x:Class="SestamkAdmin.Views.Pages.AnnouncementsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      FlowDirection="RightToLeft" FontFamily="{StaticResource AppFontFamily}"
+      Foreground="White" Title="الإعلانات">
+    <Grid Margin="24,72,24,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,0,0,18">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon Symbol="Megaphone24" FontSize="26"
+                                   Foreground="{StaticResource BrandPrimaryBrush}" VerticalAlignment="Center"/>
+                    <TextBlock Text="الإعلانات" FontSize="26" FontWeight="Bold" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="رسائل تظهر داخل برامج العملاء حسب القناة" Style="{StaticResource MutedText}" Margin="0,6,0,0"/>
+            </StackPanel>
+            <ui:Button Content="إعلان جديد" Icon="{ui:SymbolIcon Add24}" Appearance="Primary"
+                       Height="42" HorizontalAlignment="Right" VerticalAlignment="Top" Click="New_Click"/>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,14" HorizontalAlignment="Left">
+            <TextBlock x:Name="lblCount" Style="{StaticResource MutedText}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+            <ui:Button Icon="{ui:SymbolIcon ArrowSync24}" Content="تحديث" Appearance="Secondary" Click="Refresh_Click"/>
+        </StackPanel>
+        <Border Grid.Row="2" Style="{StaticResource Card}" Padding="8">
+            <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="list">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="16,12" Margin="4" CornerRadius="8" Background="#13FFFFFF">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border CornerRadius="6" Padding="8,3" Margin="0,0,10,0">
+                                                    <Border.Background><SolidColorBrush Color="{Binding StatusColor}" Opacity="0.18"/></Border.Background>
+                                                    <TextBlock Text="{Binding StatusText}" FontSize="11" FontWeight="SemiBold">
+                                                        <TextBlock.Foreground><SolidColorBrush Color="{Binding StatusColor}"/></TextBlock.Foreground>
+                                                    </TextBlock>
+                                                </Border>
+                                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="15" VerticalAlignment="Center"/>
+                                                <Border CornerRadius="4" Padding="6,2" Margin="10,0,0,0" Background="#1E3A5F" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding TargetText}" FontSize="10" Foreground="#93C5FD"/>
+                                                </Border>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding Body}" Style="{StaticResource MutedText}"
+                                                       FontSize="13" TextWrapping="Wrap" Margin="0,8,0,0"/>
+                                            <TextBlock Text="{Binding UntilText, StringFormat=ينتهي: {0}}" Foreground="#64748B"
+                                                       FontSize="11" Margin="0,6,0,0"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                                            <ui:Button Icon="{ui:SymbolIcon PauseCircle24}" Appearance="Secondary"
+                                                       Padding="6" ToolTip="تفعيل/إيقاف" Margin="0,0,4,0"
+                                                       Click="Toggle_Click" Tag="{Binding}"/>
+                                            <ui:Button Icon="{ui:SymbolIcon Delete24}" Appearance="Secondary"
+                                                       Padding="6" ToolTip="حذف" Click="Delete_Click" Tag="{Binding}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                <ui:ProgressRing x:Name="loading" IsIndeterminate="True" Width="36" Height="36"
+                                 HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                <TextBlock x:Name="lblEmpty" Text="لا توجد إعلانات." Style="{StaticResource MutedText}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

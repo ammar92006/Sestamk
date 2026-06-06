@@ -1,0 +1,132 @@
+<ui:FluentWindow x:Class="SestamkAdmin.Views.Dialogs.LicenseEditorWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 Title="ترخيص جديد"
+                 Width="560" Height="720"
+                 WindowStartupLocation="CenterOwner"
+                 ResizeMode="NoResize"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 FlowDirection="RightToLeft"
+                 FontFamily="{StaticResource AppFontFamily}"
+                 Foreground="White"
+                 Background="{StaticResource AppBackgroundBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" Title="ترخيص جديد" ShowMaximize="False" />
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="28,16,28,8">
+            <StackPanel>
+                <TextBlock Text="الشركة" FontWeight="SemiBold" Margin="0,0,0,6" />
+                <ComboBox x:Name="cmbCompany" DisplayMemberPath="Display" Padding="10,8" FontSize="14" />
+                <TextBlock x:Name="lblNoCompany" Text="لا توجد شركات — أنشئ شركة أولاً من قسم الشركات."
+                           Style="{StaticResource MutedText}" Foreground="{StaticResource BrandWarningBrush}"
+                           Margin="2,6,0,0" Visibility="Collapsed" />
+
+                <TextBlock Text="السيريال" FontWeight="SemiBold" Margin="0,18,0,6" />
+                <Grid>
+                    <ui:TextBox x:Name="txtSerial" FontFamily="Consolas" IsReadOnly="True" Padding="10,8" />
+                    <ui:Button Icon="{ui:SymbolIcon ArrowSync24}" Appearance="Secondary" ToolTip="توليد جديد"
+                               HorizontalAlignment="Left" Margin="0,2" Click="Regen_Click" />
+                </Grid>
+
+                <TextBlock Text="نوع الباقة" FontWeight="SemiBold" Margin="0,18,0,6" />
+                <ComboBox x:Name="cmbPlan" Padding="10,8" FontSize="14" SelectionChanged="Plan_Changed">
+                    <ComboBoxItem Content="تجريبي" Tag="trial" />
+                    <ComboBoxItem Content="أساسي" Tag="basic" IsSelected="True" />
+                    <ComboBoxItem Content="احترافي" Tag="pro" />
+                    <ComboBoxItem Content="VIP" Tag="vip" />
+                    <ComboBoxItem Content="مخصّص" Tag="custom" />
+                </ComboBox>
+
+                <Grid Margin="0,18,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="14" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="تاريخ البداية" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <DatePicker x:Name="dpStart" Padding="6" FontSize="14" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="المدة" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <ComboBox x:Name="cmbDuration" Padding="10,8" FontSize="14" SelectionChanged="Duration_Changed">
+                            <ComboBoxItem Content="شهر" Tag="1" />
+                            <ComboBoxItem Content="3 شهور" Tag="3" />
+                            <ComboBoxItem Content="6 شهور" Tag="6" />
+                            <ComboBoxItem Content="سنة" Tag="12" IsSelected="True" />
+                            <ComboBoxItem Content="سنتان" Tag="24" />
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <Border Style="{StaticResource Card}" Padding="12,10" Margin="0,12,0,0">
+                    <TextBlock x:Name="lblExpiry" Text="" HorizontalAlignment="Center"
+                               Foreground="{StaticResource BrandPrimaryBrush}" FontWeight="SemiBold" />
+                </Border>
+
+                <TextBlock Text="الحدود" FontWeight="SemiBold" Margin="0,18,0,6" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="المستخدمون" Style="{StaticResource MutedText}" FontSize="12" Margin="0,0,0,4" />
+                        <ui:NumberBox x:Name="numUsers" Value="5" Minimum="1" Maximum="999" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="الأجهزة" Style="{StaticResource MutedText}" FontSize="12" Margin="0,0,0,4" />
+                        <ui:NumberBox x:Name="numDevices" Value="3" Minimum="1" Maximum="999" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="4">
+                        <TextBlock Text="الفروع" Style="{StaticResource MutedText}" FontSize="12" Margin="0,0,0,4" />
+                        <ui:NumberBox x:Name="numBranches" Value="1" Minimum="1" Maximum="999" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="0,18,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="14" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="السعر (اختياري)" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <ui:NumberBox x:Name="numPrice" Value="0" Minimum="0" Maximum="9999999" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="العملة" FontWeight="SemiBold" Margin="0,0,0,6" />
+                        <ComboBox x:Name="cmbCurrency" Padding="10,8" FontSize="14">
+                            <ComboBoxItem Content="EGP" IsSelected="True" />
+                            <ComboBoxItem Content="USD" />
+                            <ComboBoxItem Content="SAR" />
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock x:Name="lblError" Foreground="{StaticResource BrandDangerBrush}"
+                           Margin="0,14,0,0" TextWrapping="Wrap" Visibility="Collapsed" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Background="#0E1626" Padding="28,14">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <ui:Button Content="إلغاء" Appearance="Secondary" Height="42" Margin="0,0,10,0"
+                           Click="Cancel_Click" />
+                <ui:Button x:Name="btnSave" Content="إنشاء الترخيص" Icon="{ui:SymbolIcon Save24}"
+                           Appearance="Primary" Height="42" Click="Save_Click" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</ui:FluentWindow>
