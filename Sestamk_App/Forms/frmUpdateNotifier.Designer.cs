@@ -36,6 +36,8 @@ namespace Sestamk.Forms
             components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -54,9 +56,10 @@ namespace Sestamk.Forms
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel1 = new Guna2Panel();
+            label3 = new Label();
+            guna2Panel6 = new Guna2Panel();
+            lblChannel = new Label();
             guna2PictureBox1 = new Guna2PictureBox();
             lblVersion = new Label();
             guna2BorderlessForm1 = new Guna2BorderlessForm(components);
@@ -70,15 +73,12 @@ namespace Sestamk.Forms
             guna2Panel4 = new Guna2Panel();
             lblDate = new Label();
             label1 = new Label();
-            guna2Panel6 = new Guna2Panel();
-            lblChannel = new Label();
-            label3 = new Label();
             guna2Panel1.SuspendLayout();
+            guna2Panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             guna2Panel2.SuspendLayout();
             guna2Panel3.SuspendLayout();
             guna2Panel4.SuspendLayout();
-            guna2Panel6.SuspendLayout();
             SuspendLayout();
             // 
             // guna2Panel1
@@ -95,6 +95,45 @@ namespace Sestamk.Forms
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2Panel1.Size = new Size(750, 177);
             guna2Panel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Alexandria", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(290, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(199, 38);
+            label3.TabIndex = 4;
+            label3.Text = "تحديث جديد متاح";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // guna2Panel6
+            // 
+            guna2Panel6.BackColor = Color.Transparent;
+            guna2Panel6.BorderColor = Color.FromArgb(36, 102, 118);
+            guna2Panel6.BorderRadius = 15;
+            guna2Panel6.BorderThickness = 5;
+            guna2Panel6.Controls.Add(lblChannel);
+            guna2Panel6.CustomizableEdges = customizableEdges1;
+            guna2Panel6.FillColor = Color.FromArgb(37, 88, 103);
+            guna2Panel6.Location = new Point(229, 117);
+            guna2Panel6.Name = "guna2Panel6";
+            guna2Panel6.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            guna2Panel6.Size = new Size(321, 50);
+            guna2Panel6.TabIndex = 3;
+            // 
+            // lblChannel
+            // 
+            lblChannel.BackColor = Color.Transparent;
+            lblChannel.Font = new Font("Alexandria", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblChannel.ForeColor = Color.FromArgb(2, 207, 253);
+            lblChannel.Location = new Point(10, 9);
+            lblChannel.Name = "lblChannel";
+            lblChannel.Size = new Size(303, 36);
+            lblChannel.TabIndex = 3;
+            lblChannel.Text = "القناة: bate";
+            lblChannel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // guna2PictureBox1
             // 
@@ -234,6 +273,7 @@ namespace Sestamk.Forms
             txtWhatsNew.Multiline = true;
             txtWhatsNew.Name = "txtWhatsNew";
             txtWhatsNew.PlaceholderText = "";
+            txtWhatsNew.ReadOnly = true;
             txtWhatsNew.SelectedText = "";
             txtWhatsNew.ShadowDecoration.CustomizableEdges = customizableEdges10;
             txtWhatsNew.Size = new Size(716, 413);
@@ -285,45 +325,6 @@ namespace Sestamk.Forms
             label1.Text = "ما  الجديد ?";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // guna2Panel6
-            // 
-            guna2Panel6.BackColor = Color.Transparent;
-            guna2Panel6.BorderColor = Color.FromArgb(36, 102, 118);
-            guna2Panel6.BorderRadius = 15;
-            guna2Panel6.BorderThickness = 5;
-            guna2Panel6.Controls.Add(lblChannel);
-            guna2Panel6.CustomizableEdges = customizableEdges1;
-            guna2Panel6.FillColor = Color.FromArgb(37, 88, 103);
-            guna2Panel6.Location = new Point(229, 117);
-            guna2Panel6.Name = "guna2Panel6";
-            guna2Panel6.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel6.Size = new Size(321, 50);
-            guna2Panel6.TabIndex = 3;
-            // 
-            // lblChannel
-            // 
-            lblChannel.BackColor = Color.Transparent;
-            lblChannel.Font = new Font("Alexandria", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblChannel.ForeColor = Color.FromArgb(2, 207, 253);
-            lblChannel.Location = new Point(10, 9);
-            lblChannel.Name = "lblChannel";
-            lblChannel.Size = new Size(303, 36);
-            lblChannel.TabIndex = 3;
-            lblChannel.Text = "القناة: bate";
-            lblChannel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Alexandria", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(290, 9);
-            label3.Name = "label3";
-            label3.Size = new Size(199, 38);
-            label3.TabIndex = 4;
-            label3.Text = "تحديث جديد متاح";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // frmUpdateNotifier
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -339,11 +340,11 @@ namespace Sestamk.Forms
             Load += frmUpdateNotifier_Load;
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
+            guna2Panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             guna2Panel2.ResumeLayout(false);
             guna2Panel3.ResumeLayout(false);
             guna2Panel4.ResumeLayout(false);
-            guna2Panel6.ResumeLayout(false);
             ResumeLayout(false);
         }
 

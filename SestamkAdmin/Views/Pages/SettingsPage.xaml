@@ -1,0 +1,67 @@
+<Page x:Class="SestamkAdmin.Views.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      FlowDirection="RightToLeft"
+      FontFamily="{StaticResource AppFontFamily}"
+      Foreground="White"
+      Title="الإعدادات">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,72,24,24">
+        <StackPanel MaxWidth="760" HorizontalAlignment="Right">
+
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon Symbol="Settings24" FontSize="26"
+                               Foreground="{StaticResource BrandPrimaryBrush}" VerticalAlignment="Center" />
+                <TextBlock Text="الإعدادات" FontSize="26" FontWeight="Bold" Margin="12,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock Text="إعدادات الاتصال بالخادم والنشر — محفوظة مشفّرة على هذا الجهاز فقط."
+                       Style="{StaticResource MutedText}" Margin="0,6,0,24" />
+
+            <!-- Supabase -->
+            <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="الاتصال بـ Supabase" Style="{StaticResource SectionTitle}" />
+                    <TextBlock Text="رابط المشروع (Project URL)" FontWeight="SemiBold" Margin="0,4,0,6" />
+                    <ui:TextBox x:Name="txtSupabaseUrl" Padding="12,8" />
+                    <TextBlock Text="المفتاح العام (anon / publishable)" FontWeight="SemiBold" Margin="0,16,0,6" />
+                    <ui:TextBox x:Name="txtAnonKey" Padding="12,8" />
+                </StackPanel>
+            </Border>
+
+            <!-- GitHub -->
+            <Border Style="{StaticResource Card}" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="نشر التحديثات (GitHub Releases)" Style="{StaticResource SectionTitle}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="اسم الحساب (Owner)" FontWeight="SemiBold" Margin="0,4,0,6" />
+                            <ui:TextBox x:Name="txtGhOwner" Padding="12,8" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="اسم المستودع (Repo)" FontWeight="SemiBold" Margin="0,4,0,6" />
+                            <ui:TextBox x:Name="txtGhRepo" Padding="12,8" />
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Text="توكن GitHub (Personal Access Token)" FontWeight="SemiBold" Margin="0,16,0,6" />
+                    <ui:PasswordBox x:Name="txtGhToken" Padding="12,8" />
+                    <TextBlock Text="مسار مجلد الإصدار (build) للبرنامج" FontWeight="SemiBold" Margin="0,16,0,6" />
+                    <ui:TextBox x:Name="txtBuildPath" Padding="12,8" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock x:Name="lblSaved" Text="" Foreground="{StaticResource BrandSuccessBrush}"
+                           VerticalAlignment="Center" Margin="0,0,12,0" />
+                <ui:Button Content="حفظ الإعدادات" Icon="{ui:SymbolIcon Save24}" Appearance="Primary"
+                           Height="44" Click="Save_Click" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -32,34 +32,34 @@ namespace Sestamk
     public class UpdateManager
     {
         // 🔴 ضع رابط تحميل الـ manifest من إصداراتك على GitHub (تأكد من تعديل اسم حسابك والمستودع)
-        private const string ManifestUrl = "https://github.com/ammar92006/Sestamk/releases/latest/download/manifest.json";
+        //private const string ManifestUrl = "https://github.com/ammar92006/Sestamk/releases/latest/download/manifest.json";
 
-        public static async Task<bool> CheckAndDownloadUpdatesAsync()
-        {
-            try
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    // GitHub يتطلب User-Agent
-                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
+        //public static async Task<bool> CheckAndDownloadUpdatesAsync()
+        //{
+        //    try
+        //    {
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            // GitHub يتطلب User-Agent
+        //            client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
 
-                    // 1. تحميل الـ Manifest من السيرفر
-                    string json = await client.GetStringAsync(ManifestUrl);
-                    UpdateManifest manifest = JsonConvert.DeserializeObject<UpdateManifest>(json);
+        //            // 1. تحميل الـ Manifest من السيرفر
+        //            string json = await client.GetStringAsync(ManifestUrl);
+        //            UpdateManifest manifest = JsonConvert.DeserializeObject<UpdateManifest>(json);
 
-                    if (manifest.Version == LicenseManager.AppVersion)
-                    {
-                        return false; // لا يوجد تحديث، النسخة متطابقة
-                    }
+        //            if (manifest.Version == LicenseManager.AppVersion)
+        //            {
+        //                return false; // لا يوجد تحديث، النسخة متطابقة
+        //            }
 
-                    return await DownloadUpdateFilesAsync(manifest);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("فشل في تحميل التحديثات: " + ex.Message);
-            }
-        }
+        //            return await DownloadUpdateFilesAsync(manifest);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("فشل في تحميل التحديثات: " + ex.Message);
+        //    }
+        //}
 
         //public static async Task<bool> DownloadUpdateFilesAsync(UpdateManifest manifest)
         //{
@@ -169,8 +169,7 @@ namespace Sestamk
                     client.DefaultRequestHeaders.UserAgent.ParseAdd("Sestamk-Client");
                     string json = await client.GetStringAsync(dynamicManifestUrl);
                     UpdateManifest manifest = JsonConvert.DeserializeObject<UpdateManifest>(json);
-
-                    if (manifest.Version != LicenseManager.AppVersion)
+                    if (new Version(manifest.Version) > new Version(LicenseManager.AppVersion))
                     {
                         return manifest;
                     }

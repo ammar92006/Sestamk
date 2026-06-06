@@ -942,49 +942,67 @@ namespace Sestamk.Forms
                 this.Enabled = false;
                 this.Opacity = 0.5;
 
-                // Clear user session
+                // 1) مسح بيانات الجلسة — لازم يحصل الأول علشان handler الـ FormClosed بتاع
+                //    Login يعرف إنه ميقفلش نفسه
                 UserSession.Logout();
 
-                // Show toast notification
-                ToastManager.ShowInfo("تم تسجيل الخروج", "تم تسجيل خروجك بنجاح");
-
-                // إغلاق جميع التنبيهات المفتوحة فوراً لتجنب الأخطاء
+                // 2) إغلاق التنبيهات المفتوحة
                 ToastManager.CloseAll();
 
-                // Find the existing login form (since it's the main application context)
+                // 3) إيجاد فورم Login الموجودة (هي ApplicationContext الرئيسي ومخفية فقط)
                 Login loginForm = Application.OpenForms.OfType<Login>().FirstOrDefault();
-                if (loginForm != null)
-                {
-                    // Attempt to clear text boxes
-                    var txtUser = loginForm.Controls.Find("txt_username", true).FirstOrDefault() as Guna.UI2.WinForms.Guna2TextBox;
-                    var txtPass = loginForm.Controls.Find("txt_password", true).FirstOrDefault() as Guna.UI2.WinForms.Guna2TextBox;
 
-                    if (txtUser != null) txtUser.Clear();
-                    if (txtPass != null) txtPass.Clear();
-
-                    loginForm.Show();
-                    if (txtUser != null) txtUser.Focus();
-                }
-                else
+                if (loginForm == null)
                 {
-                    loginForm = new Login();
-                    loginForm.Show();
+                    // حالة استثنائية — مفيش Login مفتوح: نعمل restart للأمان
+                    Application.Restart();
+                    return;
                 }
 
-                // Close all other forms except the login form
+                // 4) تفريغ خانات الـ Login
+                var txtUser = loginForm.Controls.Find("txt_username", true).FirstOrDefault() as Guna.UI2.WinForms.Guna2TextBox;
+                var txtPass = loginForm.Controls.Find("txt_password", true).FirstOrDefault() as Guna.UI2.WinForms.Guna2TextBox;
+                if (txtUser != null) txtUser.Clear();
+                if (txtPass != null) txtPass.Clear();
+
+                // 5) إغلاق كل الفورمز الفرعية المفتوحة (ما عدا Login و Mainform نفسها)
+                //    نعمل snapshot قبل اللوب لتجنب Collection modified
                 var formsToClose = Application.OpenForms.Cast<Form>()
-                    .Where(f => f != loginForm)
+                    .Where(f => f != loginForm && f != this)
                     .ToList();
 
                 foreach (Form form in formsToClose)
                 {
-                    form.Close();
+                    try
+                    {
+                        form.Hide();
+                        form.Close();
+                    }
+                    catch (Exception exClose)
+                    {
+                        Console.WriteLine($"Error closing form {form?.Name}: {exClose.Message}");
+                    }
                 }
+
+                // 6) إظهار Login وتفعيلها
+                loginForm.Show();
+                loginForm.WindowState = FormWindowState.Normal;
+                loginForm.BringToFront();
+                loginForm.Activate();
+                if (txtUser != null) txtUser.Focus();
+
+                // 7) إشعار بعد ما الواجهة جاهزة
+                ToastManager.ShowInfo("تم تسجيل الخروج", "تم تسجيل خروجك بنجاح");
+
+                // 8) إغلاق Mainform نفسها في الآخر — handler الـ FormClosed بتاع Login
+                //    هيلاقي UserSession.UserId == 0 فمش هيقفلها
+                this.Close();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during logout: {ex.Message}");
                 ToastManager.ShowError("خطأ", "حدث خطأ أثناء تسجيل الخروج");
+                _isLoggingOut = false;
                 this.Enabled = true;
                 this.Opacity = 1.0;
             }

@@ -72,7 +72,7 @@ namespace Sestamk.Forms
                 startInfo.UseShellExecute = true;
                 Process.Start(startInfo);
 
-                Environment.Exit(0);
+                Environment.Exit(0); // الخروج الفوري
             }
             else
             {

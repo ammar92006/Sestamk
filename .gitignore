@@ -30,3 +30,11 @@ desktop.ini
 # Logs / local config
 *.log
 config.dat
+
+# Secrets
+*.env
+.env
+
+# Local DB backups / scratch files
+*.bak
+jnuih

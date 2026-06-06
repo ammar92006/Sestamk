@@ -1,0 +1,38 @@
+<UserControl x:Class="SestamkAdmin.Views.Controls.PlaceholderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="{StaticResource AppFontFamily}"
+             Foreground="White">
+    <Grid Margin="24,72,24,24">
+        <!-- رأس الصفحة -->
+        <StackPanel VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <ui:SymbolIcon x:Name="HeaderIcon" Symbol="Apps24" FontSize="26"
+                               Foreground="{StaticResource BrandPrimaryBrush}" VerticalAlignment="Center" />
+                <TextBlock x:Name="HeaderTitle" Text="القسم" FontSize="26" FontWeight="Bold"
+                           Margin="12,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock x:Name="HeaderDesc" Text="" Style="{StaticResource MutedText}" Margin="0,6,0,0" />
+        </StackPanel>
+
+        <!-- حالة فارغة -->
+        <Border Style="{StaticResource Card}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Padding="48" MaxWidth="520">
+            <StackPanel HorizontalAlignment="Center">
+                <Border Width="80" Height="80" CornerRadius="20" HorizontalAlignment="Center"
+                        Background="#16233A">
+                    <ui:SymbolIcon x:Name="BigIcon" Symbol="Wrench24" FontSize="40"
+                                   Foreground="{StaticResource BrandPrimaryBrush}" />
+                </Border>
+                <TextBlock Text="قيد التطوير" FontSize="20" FontWeight="SemiBold"
+                           HorizontalAlignment="Center" Margin="0,18,0,0" />
+                <TextBlock x:Name="BodyText"
+                           Text="هذا القسم جاهز في قاعدة البيانات وسيتم تفعيل واجهته قريباً."
+                           Style="{StaticResource MutedText}" TextAlignment="Center"
+                           TextWrapping="Wrap" Margin="0,8,0,0" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

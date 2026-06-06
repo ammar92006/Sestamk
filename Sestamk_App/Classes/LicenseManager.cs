@@ -18,40 +18,39 @@ namespace Sestamk
 
         public static string AppVersion = Version;
 
+        /// <summary>معرّف الشركة على السيرفر — يُلتقط من نتيجة check_license.</summary>
+        public static string? CompanyId { get; private set; }
+
+        /// <summary>
+        /// بصمة الجهاز الموحّدة — نفس البصمة التي تُسجَّل على السيرفر عبر check_license.
+        /// (كانت سابقاً تحسب قيمة مختلفة 16-حرف مما سبّب عدم تطابق وتسجيل المواصفات.)
+        /// المصدر الموحّد: UserSession.hwid = SHA256(MachineGuid|CpuId|MotherboardSerial)
+        /// </summary>
         public static string GetHWID()
         {
             try
             {
-                string cpuInfo = string.Empty;
-                ManagementClass mc = new ManagementClass("win32_processor");
-                ManagementObjectCollection moc = mc.GetInstances();
-                foreach (ManagementObject mo in moc)
-                {
-                    if (cpuInfo == "")
-                    {
-                        cpuInfo = mo.Properties["processorID"].Value.ToString();
-                        break;
-                    }
-                }
-
-                string driveInfo = string.Empty;
-                ManagementObject dsk = new ManagementObject(@"win32_logicaldisk.deviceid=""c:""");
-                dsk.Get();
-                driveInfo = dsk["VolumeSerialNumber"].ToString();
-
-                string rawHwid = cpuInfo + driveInfo;
-
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawHwid));
-                    string hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToUpper();
-                    return hashString.Substring(0, 16);
-                }
+                return UserSession.hwid ?? Main_Methods.GenerateHWID(
+                    Main_Methods.GetMachineGuid() + "|" +
+                    Main_Methods.GetCpuId() + "|" +
+                    Main_Methods.GetMotherboardSerial());
             }
             catch
             {
                 return "FALLBACK-" + Environment.MachineName + "-" + Environment.UserName;
             }
+        }
+
+        // استدعاء آمن لمعلومات الهاردوير — لا يكسر التحقق لو فشل WMI
+        private static string? SafeHw(Func<string> getter)
+        {
+            try { var v = getter(); return string.IsNullOrWhiteSpace(v) ? null : v; }
+            catch { return null; }
+        }
+        private static int? SafeRam()
+        {
+            try { int v = HardwareInfo.GetRamGB(); return v > 0 ? v : (int?)null; }
+            catch { return null; }
         }
 
         public static async Task<JObject> CheckLicenseAsync(string serialKey)
@@ -77,7 +76,12 @@ namespace Sestamk
                 {
                     p_serial = serialKey,
                     p_hwid = hwid,
-                    p_version = AppVersion
+                    p_version = AppVersion,
+                    // إرسال اسم الجهاز ومواصفاته ليتم تخزينها في لوحة التحكم
+                    p_device_name = SafeHw(HardwareInfo.GetDeviceName),
+                    p_os_info = SafeHw(HardwareInfo.GetOSInfo),
+                    p_processor = SafeHw(HardwareInfo.GetProcessorName),
+                    p_ram_gb = SafeRam()
                 };
 
                 string jsonContent = Newtonsoft.Json.JsonConvert.SerializeObject(requestBody);
@@ -90,7 +94,11 @@ namespace Sestamk
                 if (response.IsSuccessStatusCode)
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
-                    return JObject.Parse(responseString);
+                    var obj = JObject.Parse(responseString);
+                    // التقاط معرّف الشركة لاستخدامه في مزامنة المستخدمين
+                    var cid = obj["company_id"]?.ToString();
+                    if (!string.IsNullOrEmpty(cid)) CompanyId = cid;
+                    return obj;
                 }
                 else
                 {

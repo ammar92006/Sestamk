@@ -200,7 +200,13 @@ namespace Sestamk
                         await UpdateLastLoginAsync(userId);
 
                         Mainform mainform = new Mainform();
-                        mainform.FormClosed += (s, args) => this.Close();
+                        mainform.FormClosed += (s, args) =>
+                        {
+                            // لو الجلسة اتمسحت (تسجيل خروج) متقفلش الـ Login — هي هتتعرض تاني
+                            if (UserSession.UserId == 0)
+                                return;
+                            this.Close();
+                        };
                         this.Hide();
                         mainform.Show();
                         ToastManager.ShowSuccess("نجاح", "تم تسجيل الدخول بنجاح ✅");

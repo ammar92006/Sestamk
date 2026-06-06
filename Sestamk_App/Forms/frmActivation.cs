@@ -64,8 +64,8 @@ namespace Sestamk.Forms
 
         private void frmActivation_Load(object sender, EventArgs e)
         {
-            // 1. جلب بصمة الجهاز الفريدة
-            string hwid = LicenseManager.GetHWID();
+            // 1. جلب بصمة الجهاز الفريدة (نفس البصمة المسجّلة على السيرفر)
+            string hwid = UserSession.hwid;
             lblHWID.Text = hwid;
 
             // 2. تحويل البصمة إلى QR Code
@@ -110,7 +110,7 @@ namespace Sestamk.Forms
 
                     //MessageBox.Show("تم التفعيل بنجاح! مرحباً بك في سيستمك.", "تفعيل النظام", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ToastManager.ShowSuccess("تم التفعيل", "مرحباً بك في سيستمك ✅");
-                    await UpdateDeviceHardwareInfo();
+                    // مواصفات الجهاز تُرسَل تلقائياً ضمن check_license — لا حاجة لتحديث منفصل
                     // إغلاق شاشة التفعيل وفتح الشاشة الرئيسية أو شاشة الدخول
                     this.DialogResult = DialogResult.OK;
                     this.Close();
